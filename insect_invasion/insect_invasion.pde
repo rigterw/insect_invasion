@@ -4,6 +4,7 @@ void settings() {
 
 //initializing all the variables
 Tile tile;
+Coin coin1;
 
 boolean left, right, up, down;
 Player p;
@@ -40,6 +41,12 @@ void setup() {
   right = false;
   up = false;
   down = false;
+  
+  coin1 = new Coin(); 
+  coin1.isEnabled = true;
+
+
+  
 }
 
 void draw() {
@@ -58,6 +65,9 @@ void draw() {
   fill(0);
   textSize(24);
   text(s, 100, 50);
+  
+  if (coin1.isEnabled == true) { 
+    coin1.draw(); } 
 }
 
 void updateMap(String mapImage) {
