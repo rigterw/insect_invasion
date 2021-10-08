@@ -11,7 +11,7 @@ int rows = 18;
 int w = 40;
 int h = 40;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile;
+PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile;
 
 color tileColor;
 
@@ -25,6 +25,8 @@ void setup() {
   walkTile = loadImage("tiles/WalkTile.png"); 
   doorTile = loadImage("tiles/DoorTile.png");
   buttonTile = loadImage("tiles/ButtonTile.png"); 
+  doorOpenTile = loadImage("tiles/DoorOpenTile.png");
+  cobwebTile = loadImage("tiles/CobwebTile.png");
 
   updateMap("levels/level1.png");    
   //looping th  ru all the tiles.
@@ -46,6 +48,7 @@ void updateMap(String mapImage) {
 
   map = loadImage(mapImage);
   image(map, 0, 0);
+  println(hex(get(19, 2)));
   for (int x = 0; x < cols; x++) {
 
     for (int y = 0; y < rows; y++) {
@@ -65,9 +68,22 @@ void updateMap(String mapImage) {
         tileType = "grass";
         tileImage = grassTile;
         break;
-      case "FF1234" : 
+      case "FF0026FF" : 
         tileType = "door";
         tileImage = doorTile;
+        break;
+      case "FF4C64FF" : 
+        tileType = "doorOpen";
+        tileImage = doorOpenTile;
+        break;
+      case "FF00FFFF" : 
+        tileType = "button";
+        tileImage = buttonTile;
+        break;
+      case "FF404040" : 
+        tileType = "cobweb";
+        tileImage = cobwebTile;
+        break;
       default:
         tileType = "background"; 
         tileImage = grassTile;
