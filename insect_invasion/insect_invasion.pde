@@ -11,7 +11,7 @@ int rows = 18;
 int w = 40;
 int h = 40;
 
-PImage map;
+PImage map, walkTile, grassTile, wallTile, tileImage;
 
 color tileColor;
 
@@ -20,10 +20,15 @@ String tileType;
 Tile[][] tiles = new Tile[cols][rows];
 
 void setup() {
-
-  updateMap("level1.png");
-
-  //looping through all the tiles.
+  wallTile = loadImage("WallTile.png");
+  grassTile = loadImage("GrassTile.png");
+  walkTile = loadImage("WalkTile.png"); 
+  
+  updateMap("level1.png");    
+  println("setup");
+  
+ println(walkTile);
+  //looping th  ru all the tiles.
 }
 
 void draw() {
@@ -39,6 +44,7 @@ void draw() {
 
 void updateMap(String mapImage) {
 
+
   map = loadImage(mapImage);
   image(map, 0, 0);
   for (int x = 0; x < cols; x++) {
@@ -50,18 +56,21 @@ void updateMap(String mapImage) {
       switch(hex(tileColor)) {
       case "FFCE7C38" :
         tileType = "walkable";
+        tileImage = walkTile;
         break;
       case "FF000000":
         tileType = "wall";
+        tileImage = wallTile;
         break;
       case"FF228A15" :
         tileType = "grass";
+        tileImage = grassTile;
         break;
       default:
-        tileType = "background";
-      }
-
-      Tile newTile = new Tile(w * x, h * y, w, h, tileType, hex(tileColor));
+        tileType = "background"; 
+        tileImage = grassTile;
+    }
+      Tile newTile = new Tile(w * x, h * y, w, h, tileType, hex(tileColor),tileImage);
       tiles[x][y] = newTile;
     }
   }
@@ -73,4 +82,3 @@ void keyPressed() {
     updateMap("level3.png");
   }
 }
-//text
