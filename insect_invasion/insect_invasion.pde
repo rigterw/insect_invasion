@@ -20,14 +20,11 @@ String tileType;
 Tile[][] tiles = new Tile[cols][rows];
 
 void setup() {
-  wallTile = loadImage("WallTile.png");
-  grassTile = loadImage("GrassTile.png");
-  walkTile = loadImage("WalkTile.png"); 
+  wallTile = loadImage("tiles/WallTile.png");
+  grassTile = loadImage("tiles/GrassTile.png");
+  walkTile = loadImage("tiles/WalkTile.png"); 
   
-  updateMap("level1.png");    
-  println("setup");
-  
- println(walkTile);
+  updateMap("levels/level1.png");    
   //looping th  ru all the tiles.
 }
 
@@ -79,6 +76,6 @@ void updateMap(String mapImage) {
 void keyPressed() {
   println(keyCode);
   if (keyCode == 32) {
-    updateMap("level3.png");
+    updateMap("levels/level3.png");
   }
 }
