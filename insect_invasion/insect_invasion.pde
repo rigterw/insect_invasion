@@ -4,6 +4,11 @@ void settings() {
 
 //initializing all the variables
 Tile tile;
+Coin coin1;
+
+boolean left, right, up, down;
+Player p;
+String s;
 
 int cols = 32;
 int rows = 18;
@@ -11,7 +16,7 @@ int rows = 18;
 int w = 40;
 int h = 40;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile;
+PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile;
 
 color tileColor;
 
@@ -27,9 +32,23 @@ void setup() {
   buttonTile = loadImage("tiles/ButtonTile.png"); 
   doorOpenTile = loadImage("tiles/DoorOpenTile.png");
   cobwebTile = loadImage("tiles/CobwebTile.png");
-finishTile =loadImage("tiles/FinishTile.png");
+
   updateMap("levels/level1.png");    
   //looping th  ru all the tiles.
+  
+  p = new Player();
+  s = "";          ///////////  om te kijken welke code bij de WASD keys hoort
+
+  left = false;
+  right = false;
+  up = false;
+  down = false;
+  
+  coin1 = new Coin(); 
+  coin1.isEnabled = true;
+
+
+  
 }
 
 void draw() {
@@ -41,6 +60,16 @@ void draw() {
       tile.draw();
     }
   }
+  
+  p.update();
+  p.display();
+  
+  fill(0);
+  textSize(24);
+  text(s, 100, 50);
+  
+  if (coin1.isEnabled == true) { 
+    coin1.draw(); } 
 }
 
 void updateMap(String mapImage) {
@@ -48,7 +77,7 @@ void updateMap(String mapImage) {
 
   map = loadImage(mapImage);
   image(map, 0, 0);
-  println(hex(get(14, 16)));
+  println(hex(get(19, 2)));
   for (int x = 0; x < cols; x++) {
 
     for (int y = 0; y < rows; y++) {
@@ -84,10 +113,6 @@ void updateMap(String mapImage) {
         tileType = "cobweb";
         tileImage = cobwebTile;
         break;
-      case "FFFF0000" : 
-        tileType = "finish";
-        tileImage = finishTile;
-        break;
       default:
         tileType = "background"; 
         tileImage = grassTile;
@@ -102,5 +127,38 @@ void keyPressed() {
   println(keyCode);
   if (keyCode == 32) {
     updateMap("levels/level3.png");
+  }
+  
+  s = "key: " + keyCode;
+
+  if (keyCode == 65)        // naar links bewegen
+  {
+    left = true;
+  } else if (keyCode == 68) // naar rechts bewegen
+  {
+    right = true;
+  } else if (keyCode == 87) // naar boven bewegen
+  {
+    up = true;
+  } else if (keyCode == 83) // naar benden bewegen
+  {
+    down = true;
+  }
+}
+
+void keyReleased()
+{
+   if (keyCode == 65)        // links bewegen
+  {
+    left = false;
+  } else if (keyCode == 68) // rechts bewegen
+  {
+    right = false;
+  } else if (keyCode == 87) // naar boven bewegen
+  {
+    up = false;
+  } else if (keyCode == 83) // naar benden bewegen
+  {
+    down = false;
   }
 }
