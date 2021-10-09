@@ -16,7 +16,7 @@ int rows = 18;
 int w = 40;
 int h = 40;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile;
+PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile;
 
 color tileColor;
 
@@ -25,6 +25,7 @@ String tileType;
 Tile[][] tiles = new Tile[cols][rows];
 
 void setup() {
+
   wallTile = loadImage("tiles/WallTile.png");
   grassTile = loadImage("tiles/GrassTile.png");
   walkTile = loadImage("tiles/WalkTile.png"); 
@@ -32,10 +33,11 @@ void setup() {
   buttonTile = loadImage("tiles/ButtonTile.png"); 
   doorOpenTile = loadImage("tiles/DoorOpenTile.png");
   cobwebTile = loadImage("tiles/CobwebTile.png");
+  finishTile = loadImage("tiles/FinishTile.png");
 
   updateMap("levels/level1.png");    
-  //looping th  ru all the tiles.
-  
+  //looping thru all the tiles.
+
   p = new Player();
   s = "";          ///////////  om te kijken welke code bij de WASD keys hoort
 
@@ -76,8 +78,9 @@ void updateMap(String mapImage) {
 
 
   map = loadImage(mapImage);
+
   image(map, 0, 0);
-  println(hex(get(19, 2)));
+ 
   for (int x = 0; x < cols; x++) {
 
     for (int y = 0; y < rows; y++) {
@@ -113,6 +116,11 @@ void updateMap(String mapImage) {
         tileType = "cobweb";
         tileImage = cobwebTile;
         break;
+              case "FFF2FF02" : 
+        tileType = "finish";
+        tileImage = finishTile;
+        break;
+        
       default:
         tileType = "background"; 
         tileImage = grassTile;
