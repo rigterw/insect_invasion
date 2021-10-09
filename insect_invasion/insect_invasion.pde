@@ -16,7 +16,7 @@ int rows = 18;
 int w = 40;
 int h = 40;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile;
+PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile, mapOverlay;
 
 color tileColor;
 
@@ -35,7 +35,7 @@ void setup() {
   cobwebTile = loadImage("tiles/CobwebTile.png");
   finishTile = loadImage("tiles/FinishTile.png");
 
-  updateMap("levels/level1.png");    
+  updateMap("levels/level1.png", "levels/level1overlay.png");    
   //looping thru all the tiles.
 
   p = new Player();
@@ -45,12 +45,9 @@ void setup() {
   right = false;
   up = false;
   down = false;
-  
+
   coin1 = new Coin(); 
   coin1.isEnabled = true;
-
-
-  
 }
 
 void draw() {
@@ -62,26 +59,29 @@ void draw() {
       tile.draw();
     }
   }
-  
+
   p.update();
   p.display();
-  
+
   fill(0);
   textSize(24);
   text(s, 100, 50);
-  
+
   if (coin1.isEnabled == true) { 
-    coin1.draw(); } 
+    coin1.draw();
+  }
 }
 
-void updateMap(String mapImage) {
+void updateMap(String mapImage, String mapOverlayImage) {
 
 
   map = loadImage(mapImage);
+  mapOverlay = loadImage(mapOverlayImage);
 
   image(map, 0, 0);
- 
-  for (int x = 0; x < cols; x++) {
+  image(mapOverlay, 0, 18);
+
+    for (int x = 0; x < cols; x++) {
 
     for (int y = 0; y < rows; y++) {
 
@@ -116,15 +116,16 @@ void updateMap(String mapImage) {
         tileType = "cobweb";
         tileImage = cobwebTile;
         break;
-              case "FFF2FF02" : 
+      case "FFF2FF02" : 
         tileType = "finish";
         tileImage = finishTile;
         break;
-        
+
       default:
         tileType = "background"; 
         tileImage = grassTile;
       }
+      tileColor = get(x, y + 18);
       Tile newTile = new Tile(w * x, h * y, w, h, tileType, hex(tileColor), tileImage);
       tiles[x][y] = newTile;
     }
@@ -134,9 +135,9 @@ void updateMap(String mapImage) {
 void keyPressed() {
   println(keyCode);
   if (keyCode == 32) {
-    updateMap("levels/level3.png");
+    updateMap("levels/level3.png", "levels/level3overlay.png");
   }
-  
+
   s = "key: " + keyCode;
 
   if (keyCode == 65)        // naar links bewegen
@@ -156,7 +157,7 @@ void keyPressed() {
 
 void keyReleased()
 {
-   if (keyCode == 65)        // links bewegen
+  if (keyCode == 65)        // links bewegen
   {
     left = false;
   } else if (keyCode == 68) // rechts bewegen

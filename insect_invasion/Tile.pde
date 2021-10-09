@@ -19,6 +19,14 @@ class Tile
   }
 
   void draw() {
+if(type == "door" || type == "doorOpen" || type == "button"){
+
+
+tint(unhex(colour));
+}
+else {
+  noTint();
+}
       image(tile,x,y);
-      }
+  }
 }
