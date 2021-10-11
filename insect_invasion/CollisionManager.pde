@@ -25,18 +25,18 @@ class CollisionManager {
 
         if (isWall) {
 
-          if (p.x < tile.x) {  // links
+          if (p.x < tile.x) {  // linker kant van de tile
             playerHBX = tile.x;
             direction = "left";
-          } else if (p.x > tile.x+tile.w) { // rechts
+          } else if (p.x > tile.x+tile.w) { // rechts kant van de tile
             playerHBX = tile.x+tile.w;
             direction = "right";
           }
 
-          if (p.y < tile.y) { // boven
+          if (p.y < tile.y) { // boven kant van de tile
             playerHBY = tile.y;
             direction = "up";
-          } else if (p.y > tile.y+tile.h) { // onder
+          } else if (p.y > tile.y+tile.h) { // // onder kant van de tile
             playerHBY = tile.y+tile.h;
             direction = "down";
           }
@@ -50,13 +50,13 @@ class CollisionManager {
             switch (direction) {
 
             case "left":
-              p.x = p.x + p.maxSpeed;
-            case "right" :
               p.x = p.x - p.maxSpeed;
+            case "right" :
+              p.x = p.x + p.maxSpeed;
             case "up":
-              p.y = p.y + p.maxSpeed;
-            case "down":
               p.y = p.y - p.maxSpeed;
+            case "down":
+              p.y = p.y + p.maxSpeed;
             }
             println(direction);
           }
