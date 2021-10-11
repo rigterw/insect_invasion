@@ -23,6 +23,7 @@ color tileColor;
 String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
+Enemy enemy = new Enemy();
 
 void setup() {
 
@@ -48,6 +49,9 @@ void setup() {
 
   coin1 = new Coin(); 
   coin1.isEnabled = true;
+  
+  enemy.update();
+  
 }
 
 void draw() {
@@ -70,6 +74,7 @@ void draw() {
   textSize(24);
   text(s, 100, 50);
 
+  enemy.draw();
   
 }
 
