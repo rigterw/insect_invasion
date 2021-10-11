@@ -24,6 +24,7 @@ String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
 Enemy enemy = new Enemy();
+CollisionManager collisionmanger = new CollisionManager();
 
 void setup() {
 
@@ -76,6 +77,7 @@ void draw() {
 
   enemy.draw();
   
+  collisionmanger.CheckCollisionToWall();
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
