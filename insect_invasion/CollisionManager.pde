@@ -62,7 +62,6 @@ class CollisionManager {
               p.y = p.y + p.maxSpeed;
               break;
             }
-            println(direction);
           }
         }
       }
