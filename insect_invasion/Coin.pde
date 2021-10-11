@@ -18,7 +18,7 @@ class Coin
   }
 
   void pickUp()    //Functie voor het oppakken van de coin. 
-  {   
+  {
     isEnabled = false;  // In main: zodra de player collision heeft met de coin wordt pickUp() aangeroepen  
                         // isEnabled wordt op false gezet zodat de coin niet meer getekent wordt. 
                         // In main: if (coin1.isEnabled == true) {  coin1.draw(); } 
