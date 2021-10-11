@@ -9,7 +9,7 @@ class CollisionManager {
       for (int j = 0; j < rows; j++) {
         tile = tiles[i][j];
 
-        float playerHBX, playerHBY;
+        float playerHBX, playerHBY; //spelers randen
         playerHBX = p.x;
         playerHBY = p.y;
         if (
@@ -28,7 +28,7 @@ class CollisionManager {
           if (p.x < tile.x) {  // linker kant van de tile
             playerHBX = tile.x;
             direction = "left";
-          } else if (p.x > tile.x+tile.w) { // rechts kant van de tile
+          } else if (p.x > tile.x+tile.w) { // rechter kant van de tile
             playerHBX = tile.x+tile.w;
             direction = "right";
           }
@@ -49,14 +49,18 @@ class CollisionManager {
           if (distance <= p.w / 2) {
             switch (direction) {
 
-            case "left":
+            case "left" :
               p.x = p.x - p.maxSpeed;
+              break;
             case "right" :
               p.x = p.x + p.maxSpeed;
+              break;
             case "up":
               p.y = p.y - p.maxSpeed;
+              break;
             case "down":
               p.y = p.y + p.maxSpeed;
+              break;
             }
             println(direction);
           }
