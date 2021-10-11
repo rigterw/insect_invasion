@@ -59,6 +59,9 @@ void draw() {
       tile.draw();
     }
   }
+    if (coin1.isEnabled == true) { 
+    coin1.draw();
+  }
 
   p.update();
   p.display();
@@ -67,9 +70,7 @@ void draw() {
   textSize(24);
   text(s, 100, 50);
 
-  if (coin1.isEnabled == true) { 
-    coin1.draw();
-  }
+  
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
