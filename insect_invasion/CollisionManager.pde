@@ -67,4 +67,10 @@ class CollisionManager {
       }
     }
   }
+
+  void CheckCollisionToEnemy() {
+    if (dist(p.x, p.y, enemy.circleX, enemy.circleY) < p.w / 2 + 16) {
+      println("hit");
+    }
+  }
 }

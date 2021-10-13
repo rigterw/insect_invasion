@@ -78,6 +78,7 @@ void draw() {
   enemy.draw();
   
   collisionmanager.CheckCollisionToWall();
+  collisionmanager.CheckCollisionToEnemy();
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
