@@ -41,7 +41,7 @@ void setup() {
   //looping thru all the tiles.
 
   p = new Player();
-  s = "";          ///////////  om te kijken welke code bij de WASD keys hoort
+  s = "";          // om te kijken welke code bij de WASD keys hoort
 
   left = false;
   right = false;
@@ -165,10 +165,10 @@ void keyPressed() {
 
 void keyReleased()
 {
-  if (keyCode == 65)        // links bewegen
+  if (keyCode == 65)        // naar links bewegen
   {
     left = false;
-  } else if (keyCode == 68) // rechts bewegen
+  } else if (keyCode == 68) // naar rechts bewegen
   {
     right = false;
   } else if (keyCode == 87) // naar boven bewegen

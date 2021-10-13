@@ -16,15 +16,15 @@ class Player
   
   void update()
   {
-    if(left == true)    //////// horizontaal bewegen
+    if(left == true)    // horizontaal bewegen
     {
-      speedY = 0;
+     // speedY = 0;     ////////* uitgezet zodat de lateral movement werkt
       speedX = -maxSpeed;
     }
     
     if(right == true)
     {
-      speedY = 0;
+     // speedY = 0;     ///////*
       speedX = maxSpeed;
     }
     
@@ -34,15 +34,15 @@ class Player
     }
     
     
-  if(up == true)        //////// verticaal bewegen
+  if(up == true)        // verticaal bewegen
   {
-    speedX = 0;
+   // speedX = 0;       ////////*
     speedY = -maxSpeed;
   }
   
   if(down == true) 
   {
-    speedX = 0;
+   // speedX = 0;       ////////*
     speedY = maxSpeed;
   }
     
@@ -53,7 +53,7 @@ class Player
   
 
 
-    y += speedY;        //////// positie updaten
+    y += speedY;        // positie updaten
     x += speedX;
   }
   
