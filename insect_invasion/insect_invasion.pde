@@ -50,9 +50,8 @@ void setup() {
 
   coin1 = new Coin(); 
   coin1.isEnabled = true;
-  
+
   enemy.update();
-  println(tiles[20][3].colour, tiles[15][5].colour);
 }
 
 void draw() {
@@ -65,7 +64,7 @@ void draw() {
       tile.draw();
     }
   }
-    if (coin1.isEnabled == true) { 
+  if (coin1.isEnabled == true) { 
     coin1.draw();
   }
 
@@ -77,7 +76,7 @@ void draw() {
   text(s, 100, 50);
 
   enemy.draw();
-  
+
   collisionmanager.CheckCollisionToWall();
   collisionmanager.CheckCollisionToEnemy();
 }
@@ -91,7 +90,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
   image(map, 0, 0);
   image(mapOverlay, 0, 18);
 
-    for (int x = 0; x < cols; x++) {
+  for (int x = 0; x < cols; x++) {
 
     for (int y = 0; y < rows; y++) {
 
@@ -143,7 +142,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 }
 
 void keyPressed() {
- // println(keyCode);
+  // println(keyCode);
   if (keyCode == 32) {
     updateMap("levels/level3.png", "levels/level3overlay.png");
   }
@@ -163,25 +162,21 @@ void keyPressed() {
   {
     down = true;
   }
-  if (keyCode == 71){ g = true;}
 }
 
-void keyReleased()
-{
-  if (keyCode == 65)        // naar links bewegen
+  void keyReleased()
   {
-    left = false;
-  } else if (keyCode == 68) // naar rechts bewegen
-  {
-    right = false;
-  } else if (keyCode == 87) // naar boven bewegen
-  {
-    up = false;
-  } else if (keyCode == 83) // naar benden bewegen
-  {
-    down = false;
+    if (keyCode == 65)        // naar links bewegen
+    {
+      left = false;
+    } else if (keyCode == 68) // naar rechts bewegen
+    {
+      right = false;
+    } else if (keyCode == 87) // naar boven bewegen
+    {
+      up = false;
+    } else if (keyCode == 83) // naar benden bewegen
+    {
+      down = false;
+    }
   }
-    if (keyCode == 71){ g = false;
-}
-
-}

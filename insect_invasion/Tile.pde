@@ -25,12 +25,13 @@ class Tile
         for (int xTile = 0; xTile < cols; xTile++) {
 
           for (int yTile = 0; yTile < rows; yTile++) { 
-            if (true) {  
-              println("check" + xTile + yTile);
-              if (tiles[xTile][yTile].type == "door" && tiles[xTile][yTile].colour == colour ) {
+            if (xTile != x && yTile != y) {  
+
+              if (tiles[xTile][yTile].type == "door" && unhex(tiles[xTile][yTile].colour) == unhex(colour) ) {
                 tiles[xTile][yTile].type = "doorOpen";
                 tiles[xTile][yTile].tile = doorOpenTile;
-              } else if (tiles[xTile][yTile].type == "doorOpen" && tiles[xTile][yTile].colour == colour) {
+              } else if (tiles[xTile][yTile].type == "doorOpen"  && unhex(tiles[xTile][yTile].colour) == unhex(colour)) {
+
                 tiles[xTile][yTile].type = "door"; 
                 tiles[xTile][yTile].tile = doorTile;
               }
