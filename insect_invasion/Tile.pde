@@ -25,12 +25,12 @@ class Tile
         for (int xTile = 0; xTile < cols; xTile++) {
 
           for (int yTile = 0; yTile < rows; yTile++) { 
-            if (xTile != x && yTile != y) {  
+            if (tiles[xTile][yTile].colour.equals(colour)) {  
 
-              if (tiles[xTile][yTile].type == "door" && unhex(tiles[xTile][yTile].colour) == unhex(colour) ) {
+              if (tiles[xTile][yTile].type == "door" ) {
                 tiles[xTile][yTile].type = "doorOpen";
                 tiles[xTile][yTile].tile = doorOpenTile;
-              } else if (tiles[xTile][yTile].type == "doorOpen"  && unhex(tiles[xTile][yTile].colour) == unhex(colour)) {
+              } else if (tiles[xTile][yTile].type == "doorOpen") {
 
                 tiles[xTile][yTile].type = "door"; 
                 tiles[xTile][yTile].tile = doorTile;
@@ -47,9 +47,12 @@ class Tile
   void draw() {
     if (type == "door" || type == "doorOpen" || type == "button") {
 
+if (buttonStandingOn){
+println(colour);
+  tint(unhex(colour) + unhex("FF202020"));
 
-      tint(unhex(colour));
-    } else {
+} else { tint(unhex(colour));
+    } }else {
       noTint();
     }
     image(tile, x, y);
