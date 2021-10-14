@@ -4,14 +4,16 @@ class Coin
   float w, h; // Coin width en height 
   color coinColor = color(250, 250, 0); // Kleur van de coin
   boolean isEnabled; //Boolean voor het aan en uitzetten van de coin.
-     
+  float coinRadius;
+  
   void draw()
   {
      isEnabled = true;  //Zet de coin elk frame op true zodat deze in de scene blijft.
-     x = 325; 
-     y = 50; 
+     x = 600; 
+     y = 630; 
      w = 25;
      h = 25;
+     coinRadius = w/2; 
      
      fill(coinColor);
      ellipse(x, y, w, h);

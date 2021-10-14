@@ -24,7 +24,7 @@ String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
 Enemy enemy = new Enemy();
-CollisionManager collisionmanger = new CollisionManager();
+CollisionManager collisionmanager = new CollisionManager();
 
 void setup() {
 
@@ -78,7 +78,8 @@ void draw() {
 
   enemy.draw();
   
-  collisionmanger.CheckCollisionToWall();
+  collisionmanager.CheckCollisionToWall();
+  collisionmanager.CheckCollisionToEnemy();
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
@@ -142,7 +143,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 }
 
 void keyPressed() {
-  println(keyCode);
+ // println(keyCode);
   if (keyCode == 32) {
     updateMap("levels/level3.png", "levels/level3overlay.png");
   }
