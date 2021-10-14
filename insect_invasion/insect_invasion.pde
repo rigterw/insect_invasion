@@ -6,7 +6,7 @@ void settings() {
 Tile tile;
 Coin coin1;
 
-boolean left, right, up, down;
+boolean left, right, up, down, g;
 Player p;
 String s;
 
@@ -52,7 +52,7 @@ void setup() {
   coin1.isEnabled = true;
   
   enemy.update();
-  
+  println(tiles[20][3].colour, tiles[15][5].colour);
 }
 
 void draw() {
@@ -61,6 +61,7 @@ void draw() {
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       tile = tiles[i][j]; 
+      tile.buttonCheck(i);
       tile.draw();
     }
   }
@@ -161,6 +162,7 @@ void keyPressed() {
   {
     down = true;
   }
+  if (keyCode == 71){ g = true;}
 }
 
 void keyReleased()
@@ -178,4 +180,7 @@ void keyReleased()
   {
     down = false;
   }
+    if (keyCode == 71){ g = false;
+}
+
 }
