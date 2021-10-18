@@ -16,7 +16,7 @@ int rows = 18;
 int w = 40;
 int h = 40;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile, mapOverlay;
+PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile, mapOverlay, Player;
 
 color tileColor;
 
@@ -36,6 +36,7 @@ void setup() {
   doorOpenTile = loadImage("tiles/DoorOpenTile.png");
   cobwebTile = loadImage("tiles/CobwebTile.png");
   finishTile = loadImage("tiles/FinishTile.png");
+  Player = loadImage("Player/Player.png");
 
   updateMap("levels/level1.png", "levels/level1overlay.png");    
   //looping thru all the tiles.

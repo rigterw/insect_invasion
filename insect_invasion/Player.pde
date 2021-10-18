@@ -75,6 +75,6 @@ class Player
   void display()
   {
     fill(100, 100, 220);
-    ellipse(x, y, w, h);
+    image(Player, x, y, w, h);
   }
 }

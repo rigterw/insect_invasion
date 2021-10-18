@@ -43,40 +43,40 @@
 //}
 //}
 
-class Enemy{
-  int circleX;
-  int circleY;
-  int yspeed = 4;
-  int xspeed = 0;
+//class Enemy{
+//  int circleX;
+//  int circleY;
+//  int yspeed = 4;
+//  int xspeed = 0;
 
-void update(){
-   circleX = 339; //start position x enemy
-   circleY = 220; //start position y enemy
-}
+//void update(){
+//   circleX = 339; //start position x enemy
+//   circleY = 220; //start position y enemy
+//}
 
 
-void draw(){
+//void draw(){
  
-  fill(255, 0, 0);
-  ellipse(circleX, circleY, 32, 32);
+//  fill(255, 0, 0);
+//  ellipse(circleX, circleY, 32, 32);
   
-  circleX = circleX + xspeed;
-  circleY = circleY + yspeed;
+//  circleX = circleX + xspeed;
+//  circleY = circleY + yspeed;
   
   
-  if (circleX == 339 && circleY >= 497){
-    xspeed = 4;
-    yspeed = 0;
-  }else if (circleX >= 817 && circleY >= 497){
-    xspeed = 0;
-    yspeed = -4;
-  }else if (circleX >= 817 && circleY <= 220){
-    xspeed = -4;
-    yspeed = 0;
-  }else if (circleX <= 339 && circleY <= 220){
-    xspeed = 0;
-    yspeed = 4;
-  }
+//  if (circleX == 339 && circleY >= 497){
+//    xspeed = 4;
+//    yspeed = 0;
+//  }else if (circleX >= 817 && circleY >= 497){
+//    xspeed = 0;
+//    yspeed = -4;
+//  }else if (circleX >= 817 && circleY <= 220){
+//    xspeed = -4;
+//    yspeed = 0;
+//  }else if (circleX <= 339 && circleY <= 220){
+//    xspeed = 0;
+//    yspeed = 4;
+//  }
   
-}
-}
+//}
+//}
