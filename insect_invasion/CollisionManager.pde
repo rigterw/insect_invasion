@@ -88,4 +88,59 @@ class CollisionManager {
       }
     }
   }
+
+  void EnemyToWall() {
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        tile = tiles[i][j];
+
+        float enemyHBX, enemyHBY; //spelers randen
+        enemyHBX = enemy.circleX;
+        enemyHBY = enemy.circleY;
+
+
+        if (tile.type == "door") {
+
+          if (enemy.circleX < tile.x) {  // linker kant van de tile
+            enemyHBX = tile.x;
+            direction = "left";
+          } else if (enemy.circleX > tile.x+tile.w) { // rechter kant van de tile
+            enemyHBX = tile.x+tile.w;
+            direction = "right";
+          }
+
+          if (p.y < tile.y) { // boven kant van de tile
+            enemyHBY = tile.y;
+            direction = "up";
+          } else if (p.y > tile.y+tile.h) { // // onder kant van de tile
+            enemyHBY = tile.y+tile.h;
+            direction = "down";
+          }
+
+          //kijken welke rand het dichtsbijzijnde is
+          float distX = enemy.circleX-enemyHBX;
+          float distY = enemy.circleY-enemyHBY;
+          float distance = sqrt(distX*distX) + (distY*distY);
+
+          if (distance <= p.w / 2) {
+            switch (direction) {
+
+            case "left" :
+              enemy.xspeed =  -enemy.xspeed;
+              break;
+            case "right" :
+              enemy.xspeed = -enemy.xspeed;
+              break;
+            case "up":
+              enemy.yspeed = - enemy.yspeed;
+              break;
+            case "down":
+              enemy.yspeed = - enemy.yspeed;
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
 }
