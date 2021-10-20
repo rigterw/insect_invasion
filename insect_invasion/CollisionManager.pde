@@ -109,10 +109,10 @@ class CollisionManager {
             direction = "right";
           }
 
-          if (p.y < tile.y) { // boven kant van de tile
+          if (enemymove.circleY < tile.y) { // boven kant van de tile
             enemyHBY = tile.y;
             direction = "up";
-          } else if (p.y > tile.y+tile.h) { // // onder kant van de tile
+          } else if (enemymove.circleY > tile.y+tile.h) { // // onder kant van de tile
             enemyHBY = tile.y+tile.h;
             direction = "down";
           }
@@ -122,7 +122,7 @@ class CollisionManager {
           float distY = enemymove.circleY-enemyHBY;
           float distance = sqrt(distX*distX) + (distY*distY);
 
-          if (distance <= p.w / 2) {
+          if (distance <= 32 / 2) {
             switch (direction) {
 
             case "left" :
