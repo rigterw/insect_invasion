@@ -23,7 +23,8 @@ color tileColor;
 String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
-Enemy enemy = new Enemy();
+MovingEnemy enemymove = new MovingEnemy();
+StaticEnemy enemystatic = new StaticEnemy();
 CollisionManager collisionmanager = new CollisionManager();
 
 void setup() {
@@ -52,7 +53,7 @@ void setup() {
   coin1 = new Coin(); 
   coin1.isEnabled = true;
 
-  enemy.update();
+
 }
 
 void draw() {
@@ -75,12 +76,15 @@ void draw() {
   fill(0);
   textSize(24);
   text(s, 100, 50);
-
-  enemy.draw();
+  
+  
+  enemymove.draw();
+  enemystatic.draw();
 
   collisionmanager.CheckCollisionToWall();
   collisionmanager.CheckCollisionToEnemy();
   collisionmanager.CheckCollisionToFinish();
+  //collisionmanager.EnemyToWall();
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {

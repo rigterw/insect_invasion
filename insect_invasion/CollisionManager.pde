@@ -69,7 +69,7 @@ class CollisionManager {
   }
 
   void CheckCollisionToEnemy() {
-    if (dist(p.x, p.y, enemy.circleX, enemy.circleY) < p.w / 2 + 16) {
+    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + 16) {
       println("hit");
     }
   }
@@ -95,16 +95,16 @@ class CollisionManager {
         tile = tiles[i][j];
 
         float enemyHBX, enemyHBY; //spelers randen
-        enemyHBX = enemy.circleX;
-        enemyHBY = enemy.circleY;
+        enemyHBX = enemymove.circleX;
+        enemyHBY = enemymove.circleY;
 
 
         if (tile.type == "door") {
 
-          if (enemy.circleX < tile.x) {  // linker kant van de tile
+          if (enemymove.circleX < tile.x) {  // linker kant van de tile
             enemyHBX = tile.x;
             direction = "left";
-          } else if (enemy.circleX > tile.x+tile.w) { // rechter kant van de tile
+          } else if (enemymove.circleX > tile.x+tile.w) { // rechter kant van de tile
             enemyHBX = tile.x+tile.w;
             direction = "right";
           }
@@ -118,24 +118,24 @@ class CollisionManager {
           }
 
           //kijken welke rand het dichtsbijzijnde is
-          float distX = enemy.circleX-enemyHBX;
-          float distY = enemy.circleY-enemyHBY;
+          float distX = enemymove.circleX-enemyHBX;
+          float distY = enemymove.circleY-enemyHBY;
           float distance = sqrt(distX*distX) + (distY*distY);
 
           if (distance <= p.w / 2) {
             switch (direction) {
 
             case "left" :
-              enemy.xspeed =  -enemy.xspeed;
+              enemymove.xspeed =  -enemymove.xspeed;
               break;
             case "right" :
-              enemy.xspeed = -enemy.xspeed;
+              enemymove.xspeed = -enemymove.xspeed;
               break;
             case "up":
-              enemy.yspeed = - enemy.yspeed;
+              enemymove.yspeed = - enemymove.yspeed;
               break;
             case "down":
-              enemy.yspeed = - enemy.yspeed;
+              enemymove.yspeed = - enemymove.yspeed;
               break;
             }
           }

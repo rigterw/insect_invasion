@@ -8,6 +8,8 @@ class Player
 
   Player()
   {
+    //x = 400;
+    //y = 145;
     x = width/2;
     y = height/2;
     w = 24;
