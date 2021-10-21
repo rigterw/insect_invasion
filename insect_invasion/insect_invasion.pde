@@ -74,8 +74,12 @@ void draw() {
   fill(0);
   textSize(24);
   text(s, 100, 50);
+<<<<<<< HEAD
 
 
+=======
+  
+>>>>>>> 992326e628265710816417d7b378ee0a1d1ea2b4
   enemymove.draw();
   enemystatic.draw();
 

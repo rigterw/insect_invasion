@@ -76,6 +76,9 @@ class Player
 
   void display()
   {
+    fill(0);
+    text("Score: " + score, 30, 680);
+    
     fill(100, 100, 220);
     ellipse(x, y, w, h);
     image(Player, x - (w / 2), y - (h / 2), w, h);
