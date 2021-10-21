@@ -77,7 +77,6 @@ void draw() {
   textSize(24);
   text(s, 100, 50);
   
-  
   enemymove.draw();
   enemystatic.draw();
 
