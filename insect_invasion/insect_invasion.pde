@@ -52,8 +52,6 @@ void setup() {
 
   coin1 = new Coin(); 
   coin1.isEnabled = true;
-
-
 }
 
 void draw() {
@@ -62,7 +60,7 @@ void draw() {
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       tile = tiles[i][j]; 
-      tile.buttonCheck(i);
+      tile.buttonCheck();
       tile.draw();
     }
   }
@@ -76,8 +74,8 @@ void draw() {
   fill(0);
   textSize(24);
   text(s, 100, 50);
-  
-  
+
+
   enemymove.draw();
   enemystatic.draw();
 
@@ -143,6 +141,23 @@ void updateMap(String mapImage, String mapOverlayImage) {
       tileColor = get(x, y + 18);
       Tile newTile = new Tile(w * x, h * y, w, h, tileType, hex(tileColor), tileImage);
       tiles[x][y] = newTile;
+      if (tiles[x][y].type == "walkable") {
+        switch(hex(tileColor)) {
+        case "FFFFD800" :
+//coin aanroepen
+
+          break;
+
+        case "FFFF0000" :
+//moving enemy aanroepen
+
+          break;
+        case "FFFF6A00" :
+//stationair enemy
+
+          break;
+        }
+      }
     }
   }
 }
@@ -170,19 +185,19 @@ void keyPressed() {
   }
 }
 
-  void keyReleased()
+void keyReleased()
+{
+  if (keyCode == 65)        // naar links bewegen
   {
-    if (keyCode == 65)        // naar links bewegen
-    {
-      left = false;
-    } else if (keyCode == 68) // naar rechts bewegen
-    {
-      right = false;
-    } else if (keyCode == 87) // naar boven bewegen
-    {
-      up = false;
-    } else if (keyCode == 83) // naar benden bewegen
-    {
-      down = false;
-    }
+    left = false;
+  } else if (keyCode == 68) // naar rechts bewegen
+  {
+    right = false;
+  } else if (keyCode == 87) // naar boven bewegen
+  {
+    up = false;
+  } else if (keyCode == 83) // naar benden bewegen
+  {
+    down = false;
   }
+}
