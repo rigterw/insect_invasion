@@ -67,13 +67,22 @@ class CollisionManager {
       }
     }
   }
+  int nowHit;
+  int lastHit;
+  int cooldownTimer = 1000;
 
   void CheckCollisionToEnemy() {
-    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + 16) {
-      println("hit");
+    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter) {
+      nowHit = millis();
+      if (nowHit > (lastHit + cooldownTimer)) {
+        if (healthbar.health > 0) {
+          //println("hit");
+          healthbar.health -= 1;
+          lastHit = nowHit;
+        }
+      }
     }
   }
-
   void CheckCollisionToFinish() {
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {

@@ -26,6 +26,7 @@ Tile[][] tiles = new Tile[cols][rows];
 MovingEnemy enemymove = new MovingEnemy();
 StaticEnemy enemystatic = new StaticEnemy();
 CollisionManager collisionmanager = new CollisionManager();
+HealthBar healthbar = new HealthBar();
 
 void setup() {
 
@@ -84,6 +85,8 @@ void draw() {
   collisionmanager.CheckCollisionToEnemy();
   collisionmanager.CheckCollisionToFinish();
   //collisionmanager.EnemyToWall();
+  
+  healthbar.draw();
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
