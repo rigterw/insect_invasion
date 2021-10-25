@@ -50,7 +50,7 @@ void setup() {
   up = false;
   down = false;
 
-  coin1 = new Coin(); 
+  coin1 = new Coin(582, 600); 
   coin1.isEnabled = true;
 }
 
@@ -143,16 +143,16 @@ void updateMap(String mapImage, String mapOverlayImage) {
       if (tiles[x][y].type == "walkable") {
         switch(hex(tileColor)) {
         case "FFFFD800" :
-//coin aanroepen
+          //coin aanroepen
 
           break;
 
         case "FFFF0000" :
-//moving enemy aanroepen
+          //moving enemy aanroepen
 
           break;
         case "FFFF6A00" :
-//stationair enemy
+          //stationair enemy
 
           break;
         }

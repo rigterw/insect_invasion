@@ -1,29 +1,26 @@
-class Coin
-{
+class Coin {
   float x, y; //Coin x en y position
   float w, h; // Coin width en height 
-  color coinColor = color(250, 250, 0); // Kleur van de coin
+  color coinColor; // Kleur van de coin
   boolean isEnabled; //Boolean voor het aan en uitzetten van de coin.
   float coinRadius;
-  
-  void draw()
-  {
-     isEnabled = true;  //Zet de coin elk frame op true zodat deze in de scene blijft.
-     x = 600; 
-     y = 630; 
-     w = 25;
-     h = 25;
-     coinRadius = w/2; 
-     
-     fill(coinColor);
-     ellipse(x, y, w, h);
+
+  Coin(float xPos, float yPos) {
+    x = xPos;
+    y = yPos;
+    w = 25;
+    h = 25; 
+    coinColor = color(250, 250, 0);
+    isEnabled = true;
+    coinRadius = w/2;
   }
 
-  void pickUp()    //Functie voor het oppakken van de coin. 
-  {
-    isEnabled = false;  // In main: zodra de player collision heeft met de coin wordt pickUp() aangeroepen  
-                        // isEnabled wordt op false gezet zodat de coin niet meer getekent wordt. 
-                        // In main: if (coin1.isEnabled == true) {  coin1.draw(); } 
-    //nextLevel();
+  void draw() {
+    fill(coinColor);
+    ellipse(x, y, w, h);
+  }
+
+  void pickUp() {    //Functie voor het oppakken van de coin. 
+    isEnabled = false; //op false zodat de coin niet meer getekent wordt.
   }
 }
