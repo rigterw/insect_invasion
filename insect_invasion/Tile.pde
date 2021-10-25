@@ -18,7 +18,8 @@ class Tile
     this.tile = tile;
   }
 
-  void buttonCheck(float buttonnr) {
+
+  void buttonCheck() {
     if ( type == "button" && (x + h > p.x && p.x > x) && (y + h > p.y && p.y > y)) {
 
       if (buttonStandingOn == false) {       
