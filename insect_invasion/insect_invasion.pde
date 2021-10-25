@@ -23,8 +23,8 @@ color tileColor;
 String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
-MovingEnemy enemymove = new MovingEnemy();
-StaticEnemy enemystatic = new StaticEnemy();
+MovingEnemy enemymove = new MovingEnemy(0, 3, 339, 220);
+StaticEnemy enemystatic = new StaticEnemy(739, 20);
 CollisionManager collisionmanager = new CollisionManager();
 HealthBar healthbar = new HealthBar();
 
@@ -82,7 +82,7 @@ void draw() {
   collisionmanager.CheckCollisionToWall();
   collisionmanager.CheckCollisionToEnemy();
   collisionmanager.CheckCollisionToFinish();
-  //collisionmanager.EnemyToWall();
+  collisionmanager.EnemyToWall();
   
   healthbar.draw();
 }
