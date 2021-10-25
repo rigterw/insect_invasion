@@ -72,7 +72,7 @@ class CollisionManager {
   int cooldownTimer = 1000;
 
   void CheckCollisionToEnemy() {
-    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter) {
+    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) {
       nowHit = millis();
       if (nowHit > (lastHit + cooldownTimer)) {
         if (healthbar.health > 0) {
