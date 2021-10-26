@@ -43,7 +43,7 @@ void setup() {
   finishTile = loadImage("tiles/FinishTile.png");
   Player = loadImage("Player/Player.png");
 
-  for (int i = 0; i < 10; i++) { //loop voor coins
+  for (int i = 0; i < nCoins; i++) { //loop voor coins
     coins[i] = new Coin();
   }
 
