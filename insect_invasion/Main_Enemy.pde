@@ -2,6 +2,10 @@ class MainEnemy {
   int circleX, circleY, xspeed, yspeed, diameter;
 
   MainEnemy() {
+    xspeed = 0;//starting speed in x direction
+    yspeed = 0;//starting speed in y direction
+    circleX = 0; //start position x enemy
+    circleY = 0; //start position y enemy
     diameter = 32;
   }
 

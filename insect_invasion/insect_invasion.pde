@@ -25,8 +25,8 @@ color tileColor;
 String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
-MovingEnemy enemymove = new MovingEnemy();
-StaticEnemy enemystatic = new StaticEnemy();
+MovingEnemy enemymove = new MovingEnemy(0, 3, 339, 220);
+StaticEnemy enemystatic = new StaticEnemy(739, 20);
 CollisionManager collisionmanager = new CollisionManager();
 HealthBar healthbar = new HealthBar();
 
@@ -67,6 +67,8 @@ void draw() {
       tile.draw();
     }
   }
+  
+  coin1.update();
   if (coin1.isEnabled == true) { 
     coin1.draw();
   }
@@ -84,8 +86,13 @@ void draw() {
   collisionmanager.CheckCollisionToWall();
   collisionmanager.CheckCollisionToEnemy();
   collisionmanager.CheckCollisionToFinish();
+<<<<<<< HEAD
   //collisionmanager.EnemyToWall();
 
+=======
+  collisionmanager.EnemyToWall();
+  
+>>>>>>> 07380796f60f2d77c666ac347895b03cb9e5bb6c
   healthbar.draw();
 }
 
@@ -149,7 +156,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         switch(hex(tileColor)) {
         case "FFFFD800" :
           //coin aanroepen
-
+      
           break;
 
         case "FFFF0000" :

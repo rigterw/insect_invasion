@@ -44,7 +44,7 @@ class CollisionManager {
           //kijken welke rand het dichtsbijzijnde is
           float distX = p.x-playerHBX;
           float distY = p.y-playerHBY;
-          float distance = sqrt(distX*distX) + (distY*distY);
+          float distance = sqrt(distX*distX) + sqrt(distY*distY);
 
           if (distance <= p.w / 2) {
             switch (direction) {
@@ -69,13 +69,13 @@ class CollisionManager {
   }
   int nowHit;
   int lastHit;
-  int cooldownTimer = 1000;
+  int cooldownTimer = 1000; // Cooldown van 1000 ms
 
   void CheckCollisionToEnemy() {
-    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter) {
+    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) { // Check afstand tussen player en enemy
       nowHit = millis();
       if (nowHit > (lastHit + cooldownTimer)) {
-        if (healthbar.health > 0) {
+        if (healthbar.health > 0) { // Als je meer als 0 hp hebt verlies je 1 hp
           //println("hit");
           healthbar.health -= 1;
           lastHit = nowHit;
