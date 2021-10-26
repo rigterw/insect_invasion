@@ -64,6 +64,8 @@ void draw() {
       tile.draw();
     }
   }
+  
+  coin1.update();
   if (coin1.isEnabled == true) { 
     coin1.draw();
   }
@@ -144,7 +146,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         switch(hex(tileColor)) {
         case "FFFFD800" :
           //coin aanroepen
-
+      
           break;
 
         case "FFFF0000" :

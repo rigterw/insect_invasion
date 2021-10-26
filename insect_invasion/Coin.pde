@@ -15,6 +15,16 @@ class Coin {
     coinRadius = w/2;
   }
 
+  void update() {
+      if (dist(x, y, p.x, p.y) < p.distance) { 
+      if (isEnabled == true) {
+        pickUp();
+        p.score +=1;
+        println("Coin picked up");
+      }
+    }
+  }
+
   void draw() {
     fill(coinColor);
     ellipse(x, y, w, h);
