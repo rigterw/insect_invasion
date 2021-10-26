@@ -6,7 +6,7 @@ void settings() {
 Tile tile;
 
 boolean left, right, up, down, g;
-Player p = new Player();;
+Player p = new Player();
 String s;
 
 int cols = 32;
@@ -15,9 +15,9 @@ int rows = 18;
 int w = 40;
 int h = 40;
 int coinCounter = 0;
-int nCoins = 10;
+int nCoins = 50;
 
-int mapcount = 2;
+int mapcount = 1;
 
 PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile, mapOverlay, Player;
 
@@ -45,19 +45,13 @@ void setup() {
   finishTile = loadImage("tiles/FinishTile.png");
   Player = loadImage("Player/Player.png");
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  for (int i = 0; i < 10; i++) { //loop voor coins
-=======
+
   for (int i = 0; i < nCoins; i++) { //loop voor coins
->>>>>>> 8f28d3dea9da0743f6f33655d8ad84fdbf65930d
+
     coins[i] = new Coin();
   }
 
-  updateMap("levels/level1.png", "levels/level1overlay.png");    
-  //looping thru all the tiles.
->>>>>>> 21153436f4f41cbf58394f06ed7d0f952fd6a16a
+
 
 
   s = "";          // om te kijken welke code bij de WASD keys hoort
