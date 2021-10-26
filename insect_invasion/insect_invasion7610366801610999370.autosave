@@ -7,7 +7,7 @@ Tile tile;
 Coin coin1;
 
 boolean left, right, up, down, g;
-Player p = new Player();;
+Player p;
 String s;
 
 int cols = 32;
@@ -16,7 +16,7 @@ int rows = 18;
 int w = 40;
 int h = 40;
 
-int mapcount = 2;
+int mapcount = 3;
 
 PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile, mapOverlay, Player;
 
@@ -25,8 +25,8 @@ color tileColor;
 String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
-MovingEnemy enemymove = new MovingEnemy(0, 3, 339, 220);
-StaticEnemy enemystatic = new StaticEnemy(739, 20);
+MovingEnemy enemymove = new MovingEnemy();
+StaticEnemy enemystatic = new StaticEnemy();
 CollisionManager collisionmanager = new CollisionManager();
 HealthBar healthbar = new HealthBar();
 
@@ -41,12 +41,14 @@ void setup() {
   cobwebTile = loadImage("tiles/CobwebTile.png");
   finishTile = loadImage("tiles/FinishTile.png");
   Player = loadImage("Player/Player.png");
-
-
-
-  s = "";          // om te kijken welke code bij de WASD keys hoort
+  p = new Player();
   updateMap("levels/level0.png", "levels/level0overlay.png");    
   //looping thru all the tiles.
+  println(hex(get(3, 21)));
+
+  p = new Player();
+  s = "";          // om te kijken welke code bij de WASD keys hoort
+
   left = false;
   right = false;
   up = false;
@@ -66,8 +68,6 @@ void draw() {
       tile.draw();
     }
   }
-  
-  coin1.update();
   if (coin1.isEnabled == true) { 
     coin1.draw();
   }
@@ -85,11 +85,7 @@ void draw() {
   collisionmanager.CheckCollisionToWall();
   collisionmanager.CheckCollisionToEnemy();
   collisionmanager.CheckCollisionToFinish();
-
   //collisionmanager.EnemyToWall();
-
-
-  collisionmanager.EnemyToWall();
 
   healthbar.draw();
 }
@@ -154,7 +150,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         switch(hex(tileColor)) {
         case "FFFFD800" :
           //coin aanroepen
-      
+
           break;
 
         case "FFFF0000" :
@@ -166,8 +162,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 
           break;
         case "FF00FF21":
-
-       p.place(x*w + 0.5*w,y*h + 0.5*h);
+       p.place(3,3);
           break;
         }
       }

@@ -1,7 +1,7 @@
 class CollisionManager {
 
   boolean isWall;
-  String direction;
+  String direction = "0";
 
 
   void CheckCollisionToWall() {
