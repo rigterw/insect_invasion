@@ -61,7 +61,7 @@ class Player
     y += speedY;        // positie updaten
     x += speedX;
 
-    distance = radius + coin1.coinRadius;  //Voor collision tussen de player en coin.
+    distance = radius + coins[0].coinRadius;  //Voor collision tussen de player en coin.
   }
 
   void display()

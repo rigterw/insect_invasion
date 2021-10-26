@@ -4,7 +4,6 @@ void settings() {
 
 //initializing all the variables
 Tile tile;
-Coin coin1;
 
 boolean left, right, up, down, g;
 Player p = new Player();;
@@ -15,6 +14,8 @@ int rows = 18;
 
 int w = 40;
 int h = 40;
+int coinCounter = 0;
+int nCoins = 10;
 
 int mapcount = 2;
 
@@ -30,6 +31,8 @@ StaticEnemy enemystatic = new StaticEnemy(739, 20);
 CollisionManager collisionmanager = new CollisionManager();
 HealthBar healthbar = new HealthBar();
 
+Coin[] coins = new Coin[nCoins];
+
 void setup() {
 
   wallTile = loadImage("tiles/WallTile.png");
@@ -42,6 +45,15 @@ void setup() {
   finishTile = loadImage("tiles/FinishTile.png");
   Player = loadImage("Player/Player.png");
 
+<<<<<<< HEAD
+=======
+  for (int i = 0; i < 10; i++) { //loop voor coins
+    coins[i] = new Coin();
+  }
+
+  updateMap("levels/level1.png", "levels/level1overlay.png");    
+  //looping thru all the tiles.
+>>>>>>> 21153436f4f41cbf58394f06ed7d0f952fd6a16a
 
 
   s = "";          // om te kijken welke code bij de WASD keys hoort
@@ -51,9 +63,6 @@ void setup() {
   right = false;
   up = false;
   down = false;
-
-  coin1 = new Coin(582, 600); 
-  coin1.isEnabled = true;
 }
 
 void draw() {
@@ -66,12 +75,12 @@ void draw() {
       tile.draw();
     }
   }
-  
-  coin1.update();
-  if (coin1.isEnabled == true) { 
-    coin1.draw();
+
+  for (int i = 0; i < nCoins; i++) { // tekent de coins
+  coins[i].display();
   }
 
+  
   p.update();
   p.display();
 
@@ -95,8 +104,12 @@ void draw() {
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
-
-
+  
+  for(int j =0; j <nCoins; j++) {
+   coins[j].isEnabled = false;
+  }
+  
+  coinCounter = 0;
   map = loadImage(mapImage);
   mapOverlay = loadImage(mapOverlayImage);
 
@@ -154,7 +167,12 @@ void updateMap(String mapImage, String mapOverlayImage) {
         switch(hex(tileColor)) {
         case "FFFFD800" :
           //coin aanroepen
-      
+          coins[coinCounter].place(x * w + 0.5 * w, y * h + 0.5 * h);
+          coinCounter++;
+          
+          
+
+
           break;
 
         case "FFFF0000" :

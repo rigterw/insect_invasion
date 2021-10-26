@@ -1,36 +1,48 @@
 class Coin {
   float x, y; //Coin x en y position
-  float w, h; // Coin width en height 
-  color coinColor; // Kleur van de coin
+  float w, h; //Coin width en height 
+  float coinRadius; //Radius van de coin voor collision
   boolean isEnabled; //Boolean voor het aan en uitzetten van de coin.
-  float coinRadius;
+  color coinColor; //Kleur van de coin
+  color coinStroke; //Omlijning van de coin
 
-  Coin(float xPos, float yPos) {
-    x = xPos;
-    y = yPos;
-    w = 25;
-    h = 25; 
-    coinColor = color(250, 250, 0);
-    isEnabled = true;
+Coin() { 
+    w = 18;
+    h = 20; 
     coinRadius = w/2;
+    isEnabled = false;
+    coinColor = color(250, 250, 0);
+    coinStroke = color(250, 230, 0);
   }
 
-  void update() {
-      if (dist(x, y, p.x, p.y) < p.distance) { 
-      if (isEnabled == true) {
-        pickUp();
-        p.score +=1;
-        println("Coin picked up");
-      }
+  void place(float xPos, float yPos) { //Plaats de coin op een tile
+   x = xPos;
+   y = yPos;
+   isEnabled = true;
+  }
+
+  void display() { //Show de coin
+    if (isEnabled == true) {
+      update();
+      draw();
     }
   }
 
-  void draw() {
-    fill(coinColor);
-    ellipse(x, y, w, h);
+  void update() { //Checkt en update de collision tussen de coin en speler
+    if (dist(x, y, p.x, p.y) < p.distance) { 
+      pickUp();
+    }
   }
 
-  void pickUp() {    //Functie voor het oppakken van de coin. 
-    isEnabled = false; //op false zodat de coin niet meer getekent wordt.
+  void draw() { //Tekent de coin in de scene
+    stroke(coinStroke);
+    fill(coinColor);
+    ellipse(x, y, w, h);
+    stroke(0);
+  }
+
+  void pickUp() {    //Functie voor het oppakken van de coin.
+    p.score +=1;
+    isEnabled = false; //op false zodat de coin niet meer getekent wordt
   }
 }
