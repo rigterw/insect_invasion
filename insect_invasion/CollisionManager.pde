@@ -138,7 +138,8 @@ class CollisionManager {
               enemymove.xspeed =  -enemymove.xspeed;
               break;
             case "right" :
-              enemymove.xspeed = -enemymove.xspeed;
+              enemymove.yspeed = +3;
+              enemymove.xspeed = 0;
               break;
             case "up":
               enemymove.yspeed = - enemymove.yspeed;

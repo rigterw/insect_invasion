@@ -27,6 +27,9 @@
       } else if (circleX <= 339 && circleY <= 220) {
         xspeed = 0;
         yspeed = 3;
+      } else if(circleX >= 570 && circleY >= 497){
+        xspeed = 3;
+        yspeed = 0;
       }
     }
 }
