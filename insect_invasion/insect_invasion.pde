@@ -46,8 +46,12 @@ void setup() {
   Player = loadImage("Player/Player.png");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   for (int i = 0; i < 10; i++) { //loop voor coins
+=======
+  for (int i = 0; i < nCoins; i++) { //loop voor coins
+>>>>>>> 8f28d3dea9da0743f6f33655d8ad84fdbf65930d
     coins[i] = new Coin();
   }
 
