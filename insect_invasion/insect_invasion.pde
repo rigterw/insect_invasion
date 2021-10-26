@@ -16,6 +16,8 @@ int rows = 18;
 int w = 40;
 int h = 40;
 
+int mapcount = 3;
+
 PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile, mapOverlay, Player;
 
 color tileColor;
@@ -40,9 +42,9 @@ void setup() {
   finishTile = loadImage("tiles/FinishTile.png");
   Player = loadImage("Player/Player.png");
 
-  updateMap("levels/level1.png", "levels/level1overlay.png");    
+  updateMap("levels/level0.png", "levels/level0overlay.png");    
   //looping thru all the tiles.
-
+  println(hex(get(3, 21)));
   p = new Player();
   s = "";          // om te kijken welke code bij de WASD keys hoort
 
@@ -61,7 +63,7 @@ void draw() {
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       tile = tiles[i][j]; 
-      tile.buttonCheck();
+      tile.tileCheck();
       tile.draw();
     }
   }
@@ -83,7 +85,7 @@ void draw() {
   collisionmanager.CheckCollisionToEnemy();
   collisionmanager.CheckCollisionToFinish();
   //collisionmanager.EnemyToWall();
-  
+
   healthbar.draw();
 }
 
@@ -157,6 +159,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
         case "FFFF6A00" :
           //stationair enemy
 
+          break;
+        case "FF00FF21":
+
+       p.place(3,3);
           break;
         }
       }

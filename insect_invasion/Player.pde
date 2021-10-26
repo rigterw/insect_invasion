@@ -83,4 +83,9 @@ class Player
     ellipse(x, y, w, h);
     image(Player, x - (w / 2), y - (h / 2), w, h);
   }
+  
+  void place(float x, float y){
+this.x = x;
+this.y = y;
+  }
 }
