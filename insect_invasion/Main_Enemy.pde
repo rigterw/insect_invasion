@@ -1,13 +1,16 @@
 class MainEnemy {
-  int circleX, circleY, xspeed, yspeed, diameter;
-
+  int circleX, circleY, xspeed, yspeed, diameter, level;
+  boolean isEnabled = true;
+  
   MainEnemy() {
     xspeed = 0;//starting speed in x direction
     yspeed = 0;//starting speed in y direction
     circleX = 0; //start position x enemy
     circleY = 0; //start position y enemy
     diameter = 32;
+    level = 1;
   }
+
 
   Tile TileEnemy() {
     for (int i = 0; i < cols; i++) {
@@ -25,12 +28,14 @@ class MainEnemy {
   }
 
   void draw() {
-    //noStroke(); //enemy vision circle
-    //fill(0);
-    ////noFill();
-    //ellipse(circleX, circleY, 120, 120);
+    if (isEnabled == true) {
+      //noStroke(); //enemy vision circle
+      //fill(0);
+      ////noFill();
+      //ellipse(circleX, circleY, 120, 120);
 
-    fill(255, 0, 0); //enemy
-    ellipse(circleX, circleY, diameter, diameter);
+      fill(255, 0, 0); //enemy
+      ellipse(circleX, circleY, diameter, diameter);
+    }
   }
 }

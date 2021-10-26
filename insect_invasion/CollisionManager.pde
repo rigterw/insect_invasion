@@ -93,6 +93,9 @@ class CollisionManager {
           (tile.y + tile.h > p.y && p.y > tile.y)) {
           // go to next level
           println("finish has been hit");
+          enemystatic.isEnabled = false;//disable static enemy for level 2
+          enemymove.isEnabled = false;
+          enemymove2.isEnabled = true;//enable moving enemy for level 2
         }
       }
     }

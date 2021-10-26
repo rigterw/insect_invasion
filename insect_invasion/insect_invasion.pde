@@ -26,8 +26,11 @@ color tileColor;
 String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
-MovingEnemy enemymove = new MovingEnemy(0, 3, 339, 220);
+
+MovingEnemy enemymove = new MovingEnemy(0, 3, 339, 220, true, 1);
+MovingEnemy enemymove2 = new MovingEnemy(0, 0, 340, 380, false, 2);
 StaticEnemy enemystatic = new StaticEnemy(739, 20);
+
 CollisionManager collisionmanager = new CollisionManager();
 HealthBar healthbar = new HealthBar();
 
@@ -52,8 +55,6 @@ void setup() {
   }
 
 
-
-
   s = "";          // om te kijken welke code bij de WASD keys hoort
   updateMap("levels/level0.png", "levels/level0overlay.png");    
   //looping thru all the tiles.
@@ -75,10 +76,10 @@ void draw() {
   }
 
   for (int i = 0; i < nCoins; i++) { // tekent de coins
-  coins[i].display();
+    coins[i].display();
   }
 
-  
+
   p.update();
   p.display();
 
@@ -87,26 +88,23 @@ void draw() {
   text(s, 100, 50);
 
   enemymove.draw();
+  enemymove2.draw();
   enemystatic.draw();
 
   collisionmanager.CheckCollisionToWall();
   collisionmanager.CheckCollisionToEnemy();
   collisionmanager.CheckCollisionToFinish();
-
-  //collisionmanager.EnemyToWall();
-
-
   collisionmanager.EnemyToWall();
 
   healthbar.draw();
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
-  
-  for(int j =0; j <nCoins; j++) {
-   coins[j].isEnabled = false;
+
+  for (int j =0; j <nCoins; j++) {
+    coins[j].isEnabled = false;
   }
-  
+
   coinCounter = 0;
   map = loadImage(mapImage);
   mapOverlay = loadImage(mapOverlayImage);
@@ -167,15 +165,12 @@ void updateMap(String mapImage, String mapOverlayImage) {
           //coin aanroepen
           coins[coinCounter].place(x * w + 0.5 * w, y * h + 0.5 * h);
           coinCounter++;
-          
-          
-
 
           break;
 
         case "FFFF0000" :
           //moving enemy aanroepen
-
+          
           break;
         case "FFFF6A00" :
           //stationair enemy
@@ -183,7 +178,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
           break;
         case "FF00FF21":
 
-       p.place(x*w + 0.5*w,y*h + 0.5*h);
+          p.place(x*w + 0.5*w, y*h + 0.5*h);
           break;
         }
       }
@@ -194,7 +189,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
 void keyPressed() {
   // println(keyCode);
   if (keyCode == 32) {
-    updateMap("levels/level3.png", "levels/level3overlay.png");
+    updateMap("levels/level1.png", "levels/level1overlay.png");
+          enemystatic.isEnabled = false;//disable static enemy for level 2
+          enemymove.isEnabled = false;
+          enemymove2.isEnabled = true;//enable moving enemy for level 2
   }
 
   s = "key: " + keyCode;
