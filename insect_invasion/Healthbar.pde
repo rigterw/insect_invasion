@@ -9,7 +9,7 @@ class HealthBar {
   void draw()  {
     
 
-    if (health < 2)
+    if (health < 2) // Past kleur van healthbar aan afhankelijk van de hoeveelheid health
     {
       fill(255, 0, 0);
     } else if (health < 3)
@@ -20,13 +20,13 @@ class HealthBar {
       fill(0, 255, 0);
     }
 
-    noStroke();
+    noStroke(); // Draw van de healthbar
     float drawWidth = (health / MAX_HEALTH) * rectWidth;
     float drawHeight = rectHeight;
     rect(healthBarX, healthBarY, drawWidth, drawHeight);
 
     stroke(0);
     noFill();
-    rect(healthBarX, healthBarY, rectWidth, rectHeight);
+    rect(healthBarX, healthBarY, rectWidth, rectHeight); // Draw van healthbar outline
   }
 }
