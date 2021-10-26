@@ -60,27 +60,22 @@ class Player
 
     y += speedY;        // positie updaten
     x += speedX;
-    
-    distance = radius + coin1.coinRadius;  //Voor collision tussen de player en coin.
 
-    //de distance moet kleiner zijn (dus in elkaar) én de coin moet enabled zijn.
-    if (dist(x, y, coin1.x, coin1.y) < distance) {
-      if (coin1.isEnabled == true) {
-        coin1.pickUp(); 
-        println("coin picked up");
-        score +=1; //score van de player gaat omhoog als de coin wordt opgepakt.
-        println("score = " + score);  
-      }
-    }    
+    distance = radius + coins[0].coinRadius;  //Voor collision tussen de player en coin.
   }
 
   void display()
   {
     fill(0);
     text("Score: " + score, 30, 680);
-    
+
     fill(100, 100, 220);
     ellipse(x, y, w, h);
     image(Player, x - (w / 2), y - (h / 2), w, h);
+  }
+  
+  void place(float x, float y){
+this.x = x;
+this.y = y;
   }
 }

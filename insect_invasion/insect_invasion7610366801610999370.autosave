@@ -4,9 +4,10 @@ void settings() {
 
 //initializing all the variables
 Tile tile;
+Coin coin1;
 
 boolean left, right, up, down, g;
-Player p = new Player();
+Player p;
 String s;
 
 int cols = 32;
@@ -14,10 +15,8 @@ int rows = 18;
 
 int w = 40;
 int h = 40;
-int coinCounter = 0;
-int nCoins = 50;
 
-int mapcount = 1;
+int mapcount = 3;
 
 PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile, mapOverlay, Player;
 
@@ -26,12 +25,10 @@ color tileColor;
 String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
-MovingEnemy enemymove = new MovingEnemy(0, 3, 339, 220);
-StaticEnemy enemystatic = new StaticEnemy(739, 20);
+MovingEnemy enemymove = new MovingEnemy();
+StaticEnemy enemystatic = new StaticEnemy();
 CollisionManager collisionmanager = new CollisionManager();
 HealthBar healthbar = new HealthBar();
-
-Coin[] coins = new Coin[nCoins];
 
 void setup() {
 
@@ -44,23 +41,21 @@ void setup() {
   cobwebTile = loadImage("tiles/CobwebTile.png");
   finishTile = loadImage("tiles/FinishTile.png");
   Player = loadImage("Player/Player.png");
-
-
-  for (int i = 0; i < nCoins; i++) { //loop voor coins
-
-    coins[i] = new Coin();
-  }
-
-
-
-
-  s = "";          // om te kijken welke code bij de WASD keys hoort
+  p = new Player();
   updateMap("levels/level0.png", "levels/level0overlay.png");    
   //looping thru all the tiles.
+  println(hex(get(3, 21)));
+
+  p = new Player();
+  s = "";          // om te kijken welke code bij de WASD keys hoort
+
   left = false;
   right = false;
   up = false;
   down = false;
+
+  coin1 = new Coin(582, 600); 
+  coin1.isEnabled = true;
 }
 
 void draw() {
@@ -73,12 +68,10 @@ void draw() {
       tile.draw();
     }
   }
-
-  for (int i = 0; i < nCoins; i++) { // tekent de coins
-  coins[i].display();
+  if (coin1.isEnabled == true) { 
+    coin1.draw();
   }
 
-  
   p.update();
   p.display();
 
@@ -92,22 +85,14 @@ void draw() {
   collisionmanager.CheckCollisionToWall();
   collisionmanager.CheckCollisionToEnemy();
   collisionmanager.CheckCollisionToFinish();
-
   //collisionmanager.EnemyToWall();
-
-
-  collisionmanager.EnemyToWall();
 
   healthbar.draw();
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
-  
-  for(int j =0; j <nCoins; j++) {
-   coins[j].isEnabled = false;
-  }
-  
-  coinCounter = 0;
+
+
   map = loadImage(mapImage);
   mapOverlay = loadImage(mapOverlayImage);
 
@@ -165,11 +150,6 @@ void updateMap(String mapImage, String mapOverlayImage) {
         switch(hex(tileColor)) {
         case "FFFFD800" :
           //coin aanroepen
-          coins[coinCounter].place(x * w + 0.5 * w, y * h + 0.5 * h);
-          coinCounter++;
-          
-          
-
 
           break;
 
@@ -182,8 +162,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 
           break;
         case "FF00FF21":
-
-       p.place(x*w + 0.5*w,y*h + 0.5*h);
+       p.place(3,3);
           break;
         }
       }
