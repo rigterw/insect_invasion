@@ -172,7 +172,7 @@ class CollisionManager {
               break;
             case "down":
               enemy.xspeed = 3;
-             enemy.circleY = int(enemy.circleY + 9);
+             enemy.circleY = enemy.circleY + 6;
               enemy.yspeed = 0;
               break;
             }
