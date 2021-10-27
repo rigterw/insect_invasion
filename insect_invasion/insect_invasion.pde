@@ -28,7 +28,7 @@ String tileType;
 Tile[][] tiles = new Tile[cols][rows];
 
 MovingEnemy enemymove = new MovingEnemy(0, 3, 339, 220, true, 1);
-MovingEnemy enemymove2 = new MovingEnemy(0, 0, 340, 380, false, 2);
+MovingEnemy enemymove2 = new MovingEnemy(0, 0, 700, 380, false, 2);
 StaticEnemy enemystatic = new StaticEnemy(739, 20);
 
 CollisionManager collisionmanager = new CollisionManager();

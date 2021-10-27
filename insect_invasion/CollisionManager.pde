@@ -171,7 +171,8 @@ class CollisionManager {
               enemy.yspeed = - enemy.yspeed;
               break;
             case "down":
-              enemy.yspeed = - enemy.yspeed;
+              enemy.xspeed = 3;
+              enemy.yspeed = 0;
               break;
             }
           }
