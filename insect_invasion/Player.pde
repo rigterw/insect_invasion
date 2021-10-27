@@ -70,7 +70,7 @@ class Player
     text("Score: " + score, 30, 680);
 
     fill(100, 100, 220);
-    ellipse(x, y, w, h);
+//  ellipse(x, y, w, h);
     image(Player, x - (w / 2), y - (h / 2), w, h);
   }
   
