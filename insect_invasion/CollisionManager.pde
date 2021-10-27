@@ -155,7 +155,7 @@ class CollisionManager {
           //kijken welke rand het dichtsbijzijnde is
           float distX = enemy.circleX-enemyHBX;
           float distY = enemy.circleY-enemyHBY;
-          float distance = sqrt(distX*distX) + (distY*distY);
+          float distance = sqrt(distX*distX) + sqrt(distY*distY);
 
           if (distance <= 32 / 2) {
             switch (direction) {
