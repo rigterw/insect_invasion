@@ -1,10 +1,10 @@
 class Player
 {
-  float x, y, w, h;
-  float speedX, speedY, maxSpeed;
-  float radius;
-  float distance;
-  int score;
+  float x, y, w, h; //x en y positie van de speler, width en height van de speler
+  float speedX, speedY, maxSpeed; //de snelheid waarmee de speler zich beweegt
+  float radius; //radius van de speler voor de collisions
+  float distance; //distance voor de collision met de coins
+  int score; // integer voor het optellen van de score wanneer coins worden opgepakt
 
   Player()
   {
@@ -25,13 +25,13 @@ class Player
   {
     if (left == true)    // horizontaal bewegen
     {
-      // speedY = 0;     ////////* uitgezet zodat de lateral movement werkt
+      // speedY = 0;     //* uitgezet zodat de lateral movement werkt
       speedX = -maxSpeed;
     }
 
     if (right == true)
     {
-      // speedY = 0;     ///////*
+      // speedY = 0;     //*
       speedX = maxSpeed;
     }
 
@@ -43,13 +43,13 @@ class Player
 
     if (up == true)        // verticaal bewegen
     {
-      // speedX = 0;       ////////*
+      // speedX = 0;       //*
       speedY = -maxSpeed;
     }
 
     if (down == true) 
     {
-      // speedX = 0;       ////////*
+      // speedX = 0;       //*
       speedY = maxSpeed;
     }
 
@@ -70,11 +70,11 @@ class Player
     text("Score: " + score, 30, 680);
 
     fill(100, 100, 220);
-    ellipse(x, y, w, h);
+//  ellipse(x, y, w, h);
     image(Player, x - (w / 2), y - (h / 2), w, h);
   }
   
-  void place(float x, float y){
+void place(float x, float y){
 this.x = x;
 this.y = y;
   }

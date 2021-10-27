@@ -124,54 +124,54 @@ class CollisionManager {
     }
   }
 
-  void EnemyToWall() {
+  void EnemyToWall(MainEnemy enemy) {
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         tile = tiles[i][j];
 
         float enemyHBX, enemyHBY; //spelers randen
-        enemyHBX = enemymove.circleX;
-        enemyHBY = enemymove.circleY;
+        enemyHBX = enemy.circleX;
+        enemyHBY = enemy.circleY;
 
 
         if (tile.type == "door") {
 
-          if (enemymove.circleX < tile.x) {  // linker kant van de tile
+          if (enemy.circleX < tile.x) {  // linker kant van de tile
             enemyHBX = tile.x;
             direction = "left";
-          } else if (enemymove.circleX > tile.x+tile.w) { // rechter kant van de tile
+          } else if (enemy.circleX > tile.x+tile.w) { // rechter kant van de tile
             enemyHBX = tile.x+tile.w;
             direction = "right";
           }
 
-          if (enemymove.circleY < tile.y) { // boven kant van de tile
+          if (enemy.circleY < tile.y) { // boven kant van de tile
             enemyHBY = tile.y;
             direction = "up";
-          } else if (enemymove.circleY > tile.y+tile.h) { // // onder kant van de tile
+          } else if (enemy.circleY > tile.y+tile.h) { // // onder kant van de tile
             enemyHBY = tile.y+tile.h;
             direction = "down";
           }
 
           //kijken welke rand het dichtsbijzijnde is
-          float distX = enemymove.circleX-enemyHBX;
-          float distY = enemymove.circleY-enemyHBY;
+          float distX = enemy.circleX-enemyHBX;
+          float distY = enemy.circleY-enemyHBY;
           float distance = sqrt(distX*distX) + (distY*distY);
 
           if (distance <= 32 / 2) {
             switch (direction) {
 
             case "left" :
-              enemymove.xspeed =  -enemymove.xspeed;
+              enemy.xspeed =  -enemy.xspeed;
               break;
             case "right" :
-              enemymove.yspeed = +3;
-              enemymove.xspeed = 0;
+              enemy.yspeed = +3;
+              enemy.xspeed = 0;
               break;
             case "up":
-              enemymove.yspeed = - enemymove.yspeed;
+              enemy.yspeed = - enemy.yspeed;
               break;
             case "down":
-              enemymove.yspeed = - enemymove.yspeed;
+              enemy.yspeed = - enemy.yspeed;
               break;
             }
           }
