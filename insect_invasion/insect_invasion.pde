@@ -95,7 +95,8 @@ void draw() {
   collisionmanager.CheckCollisionToEnemy();
   collisionmanager.CheckCollisionToEnemy2();
   collisionmanager.CheckCollisionToFinish();
-  collisionmanager.EnemyToWall();
+  collisionmanager.EnemyToWall(enemymove);
+  collisionmanager.EnemyToWall(enemymove2);
 
   healthbar.draw();
 }
