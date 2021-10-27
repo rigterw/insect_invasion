@@ -17,7 +17,7 @@ int h = 40;
 int coinCounter = 0;
 int nCoins = 75;
 
-int mapcount = 2;
+int mapcount = 1;
 
 PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile, mapOverlay, Player;
 
@@ -28,7 +28,7 @@ String tileType;
 Tile[][] tiles = new Tile[cols][rows];
 
 MovingEnemy enemymove = new MovingEnemy(0, 3, 339, 220, true, 1);
-MovingEnemy enemymove2 = new MovingEnemy(0, 0, 700, 380, false, 2);
+MovingEnemy enemymove2 = new MovingEnemy(3, 0, 340, 380, false, 2);
 StaticEnemy enemystatic = new StaticEnemy(739, 20);
 
 CollisionManager collisionmanager = new CollisionManager();
@@ -79,7 +79,6 @@ void draw() {
     coins[i].display();
   }
 
-
   p.update();
   p.display();
 
@@ -99,6 +98,7 @@ void draw() {
   collisionmanager.EnemyToWall(enemymove2);
 
   healthbar.draw();
+ 
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
@@ -191,7 +191,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 void keyPressed() {
   // println(keyCode);
   if (keyCode == 32) {
-    updateMap("levels/level2.png", "levels/level2overlay.png");
+    updateMap("levels/level1.png", "levels/level1overlay.png");
           enemystatic.isEnabled = false;//disable static enemy for level 2
           enemymove.isEnabled = false;
           enemymove2.isEnabled = true;//enable moving enemy for level 2
