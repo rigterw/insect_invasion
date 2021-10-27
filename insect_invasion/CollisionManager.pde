@@ -70,19 +70,40 @@ class CollisionManager {
   int nowHit;
   int lastHit;
   int cooldownTimer = 1000; // Cooldown van 1000 ms
-
+  boolean isEnabled = true;
   void CheckCollisionToEnemy() {
-    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) { // Check afstand tussen player en enemy
-      nowHit = millis();
-      if (nowHit > (lastHit + cooldownTimer)) {
-        if (healthbar.health > 0) { // Als je meer als 0 hp hebt verlies je 1 hp
-          //println("hit");
-          healthbar.health -= 1;
-          lastHit = nowHit;
+    if (isEnabled == true) {
+      if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) { // Check afstand tussen player en enemy
+        nowHit = millis();
+        if (nowHit > (lastHit + cooldownTimer)) {
+          if (healthbar.health > 0) { // Als je meer als 0 hp hebt verlies je 1 hp
+            //println("hit");
+            healthbar.health -= 1;
+            lastHit = nowHit;
+          }
         }
       }
     }
   }
+  int nowHit2;
+  int lastHit2;
+  int cooldownTimer2 = 1000; // Cooldown van 1000 ms
+  boolean isEnabled2 = false;
+  void CheckCollisionToEnemy2() {
+    if (isEnabled2 == true) {
+      if (dist(p.x, p.y, enemymove2.circleX, enemymove2.circleY) < p.w / 2 + enemymove2.diameter / 2) { // Check afstand tussen player en enemy2
+        nowHit2 = millis();
+        if (nowHit2 > (lastHit2 + cooldownTimer2)) {
+          if (healthbar.health > 0) { // Als je meer als 0 hp hebt verlies je 1 hp
+            //println("hit");
+            healthbar.health -= 1;
+            lastHit2 = nowHit2;
+          }
+        }
+      }
+    }
+  }
+
   void CheckCollisionToFinish() {
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -96,6 +117,8 @@ class CollisionManager {
           enemystatic.isEnabled = false;//disable static enemy for level 2
           enemymove.isEnabled = false;
           enemymove2.isEnabled = true;//enable moving enemy for level 2
+          isEnabled = false; //disable collision with enemy
+          isEnabled2 = true; //enable collision with enemy2
         }
       }
     }

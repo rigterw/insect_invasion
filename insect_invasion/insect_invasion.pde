@@ -93,6 +93,7 @@ void draw() {
 
   collisionmanager.CheckCollisionToWall();
   collisionmanager.CheckCollisionToEnemy();
+  collisionmanager.CheckCollisionToEnemy2();
   collisionmanager.CheckCollisionToFinish();
   collisionmanager.EnemyToWall();
 
@@ -193,6 +194,8 @@ void keyPressed() {
           enemystatic.isEnabled = false;//disable static enemy for level 2
           enemymove.isEnabled = false;
           enemymove2.isEnabled = true;//enable moving enemy for level 2
+          collisionmanager.isEnabled = false;
+          collisionmanager.isEnabled2 = true;
   }
 
   s = "key: " + keyCode;
