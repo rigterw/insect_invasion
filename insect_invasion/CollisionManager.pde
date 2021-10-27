@@ -161,7 +161,9 @@ class CollisionManager {
             switch (direction) {
 
             case "left" :
-              enemy.xspeed =  -enemy.xspeed;
+              enemy.circleX = enemy.circleX - 6;
+              enemy.yspeed =  -3;
+              enemy.xspeed = 0;
               break;
             case "right" :
               enemy.yspeed = +3;
@@ -172,7 +174,7 @@ class CollisionManager {
               break;
             case "down":
               enemy.xspeed = 3;
-             enemy.circleY = enemy.circleY + 6;
+              enemy.circleY = enemy.circleY + 6;
               enemy.yspeed = 0;
               break;
             }
