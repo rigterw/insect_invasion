@@ -15,9 +15,9 @@ int rows = 18;
 int w = 40;
 int h = 40;
 int coinCounter = 0;
-int nCoins = 50;
+int nCoins = 75;
 
-int mapcount = 1;
+int mapcount = 2;
 
 PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile, mapOverlay, Player;
 
@@ -191,7 +191,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 void keyPressed() {
   // println(keyCode);
   if (keyCode == 32) {
-    updateMap("levels/level1.png", "levels/level1overlay.png");
+    updateMap("levels/level2.png", "levels/level2overlay.png");
           enemystatic.isEnabled = false;//disable static enemy for level 2
           enemymove.isEnabled = false;
           enemymove2.isEnabled = true;//enable moving enemy for level 2
