@@ -1,5 +1,8 @@
 class MovingEnemy extends MainEnemy {
 
+  String direction = "north";
+  int speed = 3;
+
   MovingEnemy(int xspeed, int yspeed, int circleX, int circleY, boolean isEnabled, int level) {
     this.xspeed = xspeed;
     this.yspeed = yspeed;
@@ -9,114 +12,147 @@ class MovingEnemy extends MainEnemy {
     this.level = level;
   }
 
-
   void draw() {
-
+    update();
     super.draw();//inherits everything inside the draw of all enemy classes
+  }
 
-    circleX = circleX + xspeed;//moving enemy
+
+
+
+  void update() {
+    Tile tileStanding = TileEnemy(0, 0);
+
+    if (((direction == "north" || direction == "south") && tileStanding.y + 0.5 * (tileStanding.h + speed)  >= circleY && (tileStanding.h - speed)  <= circleY) ||
+      ((direction == "east" || direction == "west") && tileStanding.x + 0.5 * (tileStanding.w + speed) >= circleX && tileStanding.x + 0.5 * (tileStanding.w - speed) <= circleX) ) {//doet iedere keer wanneer de enemy in het midden van een tile staat een check 
+      pathcheck(tileStanding);
+    }
+    circleX = circleX + xspeed;
     circleY = circleY + yspeed;
+  }
 
-    if (level == 1) {
+  void pathcheck(Tile tileStanding) {// checkt of hij vooruit kan blijven lopen
 
-      if (circleX == 339 && circleY >= 497) {//big loop for moving enemy level 1
-        xspeed = 3;
-        yspeed = 0;
-      } else if (circleX >= 817 && circleY >= 497) {
-        xspeed = 0;
-        yspeed = -3;
-      } else if (circleX >= 817 && circleY <= 220) {
-        xspeed = -3;
-        yspeed = 0;
-      } else if (circleX <= 339 && circleY <= 220) {
-        xspeed = 0;
-        yspeed = 3;
-      } else if (circleX >= 570 && circleY >= 497) {
-        xspeed = 3;
-        yspeed = 0;
-      }
-    } else if (level == 2) {//clockwise movement enemy level 2
-      if (circleX == 979 && circleY == 380) {
-        xspeed = 0;
-        yspeed = 3;
-        println("hoek 2");
-      } else if (circleX == 979 && circleY == 620) {
-        xspeed = -3; 
-        yspeed = 0;
-        println("hoek 3");
-        println(circleX+ "= X");
-      } else if (circleX == 700 && circleY == 620) {
-        println(circleX+ "= X");
-        println("hoek 4");
-        xspeed = 0;
-        yspeed = -3;
-      }
-      else if (circleX == 700 && circleY == 59){
-        xspeed = -3;
-        yspeed = 0;
-      }
-      else if (circleX <=340  && circleY == 59){
-        xspeed = 0;
-        yspeed = 3;
-        
-      }
-      else if (circleX <= 340 && circleY >= 380){
-        xspeed = 3;
-        yspeed = 0;
-      }
-      
-      
-      
-      
-      
-      
-      //} else if (level == 2) {//clockwise movement enemy level 2
+    Tile frontTile = null;
+    Tile leftTile = null;
+    Tile rightTile = null;
+    Tile backTile = null;
 
+    switch(direction) {//stelt vast welke tiles er om de enemy heen liggen.
+    case "north":
 
-      //if (circleX == 340 && circleY == 380) {
-      //  xspeed = 3;
-      //  yspeed = 0;
-      //} else if (circleX == 700 && circleY == 380) {
-      //  xspeed = 0;
-      //  yspeed = 3;
-      //} else if (circleX == 700 && circleY == 620) {
-      //  xspeed = -3;
-      //  yspeed = 0;
-      //} else if (circleX == 619 && circleY == 620) {
-      //  xspeed = 0;
-      //  yspeed = 3;
-      //} else if (circleX == 619 && circleY == 662) {
-      //  xspeed = -2;
-      //  yspeed = 0;
-      //} else if (circleX == 459 && circleY == 662) {
-      //  xspeed = 0;
-      //  yspeed = -3;
-      //  //println(circleX + "= 3X");
-      //  //println(circleY + "= 3Y");
-      //} else if (circleX == 459 && circleY == 623) {
-      //  xspeed = -3;
-      //  yspeed = 0;
-      //} else if (circleX == 219 && circleY == 623) {
-      //  println(circleX + "= 3X");
-      //  println(circleY + "= 3Y");
-      //  xspeed = 0;
-      //  yspeed = -3;
-      //} else if (circleX == 700 && circleY == 380) {
-      //  xspeed = -3;
-      //  yspeed = 0;
-      //} else if (circleX == 340 && circleY == 59) {
-      //  xspeed = 3;
-      //  yspeed = 0;
-      //} else if (circleX == 700 && circleY == 59) {  
-      //  xspeed = 0;
-      //  yspeed = 3;
-      //} else if (circleX == 700 && circleY == 380) {
-      //  xspeed = -3;
-      //  yspeed = 0;
-      //} else if (circleX == 340 && circleY == 380) {
-      //  xspeed = -3;
-      //  yspeed = 0;
-      //}
+      frontTile = TileEnemy(0, -1);
+      leftTile = TileEnemy(-1, 0);
+      rightTile = TileEnemy(1, 0);
+      backTile = TileEnemy(0, 1);
+
+      break;
+    case "south":
+      frontTile = TileEnemy(0, 1);
+      leftTile = TileEnemy(1, 0);
+      rightTile = TileEnemy(-1, 0);
+      backTile = TileEnemy(0, -1);
+      break;
+
+    case "east" :
+      frontTile = TileEnemy(1, 0);
+      leftTile = TileEnemy(0, 1);
+      rightTile = TileEnemy(0, -1);
+      backTile = TileEnemy(-1, 0);
+      break;
+
+    case "west" :
+      frontTile = TileEnemy(-1, 0);
+      leftTile = TileEnemy(0, 1);
+      rightTile = TileEnemy(0, -1);
+      backTile = TileEnemy(1, 0);
+      break;
+    }
+    println(frontTile.type);
+    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") || frontTile.type.equals("enemyOneWay")) == false) {
+circleX = int(tileStanding.x + 0.5*tileStanding.w);
+circleY = int(tileStanding.y + 0.5*tileStanding.w);
+      if ((rightTile.type.equals("enemywalkable") && !leftTile.type.equals("doorOpen")) || rightTile.type.equals("doorOpen")) {
+ 
+        switch(direction) {
+        case "north":
+          xspeed = speed;
+          yspeed = 0;
+          direction = "east";
+          break;
+
+        case "east":
+          xspeed = 0;
+          yspeed = speed;
+          direction = "south";
+          break;
+
+        case "south":
+          xspeed = -speed;
+          yspeed = 0;
+          direction = "west";
+          break;
+
+        case "west":
+          xspeed = 0;
+          yspeed = -speed;
+          direction = "north";
+          break;
+        }
+      } else if (leftTile.type.equals("enemywalkable") || leftTile.type.equals("doorOpen")) {
+           println("links");
+        switch(direction) {
+       
+        case "south":
+          xspeed = speed;
+          yspeed = 0;
+          direction = "east";
+          break;
+
+        case "west":
+          xspeed = 0;
+          yspeed = speed;
+          direction = "south";
+          break;
+
+        case "north":
+          xspeed = -speed;
+          yspeed = 0;
+          direction = "west";
+          break;
+
+        case "east":
+          xspeed = 0;
+          yspeed = -speed;
+          direction = "north";
+          break;
+        }
+      } else { 
+        switch(direction){
+         case "north":
+          xspeed = 0;
+          yspeed = speed;
+          direction = "south";
+          break;
+
+        case "east":
+          xspeed = -speed;
+          yspeed = 0;
+          direction = "west";
+          break;
+
+        case "south":
+          xspeed = 0;
+          yspeed = -speed;
+          direction = "north";
+          break;
+
+        case "west":
+          xspeed = speed;
+          yspeed = 0;
+          direction = "east";
+          break;}
+      }
     }
   }
 }

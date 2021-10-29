@@ -9,18 +9,19 @@ class MainEnemy {
     circleY = 0; //start position y enemy
     diameter = 32;
     level = 1;
+   
   }
 
 
-  Tile TileEnemy() {
+  Tile TileEnemy(int xVerschuiving, int yVerschuiving) {
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
         tile = tiles[i][j];
 
-        if (tile.x + tile.h >  circleX && circleX > tile.x
-          && tile.y + tile.h >  circleY && circleY > tile.y)
+        if (tile.x + tile.h >=  circleX && circleX >= tile.x
+          && tile.y + tile.h >=  circleY && circleY >= tile.y)
         {
-          return tile;
+          return tile = tiles[i + xVerschuiving][j + yVerschuiving];
         }
       }
     }

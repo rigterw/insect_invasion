@@ -27,8 +27,8 @@ String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
 
-MovingEnemy enemymove = new MovingEnemy(0, 3, 339, 220, true, 1);
-MovingEnemy enemymove2 = new MovingEnemy(3, 0, 340, 380, false, 2);
+MovingEnemy enemymove = new MovingEnemy(0, -1, 339, 300, true, 1);
+//MovingEnemy enemymove2 = new MovingEnemy(3, 0, 340, 380, false, 2);
 StaticEnemy enemystatic = new StaticEnemy(739, 20);
 
 CollisionManager collisionmanager = new CollisionManager();
@@ -87,18 +87,17 @@ void draw() {
   text(s, 100, 50);
 
   enemymove.draw();
-  enemymove2.draw();
+  //enemymove2.draw();
   enemystatic.draw();
 
   collisionmanager.CheckCollisionToWall();
   collisionmanager.CheckCollisionToEnemy();
-  collisionmanager.CheckCollisionToEnemy2();
+  // collisionmanager.CheckCollisionToEnemy2();
   collisionmanager.CheckCollisionToFinish();
-  collisionmanager.EnemyToWall(enemymove);
-  collisionmanager.EnemyToWall(enemymove2);
+  //collisionmanager.EnemyToWall(enemymove);
+  //collisionmanager.EnemyToWall(enemymove2);
 
   healthbar.draw();
- 
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
@@ -113,7 +112,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 
   image(map, 0, 0);
   image(mapOverlay, 0, 18);
-
+  println(hex(get(13, 12)));
   for (int x = 0; x < cols; x++) {
 
     for (int y = 0; y < rows; y++) {
@@ -153,7 +152,14 @@ void updateMap(String mapImage, String mapOverlayImage) {
         tileType = "finish";
         tileImage = finishTile;
         break;
-
+      case "FF7F3300":
+        tileType = "enemywalkable";
+        tileImage = walkTile;
+        break;
+      case "FFFF3819" :
+        tileType = "enemyOneWay";
+        tileImage = walkTile;
+        break;
       default:
         tileType = "background"; 
         tileImage = grassTile;
@@ -161,7 +167,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
       tileColor = get(x, y + 18);
       Tile newTile = new Tile(w * x, h * y, w, h, tileType, hex(tileColor), tileImage);
       tiles[x][y] = newTile;
-      if (tiles[x][y].type == "walkable") {
+      if (tiles[x][y].type == "walkable" || tiles[x][y].type == "enemywalkable") {
         switch(hex(tileColor)) {
         case "FFFFD800" :
           //coin aanroepen
@@ -172,7 +178,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 
         case "FFFF0000" :
           //moving enemy aanroepen
-          
+
           break;
         case "FFFF6A00" :
           //stationair enemy
@@ -192,11 +198,11 @@ void keyPressed() {
   // println(keyCode);
   if (keyCode == 32) {
     updateMap("levels/level1.png", "levels/level1overlay.png");
-          enemystatic.isEnabled = false;//disable static enemy for level 2
-          enemymove.isEnabled = false;
-          enemymove2.isEnabled = true;//enable moving enemy for level 2
-          collisionmanager.isEnabled = false;
-          collisionmanager.isEnabled2 = true;
+    enemystatic.isEnabled = false;//disable static enemy for level 2
+    enemymove.isEnabled = false;
+    //enemymove2.isEnabled = true;//enable moving enemy for level 2
+    collisionmanager.isEnabled = false;
+    collisionmanager.isEnabled2 = true;
   }
 
   s = "key: " + keyCode;

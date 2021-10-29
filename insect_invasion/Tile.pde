@@ -20,7 +20,7 @@ class Tile
 
 
   void tileCheck() {
-
+//code voor de deur
       if ( (x + h > p.x && p.x > x) && (y + h > p.y && p.y > y)) {
     if ( type == "button") {
         if (buttonStandingOn == false) {       
@@ -43,7 +43,7 @@ class Tile
           buttonStandingOn = true;
         }
       } 
- else if (type == "finish") {
+ else if (type == "finish") {//code voor finish + volgend level
    String map = str(int(random(1,mapcount + 1)));
       updateMap("levels/level" + map + ".png", "levels/level" + map + "overlay.png") ;
     
