@@ -78,11 +78,9 @@ class CollisionManager {
       if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) { // Check afstand tussen player en enemy
         nowHit = millis();
         if (nowHit > (lastHit + cooldownTimer)) {
-          if (healthbar.health > 0) { // Als je meer als 0 hp hebt verlies je 1 hp
-            //println("hit");
-            healthbar.health -= 1;
+            println("hit");
             lastHit = nowHit;
-          }
+          //}
         }
       }
     }

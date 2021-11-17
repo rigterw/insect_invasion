@@ -32,7 +32,6 @@ MovingEnemy enemymove = new MovingEnemy(0, -1, 339, 300, true, 1);
 StaticEnemy enemystatic = new StaticEnemy(739, 20);
 
 CollisionManager collisionmanager = new CollisionManager();
-HealthBar healthbar = new HealthBar();
 
 Coin[] coins = new Coin[nCoins];
 
@@ -99,7 +98,6 @@ void draw() {
   //collisionmanager.EnemyToWall(enemymove);
   //collisionmanager.EnemyToWall(enemymove2);
 
-  healthbar.draw();
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {
