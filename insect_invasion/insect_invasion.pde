@@ -19,7 +19,7 @@ int nCoins = 75;
 
 int mapcount = 1;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile,  finishTile, mapOverlay, Player;
+PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, Player, enemy;
 
 color tileColor;
 
@@ -42,9 +42,12 @@ void setup() {
   walkTile = loadImage("tiles/WalkTile.png"); 
   doorTile = loadImage("tiles/DoorTile.png");
   buttonTile = loadImage("tiles/ButtonTile.png"); 
+  buttonPressed = loadImage("tiles/ButtonPressed.png");
   doorOpenTile = loadImage("tiles/DoorOpenTile.png");
   finishTile = loadImage("tiles/FinishTile.png");
   Player = loadImage("Player/Player.png");
+  enemy = loadImage("enemy/ant.png");
+
 
 
   for (int i = 0; i < nCoins; i++) { //loop voor coins
@@ -96,7 +99,6 @@ void draw() {
   collisionmanager.CheckCollisionToFinish();
   //collisionmanager.EnemyToWall(enemymove);
   //collisionmanager.EnemyToWall(enemymove2);
-
 }
 
 void updateMap(String mapImage, String mapOverlayImage) {

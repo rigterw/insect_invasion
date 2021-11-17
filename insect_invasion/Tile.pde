@@ -20,9 +20,9 @@ class Tile
 
 
   void tileCheck() {
-//code voor de deur
-      if ( (x + h > p.x && p.x > x) && (y + h > p.y && p.y > y)) {
-    if ( type == "button") {
+    //code voor de deur
+    if ( (x + h > p.x && p.x > x) && (y + h > p.y && p.y > y)) {
+      if ( type == "button") {
         if (buttonStandingOn == false) {       
           for (int xTile = 0; xTile < cols; xTile++) {
 
@@ -42,29 +42,33 @@ class Tile
           }
           buttonStandingOn = true;
         }
-      } 
- else if (type == "finish") {//code voor finish + volgend level
-   String map = str(int(random(1,mapcount + 1)));
-      updateMap("levels/level" + map + ".png", "levels/level" + map + "overlay.png") ;
-    
-      
-    buttonStandingOn = false;}
+      } else if (type == "finish") {//code voor finish + volgend level
+        String map = str(int(random(1, mapcount + 1)));
+        updateMap("levels/level" + map + ".png", "levels/level" + map + "overlay.png") ;
+
+
+        buttonStandingOn = false;
+      }
+    } else { 
+      buttonStandingOn = false;
     }
-  else { buttonStandingOn = false;}
   }
   void draw() {
     if (type == "door" || type == "doorOpen" || type == "button") {
-if(type == "door" || type == "doorOpen"){
-  image(walkTile, x, y);
-}
-      if (buttonStandingOn) {
-        tint(unhex(colour) + unhex("FF202020"));
-      } else { 
-        tint(unhex(colour));
+
+      image(walkTile, x, y);
+
+      if (type == "button") {
+        if (buttonStandingOn) {
+          tile = buttonPressed;
+        } else { 
+          tile = buttonTile;
+        }
       }
-    } else {
-      noTint();
-    }
-    image(tile, x, y);
-  }
+      tint(unhex(colour));
+  } else {
+  noTint();
+}
+image(tile, x, y);
+}
 }

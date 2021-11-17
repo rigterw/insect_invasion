@@ -36,7 +36,8 @@ class MainEnemy {
       //ellipse(circleX, circleY, 120, 120);
 
       fill(255, 0, 0); //enemy
-      ellipse(circleX, circleY, diameter, diameter);
+      //ellipse(circleX, circleY, diameter, diameter);
+          image(enemy, circleX - (diameter / 2), circleY - (diameter / 2), diameter, diameter);
     }
   }
 }
