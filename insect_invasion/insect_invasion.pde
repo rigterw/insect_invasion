@@ -19,7 +19,7 @@ int nCoins = 75;
 
 int mapcount = 1;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile, cobwebTile, finishTile, mapOverlay, Player;
+PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, doorOpenTile,  finishTile, mapOverlay, Player;
 
 color tileColor;
 
@@ -43,7 +43,6 @@ void setup() {
   doorTile = loadImage("tiles/DoorTile.png");
   buttonTile = loadImage("tiles/ButtonTile.png"); 
   doorOpenTile = loadImage("tiles/DoorOpenTile.png");
-  cobwebTile = loadImage("tiles/CobwebTile.png");
   finishTile = loadImage("tiles/FinishTile.png");
   Player = loadImage("Player/Player.png");
 
@@ -143,10 +142,6 @@ void updateMap(String mapImage, String mapOverlayImage) {
       case "FF00FFFF" : 
         tileType = "button";
         tileImage = buttonTile;
-        break;
-      case "FF404040" : 
-        tileType = "cobweb";
-        tileImage = cobwebTile;
         break;
       case "FFF2FF02" : 
         tileType = "finish";

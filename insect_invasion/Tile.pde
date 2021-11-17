@@ -54,7 +54,9 @@ class Tile
   }
   void draw() {
     if (type == "door" || type == "doorOpen" || type == "button") {
-
+if(type == "door" || type == "doorOpen"){
+  image(walkTile, x, y);
+}
       if (buttonStandingOn) {
         tint(unhex(colour) + unhex("FF202020"));
       } else { 
