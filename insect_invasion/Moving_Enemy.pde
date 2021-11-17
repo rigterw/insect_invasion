@@ -23,13 +23,15 @@ class MovingEnemy extends MainEnemy {
   void update() {
     Tile tileStanding = TileEnemy(0, 0);
 
-    if (((direction == "north" || direction == "south") && tileStanding.y + 0.5 * (tileStanding.h + speed)  >= circleY && (tileStanding.h - speed)  <= circleY) ||
-      ((direction == "east" || direction == "west") && tileStanding.x + 0.5 * (tileStanding.w + speed) >= circleX && tileStanding.x + 0.5 * (tileStanding.w - speed) <= circleX) ) {//doet iedere keer wanneer de enemy in het midden van een tile staat een check 
+    if ((direction == "north" && tileStanding.y + 0.5 * tileStanding.h  >= circleY) || (direction == "south" && tileStanding.y + 0.5 * tileStanding.w  <= circleY) ||
+      (direction == "west" && tileStanding.x + 0.5 * tileStanding.w >= circleX) || (direction == "east" && tileStanding.x + 0.5 * tileStanding.w <= circleX) ) {
+        //doet iedere keer wanneer de enemy in het midden van een tile staat een check 
       pathcheck(tileStanding);
     }
     circleX = circleX + xspeed;
     circleY = circleY + yspeed;
   }
+  
 
   void pathcheck(Tile tileStanding) {// checkt of hij vooruit kan blijven lopen
 
@@ -56,8 +58,8 @@ class MovingEnemy extends MainEnemy {
 
     case "east" :
       frontTile = TileEnemy(1, 0);
-      leftTile = TileEnemy(0, 1);
-      rightTile = TileEnemy(0, -1);
+      leftTile = TileEnemy(0, -1);
+      rightTile = TileEnemy(0, 1);
       backTile = TileEnemy(-1, 0);
       break;
 
@@ -68,7 +70,7 @@ class MovingEnemy extends MainEnemy {
       backTile = TileEnemy(1, 0);
       break;
     }
-    println(frontTile.type);
+    println(frontTile.type + " " + frontTile.x + " " + frontTile.y);
     if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") || frontTile.type.equals("enemyOneWay")) == false) {
 circleX = int(tileStanding.x + 0.5*tileStanding.w);
 circleY = int(tileStanding.y + 0.5*tileStanding.w);
