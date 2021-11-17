@@ -56,7 +56,6 @@ class Tile
     if (type == "door" || type == "doorOpen" || type == "button") {
 
       if (buttonStandingOn) {
-        println(colour);
         tint(unhex(colour) + unhex("FF202020"));
       } else { 
         tint(unhex(colour));

@@ -86,7 +86,9 @@ void draw() {
   textSize(24);
   text(s, 100, 50);
 
-  enemymove.draw();
+  if (enemymove.isEnabled) {
+    enemymove.draw();
+  }
   //enemymove2.draw();
   enemystatic.draw();
 
@@ -112,7 +114,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 
   image(map, 0, 0);
   image(mapOverlay, 0, 18);
-  println(hex(get(13, 12)));
+  //println(hex(get(13, 12)));
   for (int x = 0; x < cols; x++) {
 
     for (int y = 0; y < rows; y++) {

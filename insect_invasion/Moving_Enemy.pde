@@ -70,7 +70,6 @@ class MovingEnemy extends MainEnemy {
       backTile = TileEnemy(1, 0);
       break;
     }
-    println(frontTile.type + " " + frontTile.x + " " + frontTile.y);
     if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") || frontTile.type.equals("enemyOneWay")) == false) {
 circleX = int(tileStanding.x + 0.5*tileStanding.w);
 circleY = int(tileStanding.y + 0.5*tileStanding.w);
@@ -102,7 +101,6 @@ circleY = int(tileStanding.y + 0.5*tileStanding.w);
           break;
         }
       } else if (leftTile.type.equals("enemywalkable") || leftTile.type.equals("doorOpen")) {
-           println("links");
         switch(direction) {
        
         case "south":
