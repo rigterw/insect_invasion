@@ -7,6 +7,7 @@ class Tile
   String colour; //tile colour
   PImage tile;
   Boolean buttonStandingOn = false;
+  Boolean sound = true;
   Tile(float x, float y, float w, float h, String type, String colour, PImage tile) 
   {
     this.x = x;
@@ -44,7 +45,8 @@ class Tile
         }
       } else if (type == "finish") {//code voor finish + volgend level
         String map = str(int(random(1, mapcount + 1)));
-        updateMap("levels/level" + map + ".png", "levels/level" + map + "overlay.png") ;
+        finishSound.play();
+        updateMap("data/levels/level" + map + ".png", "data/levels/level" + map + "overlay.png") ;
 
 
         buttonStandingOn = false;
@@ -60,15 +62,21 @@ class Tile
 
       if (type == "button") {
         if (buttonStandingOn) {
+          if (sound == true) {
+            buttonSound.play();
+            sound = false;
+          }
           tile = buttonPressed;
         } else { 
           tile = buttonTile;
+          sound = true;
         }
       }
+
       tint(unhex(colour));
-  } else {
-  noTint();
-}
-image(tile, x, y);
-}
+    } else {
+      noTint();
+    }
+    image(tile, x, y);
+  }
 }

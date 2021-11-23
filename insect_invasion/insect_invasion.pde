@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 void settings() {
   size(1280, 720);
 }
@@ -35,22 +37,27 @@ CollisionManager collisionmanager = new CollisionManager();
 
 Coin[] coins = new Coin[nCoins];
 
+SoundFile coinSound, buttonSound, finishSound;
+
 void setup() {
 
-  wallTile = loadImage("tiles/WallTile.png");
-  grassTile = loadImage("tiles/GrassTile.png");
-  walkTile = loadImage("tiles/WalkTile.png"); 
-  doorTile = loadImage("tiles/DoorTile.png");
-  buttonTile = loadImage("tiles/ButtonTile.png"); 
-  buttonPressed = loadImage("tiles/ButtonPressed.png");
-  doorOpenTile = loadImage("tiles/DoorOpenTile.png");
-  finishTile = loadImage("tiles/FinishTile.png");
-  Player = loadImage("Player/Player.png");
-  enemy = loadImage("enemy/ant.png");
+  wallTile = loadImage("data/tiles/WallTile.png");
+  grassTile = loadImage("data/tiles/GrassTile.png");
+  walkTile = loadImage("data/tiles/WalkTile.png"); 
+  doorTile = loadImage("data/tiles/DoorTile.png");
+  buttonTile = loadImage("data/tiles/ButtonTile.png"); 
+  buttonPressed = loadImage("data/tiles/ButtonPressed.png");
+  doorOpenTile = loadImage("data/tiles/DoorOpenTile.png");
+  finishTile = loadImage("data/tiles/FinishTile.png");
+  Player = loadImage("data/Player/Player.png");
+  enemy = loadImage("data/enemy/ant.png");
+  
+  coinSound = new SoundFile(this, "data/sounds/coin.wav");
+  buttonSound = new SoundFile(this, "data/sounds/button.wav");
+  finishSound = new SoundFile(this, "data/sounds/finish.wav");
 
 
-
-  for (int i = 0; i < nCoins; i++) { //loop voor coins
+    for (int i = 0; i < nCoins; i++) { //loop voor coins
 
     coins[i] = new Coin();
   }
@@ -194,7 +201,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 void keyPressed() {
   // println(keyCode);
   if (keyCode == 32) {
-    updateMap("levels/level1.png", "levels/level1overlay.png");
+    updateMap("data/levels/level1.png", "data/levels/level1overlay.png");
     enemystatic.isEnabled = false;//disable static enemy for level 2
     enemymove.isEnabled = false;
     //enemymove2.isEnabled = true;//enable moving enemy for level 2

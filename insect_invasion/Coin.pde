@@ -43,6 +43,7 @@ Coin() {
 
   void pickUp() {    //Functie voor het oppakken van de coin.
     p.score +=1;
+    coinSound.play();
     isEnabled = false; //op false zodat de coin niet meer getekent wordt
   }
 }
