@@ -1,5 +1,9 @@
+//importing the sound library
 import processing.sound.*;
 
+/*
+ * initializing the settings
+ */
 void settings() {
   size(1280, 720);
 }
@@ -39,8 +43,11 @@ Coin[] coins = new Coin[nCoins];
 
 SoundFile coinSound, buttonSound, finishSound;
 
+/*
+ * Method to execute code before the game starts
+ */
 void setup() {
-
+  //decalring all images and sounds
   wallTile = loadImage("data/tiles/WallTile.png");
   grassTile = loadImage("data/tiles/GrassTile.png");
   walkTile = loadImage("data/tiles/WalkTile.png"); 
@@ -51,27 +58,33 @@ void setup() {
   finishTile = loadImage("data/tiles/FinishTile.png");
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
-  
+
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
   finishSound = new SoundFile(this, "data/sounds/finish.wav");
 
-
-    for (int i = 0; i < nCoins; i++) { //loop voor coins
-
+  //looping thru all the coins
+  for (int i = 0; i < nCoins; i++) {
     coins[i] = new Coin();
   }
 
 
-  s = "";          // om te kijken welke code bij de WASD keys hoort
+  //variable to look what code belongs to the WASD keys
+  s = "";
+
+  //updateing the map with the tutorial level
   updateMap("levels/level0.png", "levels/level0overlay.png");    
-  //looping thru all the tiles.
+
+  //setting the moving directions of the player
   left = false;
   right = false;
   up = false;
   down = false;
 }
 
+/*
+ * Method where processing actually draws to the screen
+ */
 void draw() {
 
   //drawing all the tiles
@@ -83,44 +96,59 @@ void draw() {
     }
   }
 
+  //looping thru all the coins and draw them
   for (int i = 0; i < nCoins; i++) { // tekent de coins
     coins[i].display();
   }
 
+  //updating and drawing the player
   p.update();
   p.display();
 
+  //displaying debug text(pressed keys)
   fill(0);
   textSize(24);
   text(s, 100, 50);
 
+  //drawing the moving enemy if enabled
   if (enemymove.isEnabled) {
     enemymove.draw();
   }
   //enemymove2.draw();
+
+  //drawing the static enemy
   enemystatic.draw();
 
+  //checking all the collisions
   collisionmanager.CheckCollisionToWall();
   collisionmanager.CheckCollisionToEnemy();
-  // collisionmanager.CheckCollisionToEnemy2();
   collisionmanager.CheckCollisionToFinish();
-  //collisionmanager.EnemyToWall(enemymove);
-  //collisionmanager.EnemyToWall(enemymove2);
 }
 
+/*
+ * Method to update the displayed map
+ * @params String mapImage
+ * @params String mapOverlayImage
+ * @return void
+ */
 void updateMap(String mapImage, String mapOverlayImage) {
 
+  //looping thru all the coins and disable them
   for (int j =0; j <nCoins; j++) {
     coins[j].isEnabled = false;
   }
 
   coinCounter = 0;
+
+  //loading in the map image and overlay
   map = loadImage(mapImage);
   mapOverlay = loadImage(mapOverlayImage);
 
+  //drawing the map image and overlay
   image(map, 0, 0);
   image(mapOverlay, 0, 18);
-  //println(hex(get(13, 12)));
+
+  //looping thru all the tiles of the map and overlay
   for (int x = 0; x < cols; x++) {
 
     for (int y = 0; y < rows; y++) {
@@ -168,9 +196,16 @@ void updateMap(String mapImage, String mapOverlayImage) {
         tileType = "background"; 
         tileImage = grassTile;
       }
+      //geting the tile color
       tileColor = get(x, y + 18);
+
+      //create new tile
       Tile newTile = new Tile(w * x, h * y, w, h, tileType, hex(tileColor), tileImage);
+
+      //put the tile in the array
       tiles[x][y] = newTile;
+
+      //check if tile is walkable
       if (tiles[x][y].type == "walkable" || tiles[x][y].type == "enemywalkable") {
         switch(hex(tileColor)) {
         case "FFFFD800" :
@@ -189,7 +224,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 
           break;
         case "FF00FF21":
-
+          //respawning the player
           p.place(x*w + 0.5*w, y*h + 0.5*h);
           break;
         }
@@ -198,8 +233,11 @@ void updateMap(String mapImage, String mapOverlayImage) {
   }
 }
 
+/*
+ * method to check if a key is pressed on the keyboard
+ */
 void keyPressed() {
-  // println(keyCode);
+  //dev code to load in a new map
   if (keyCode == 32) {
     updateMap("data/levels/level1.png", "data/levels/level1overlay.png");
     enemystatic.isEnabled = false;//disable static enemy for level 2
@@ -209,23 +247,34 @@ void keyPressed() {
     collisionmanager.isEnabled2 = true;
   }
 
+  //setting the debug text to the pressed key
   s = "key: " + keyCode;
 
-  if (keyCode == 65)        // naar links bewegen
+  //checking if the player wants to move to the left
+  if (keyCode == 65)
   {
     left = true;
-  } else if (keyCode == 68) // naar rechts bewegen
+  }
+  //checking if the player wants to move to the right
+  else if (keyCode == 68)
   {
     right = true;
-  } else if (keyCode == 87) // naar boven bewegen
+  }
+  //checking if the player wants to move upwards
+  else if (keyCode == 87)
   {
     up = true;
-  } else if (keyCode == 83) // naar benden bewegen
+  } 
+    //checking if the player wants to move downwards
+  else if (keyCode == 83)
   {
     down = true;
   }
 }
 
+/*
+ * method to check if a key is released on the keyboard
+ */
 void keyReleased()
 {
   if (keyCode == 65)        // naar links bewegen

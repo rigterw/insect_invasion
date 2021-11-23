@@ -1,18 +1,26 @@
 class MainEnemy {
-  int circleX, circleY, xspeed, yspeed, diameter, level;
-  boolean isEnabled = true;
-  
+  int circleX; //Enemy x maybe change to enemyX? 
+  int circleY; //Enemy Y maybe change to enemyY?
+  int xspeed; //Enemy x speed
+  int yspeed; // Enemy y speed
+  int diameter; // Enemy's diameter
+  int level; // Current level
+  boolean isEnabled = true; //Boolean to disable the enemy
+
+  /*
+   * Constructor for the MainEnemy class
+   */
   MainEnemy() {
     xspeed = 0;//starting speed in x direction
     yspeed = 0;//starting speed in y direction
     circleX = 0; //start position x enemy
     circleY = 0; //start position y enemy
-    diameter = 32;
-    level = 1;
-   
+    diameter = 32; //setting the diameter
+    level = 1; // setting the level
   }
 
 
+  //creator comment this please
   Tile TileEnemy(int xVerschuiving, int yVerschuiving) {
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -28,16 +36,16 @@ class MainEnemy {
     return null;
   }
 
+  /*
+   * Method to draw the enemy
+   * @return void
+   */
   void draw() {
+    //checking if the enemy is enabled
     if (isEnabled == true) {
-      //noStroke(); //enemy vision circle
-      //fill(0);
-      ////noFill();
-      //ellipse(circleX, circleY, 120, 120);
-
+      //drawing the enemy
       fill(255, 0, 0); //enemy
-      //ellipse(circleX, circleY, diameter, diameter);
-          image(enemy, circleX - (diameter / 2), circleY - (diameter / 2), diameter, diameter);
+      image(enemy, circleX - (diameter / 2), circleY - (diameter / 2), diameter, diameter);
     }
   }
 }

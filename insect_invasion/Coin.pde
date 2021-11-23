@@ -1,12 +1,15 @@
 class Coin {
   float x, y; //Coin x en y position
   float w, h; //Coin width en height 
-  float coinRadius; //Radius van de coin voor collision
-  boolean isEnabled; //Boolean voor het aan en uitzetten van de coin.
-  color coinColor; //Kleur van de coin
-  color coinStroke; //Omlijning van de coin
+  float coinRadius; //Radius for the coin collision
+  boolean isEnabled; //Boolean for enabling and disabling the coin
+  color coinColor; //The color of the coin
+  color coinStroke; //The outlining of the coin
 
-Coin() { 
+  /*
+   * No argument constructor for the Coin class
+   */
+  Coin() { 
     w = 18;
     h = 20; 
     coinRadius = w/2;
@@ -15,35 +18,66 @@ Coin() {
     coinStroke = color(250, 230, 0);
   }
 
-  void place(float xPos, float yPos) { //Plaats de coin op een tile
-   x = xPos;
-   y = yPos;
-   isEnabled = true;
+  /*
+   * Method to place the Coin on the tile
+   * @params float xPos
+   * @params float yPos
+   * @return void
+   */
+  void place(float xPos, float yPos) {
+    x = xPos;
+    y = yPos;
+    isEnabled = true;
   }
 
-  void display() { //Show de coin
+  /*
+   * Method to display the Coin
+   * @return void
+   */
+  void display() { 
     if (isEnabled == true) {
+
+      //updating the collision
       update();
+
+      //drawing the coin
       draw();
     }
   }
 
-  void update() { //Checkt en update de collision tussen de coin en speler
+  /*
+   * Method to check and update the collision between coin and player
+   * @return void
+   */
+  void update() {
     if (dist(x, y, p.x, p.y) < p.distance) { 
+      //picking up the coin
       pickUp();
     }
   }
 
-  void draw() { //Tekent de coin in de scene
+  /*
+   * Method to draw the coin
+   */
+  void draw() {
     stroke(coinStroke);
     fill(coinColor);
     ellipse(x, y, w, h);
     stroke(0);
   }
 
-  void pickUp() {    //Functie voor het oppakken van de coin.
+  /*
+   * Method to pickup the coin
+   * @return void
+   */
+  void pickUp() {
+    //updating the score
     p.score +=1;
+
+    //playing the coin pickup sound
     coinSound.play();
-    isEnabled = false; //op false zodat de coin niet meer getekent wordt
+
+    //disabling the coin so it wont be drawn anymore
+    isEnabled = false;
   }
 }
