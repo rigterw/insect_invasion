@@ -17,9 +17,6 @@ class MovingEnemy extends MainEnemy {
     super.draw();//inherits everything inside the draw of all enemy classes
   }
 
-
-
-
   void update() {
     Tile tileStanding = TileEnemy(0, 0);
 

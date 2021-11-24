@@ -9,9 +9,7 @@ class MainEnemy {
     circleY = 0; //start position y enemy
     diameter = 32;
     level = 1;
-   
   }
-
 
   Tile TileEnemy(int xVerschuiving, int yVerschuiving) {
     for (int i = 0; i < cols; i++) {
@@ -41,3 +39,8 @@ class MainEnemy {
     }
   }
 }
+
+
+//Array voor static enemy
+//Array voor moving enemy
+//Class voor enemy vereenvoudigen/kleiner maken 
