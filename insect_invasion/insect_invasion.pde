@@ -243,8 +243,11 @@ void keyPressed() {
     enemystatic.isEnabled = false;//disable static enemy for level 2
     enemymove.isEnabled = false;
     //enemymove2.isEnabled = true;//enable moving enemy for level 2
+<<<<<<< .merge_file_a17816
     collisionmanager.isEnabled = false;
     collisionmanager.isEnabled2 = true;
+=======
+>>>>>>> .merge_file_a17300
   }
 
   //setting the debug text to the pressed key
@@ -265,7 +268,11 @@ void keyPressed() {
   {
     up = true;
   } 
+<<<<<<< .merge_file_a17816
     //checking if the player wants to move downwards
+=======
+  //checking if the player wants to move downwards
+>>>>>>> .merge_file_a17300
   else if (keyCode == 83)
   {
     down = true;
