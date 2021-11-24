@@ -38,14 +38,13 @@ class MovingEnemy extends MainEnemy {
    * @return void
    */
   void update() {
-    //creator comment this please
+    //assigns the tile where the enemy is standing on to a variabele.
     Tile tileStanding = TileEnemy(0, 0);
 
-    //creator comment this please
+    //Checks if the enemy is standing in the middle of a tile.
     if ((direction == "north" && tileStanding.y + 0.5 * tileStanding.h  >= circleY) || (direction == "south" && tileStanding.y + 0.5 * tileStanding.w  <= circleY) ||
       (direction == "west" && tileStanding.x + 0.5 * tileStanding.w >= circleX) || (direction == "east" && tileStanding.x + 0.5 * tileStanding.w <= circleX) ) {
-      //creator comment this please
-      //doet iedere keer wanneer de enemy in het midden van een tile staat een check 
+      //if the enemy is standing on a tile it checks the tiles around him to see which way he has to go.
       pathcheck(tileStanding);
     }
     circleX = circleX + xspeed;
@@ -64,8 +63,8 @@ class MovingEnemy extends MainEnemy {
     Tile rightTile = null;
     Tile backTile = null;
 
-    //creator comment this please
-    switch(direction) {//stelt vast welke tiles er om de enemy heen liggen.
+    //Checks which tiles are around this enemy
+    switch(direction) {
     case "north":
 
       frontTile = TileEnemy(0, -1);
