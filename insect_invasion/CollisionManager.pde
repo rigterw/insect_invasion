@@ -108,7 +108,7 @@ class CollisionManager {
     //checking if the enemy is enabled
     if (isEnabled == true) {
       //checking distance between player and enemy
-      if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) {
+      if (dist(p.x, p.y, enemymove.enemyX, enemymove.enemyY) < p.w / 2 + enemymove.enemyDiameter / 2) {
         //Setting the hit time so the cooldown gets started
         nowHit = millis();
         //checking if the hit is within the cooldown

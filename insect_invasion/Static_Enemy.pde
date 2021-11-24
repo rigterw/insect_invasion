@@ -5,9 +5,9 @@ class StaticEnemy extends MainEnemy {
    * @param Integer circleX
    * @param Integer circleY
    */
-  StaticEnemy(int circleX, int circleY) {
-    this.circleX = circleX;
-    this.circleY = circleY;
+  StaticEnemy(int enemyX, int enemyY) {
+    this.enemyX = enemyX;
+    this.enemyY = enemyY;
   }
 
   /*
@@ -18,14 +18,14 @@ class StaticEnemy extends MainEnemy {
     noStroke(); //enemy vision circle
     fill(0);
     noFill();
-    //drawing the enemy
-    ellipse(circleX, circleY, diameter+138, diameter+248);
+    //draws static enemy vision circle
+    ellipse(enemyX, enemyY, enemyDiameter+138, enemyDiameter+248);
 
-    //creator please comment this
-    if (p.x >= diameter+648 && p.x <= diameter+758 && p.y >= diameter+87 && p.y <= diameter+126) {
-      circleY = 60;
+    //checks if player is within static enemy vision circle
+    if (p.x >= enemyDiameter+648 && p.x <= enemyDiameter+758 && p.y >= enemyDiameter+87 && p.y <= enemyDiameter+126) {
+      enemyY = 60;
     } else {
-      circleY = 20;
+      enemyY = 20;
     }
 
     stroke(2);
