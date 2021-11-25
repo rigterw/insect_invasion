@@ -3,16 +3,9 @@ class CollisionManager {
   boolean isWall; // Boolean to check if the tile is a wall
   String direction = "0"; // String to set the direction
 
-  int nowHit; // creator comment this please
-  int lastHit; // creator comment this please
-  int cooldownTimer = 1000; // 1000ms cooldown on ?? creator comment this please
-  boolean isEnabled = true; // creator comment this please
-
-  int nowHit2; // creator comment this please
-  int lastHit2; // creator comment this please
-  int cooldownTimer2 = 1000; // 1000ms cooldown on ?? creator comment this please
-  boolean isEnabled2 = false; // creator comment this please
-
+  int nowHit; // Time of collision right now
+  int lastHit; // Last time the player and enemy collided
+  int cooldownTimer = 1000; // 1000ms cooldown on collisionchecks between player and enemy
 
   /*
    * Method to check the collision between the player and a wall
@@ -105,20 +98,18 @@ class CollisionManager {
    * @return void
    */
   void CheckCollisionToEnemy() {
-    //checking if the enemy is enabled
-    if (isEnabled == true) {
-      //checking distance between player and enemy
-      if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) {
-        //Setting the hit time so the cooldown gets started
-        nowHit = millis();
-        //checking if the hit is within the cooldown
-        if (nowHit > (lastHit + cooldownTimer)) {
-          println("hit");
-          lastHit = nowHit;
-        }
+    //checking distance between player and enemy
+    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) {
+      //Setting the hit time so the cooldown gets started
+      nowHit = millis();
+      //checking if the hit is within the cooldown
+      if (nowHit > (lastHit + cooldownTimer)) {
+        println("hit");
+        lastHit = nowHit;
       }
     }
   }
+
 
   /*
    * Method to check the collision between player and finish
@@ -138,8 +129,6 @@ class CollisionManager {
           // go to next level
           enemystatic.isEnabled = false;//disable static enemy for level 2
           enemymove.isEnabled = false;
-          isEnabled = false; //disable collision with enemy
-          isEnabled2 = true; //enable collision with enemy2
         }
       }
     }

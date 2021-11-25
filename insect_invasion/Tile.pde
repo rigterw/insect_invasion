@@ -34,8 +34,7 @@ class Tile
  * @return void
  */
   void tileCheck() {
-    //creator comment this please
-    //code voor de deur
+  //Checks if the player is standing on this tile.
     if ( (x + h > p.x && p.x > x) && (y + h > p.y && p.y > y)) {
       //checking if the current tile we are standing on is a button
       if ( type == "button") {
@@ -61,7 +60,7 @@ class Tile
           }
           buttonStandingOn = true;
         }
-      } else if (type == "finish") {//code voor finish + volgend level
+      } else if (type == "finish") {//code for finish + next level
         String map = str(int(random(1, mapcount + 1)));
         
         //playing the finish sound
@@ -89,7 +88,7 @@ class Tile
       //drawing the tile image
       image(walkTile, x, y);
 
-      //creator comment this
+      //Updates the button pressed 
       if (type == "button") {
         if (buttonStandingOn) {
           if (sound == true) {
