@@ -1,17 +1,35 @@
 class CollisionManager {
 
-  boolean isWall;
-  String direction = "0";
+  boolean isWall; // Boolean to check if the tile is a wall
+  String direction = "0"; // String to set the direction
+
+  int nowHit; // creator comment this please
+  int lastHit; // creator comment this please
+  int cooldownTimer = 1000; // 1000ms cooldown on ?? creator comment this please
+  boolean isEnabled = true; // creator comment this please
+
+  int nowHit2; // creator comment this please
+  int lastHit2; // creator comment this please
+  int cooldownTimer2 = 1000; // 1000ms cooldown on ?? creator comment this please
+  boolean isEnabled2 = false; // creator comment this please
 
 
+  /*
+   * Method to check the collision between the player and a wall
+   * @return void
+   */
   void CheckCollisionToWall() {
+    //looping thru all the tiles
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
+        //getting the tile
         tile = tiles[i][j];
 
-        float playerHBX, playerHBY; //spelers randen
+        float playerHBX, playerHBY; //Players borders
         playerHBX = p.x;
         playerHBY = p.y;
+
+        //checking the tiletype
         if (
           tile.type == "walkable" ||
           tile.type == "doorOpen" ||
@@ -19,36 +37,48 @@ class CollisionManager {
           tile.type == "finish" ||
           tile.type == "enemywalkable" ||
           tile.type == "enemyOneWay") {
+
+          //setting the isWall variable
           isWall = false;
         } else {
+
+          //setting the isWall variable
           isWall = true;
         }
 
-
+        //checking if the current tile is a wall
         if (isWall) {
 
-          if (p.x < tile.x) {  // linker kant van de tile
+          //checking the left side of the tile
+          if (p.x < tile.x) {
             playerHBX = tile.x;
             direction = "left";
-          } else if (p.x > tile.x+tile.w) { // rechter kant van de tile
+          } 
+          //checking the right side of the tile
+          else if (p.x > tile.x+tile.w) { 
             playerHBX = tile.x+tile.w;
             direction = "right";
           }
 
-          if (p.y < tile.y) { // boven kant van de tile
+          //checking the top side of the tile
+          if (p.y < tile.y) {
             playerHBY = tile.y;
             direction = "up";
-          } else if (p.y > tile.y+tile.h) { // // onder kant van de tile
+          }
+          //checking the bottom side of the tile
+          else if (p.y > tile.y+tile.h) {
             playerHBY = tile.y+tile.h;
             direction = "down";
           }
 
-          //kijken welke rand het dichtsbijzijnde is
+
+          //checking what side is the closed side
           float distX = p.x-playerHBX;
           float distY = p.y-playerHBY;
           float distance = sqrt(distX*distX) + sqrt(distY*distY);
 
           if (distance <= p.w / 2) {
+            //looping thru the directions and setting the players position
             switch (direction) {
 
             case "left" :
@@ -69,117 +99,49 @@ class CollisionManager {
       }
     }
   }
-  int nowHit;
-  int lastHit;
-  int cooldownTimer = 1000; // Cooldown van 1000 ms
-  boolean isEnabled = true;
+
+  /*
+  * Method to check the collision between player and enemy
+   * @return void
+   */
   void CheckCollisionToEnemy() {
+    //checking if the enemy is enabled
     if (isEnabled == true) {
-      if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) { // Check afstand tussen player en enemy
+      //checking distance between player and enemy
+      if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) {
+        //Setting the hit time so the cooldown gets started
         nowHit = millis();
+        //checking if the hit is within the cooldown
         if (nowHit > (lastHit + cooldownTimer)) {
-            println("hit");
-            lastHit = nowHit;
-          //}
+          println("hit");
+          lastHit = nowHit;
         }
       }
     }
   }
-  int nowHit2;
-  int lastHit2;
-  int cooldownTimer2 = 1000; // Cooldown van 1000 ms
-  boolean isEnabled2 = false;
-  /* void CheckCollisionToEnemy2() {
-   if (isEnabled2 == true) {
-   if (dist(p.x, p.y, enemymove2.circleX, enemymove2.circleY) < p.w / 2 + enemymove2.diameter / 2) { // Check afstand tussen player en enemy2
-   nowHit2 = millis();
-   if (nowHit2 > (lastHit2 + cooldownTimer2)) {
-   if (healthbar.health > 0) { // Als je meer als 0 hp hebt verlies je 1 hp
-   //println("hit");
-   healthbar.health -= 1;
-   lastHit2 = nowHit2;
-   }
-   }
-   }
-   }
-   }
+
+  /*
+   * Method to check the collision between player and finish
+   * @return void
    */
   void CheckCollisionToFinish() {
+    //looping thru the tiles
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
+        //seting the current tile
         tile = tiles[i][j];
 
+        //check if the tile type is finish
         if (tile.type == "finish" && 
           (tile.x + tile.h > p.x && p.x > tile.x) && 
           (tile.y + tile.h > p.y && p.y > tile.y)) {
           // go to next level
           enemystatic.isEnabled = false;//disable static enemy for level 2
           enemymove.isEnabled = false;
-          //    enemymove2.isEnabled = true;//enable moving enemy for level 2
           isEnabled = false; //disable collision with enemy
           isEnabled2 = true; //enable collision with enemy2
         }
       }
     }
   }
-
-  /* void EnemyToWall(MainEnemy enemy) {
-   for (int i = 0; i < cols; i++) {
-   for (int j = 0; j < rows; j++) {
-   tile = tiles[i][j];
-   
-   float enemyHBX, enemyHBY; //spelers randen
-   enemyHBX = enemy.circleX;
-   enemyHBY = enemy.circleY;
-   
-   
-   if (tile.type == "door") {
-   
-   if (enemy.circleX < tile.x) {  // linker kant van de tile
-   enemyHBX = tile.x;
-   direction = "left";
-   } else if (enemy.circleX > tile.x+tile.w) { // rechter kant van de tile
-   enemyHBX = tile.x+tile.w;
-   direction = "right";
-   }
-   
-   if (enemy.circleY < tile.y) { // boven kant van de tile
-   enemyHBY = tile.y;
-   direction = "up";
-   } else if (enemy.circleY > tile.y+tile.h) { // // onder kant van de tile
-   enemyHBY = tile.y+tile.h;
-   direction = "down";
-   }
-   
-   //kijken welke rand het dichtsbijzijnde is
-   float distX = enemy.circleX-enemyHBX;
-   float distY = enemy.circleY-enemyHBY;
-   float distance = sqrt(distX*distX) + sqrt(distY*distY);
-   
-   if (distance <= 32 / 2) {
-   switch (direction) {
-   
-   case "left" :
-   enemy.circleX = enemy.circleX - 6;
-   enemy.yspeed =  -3;
-   enemy.xspeed = 0;
-   break;
-   case "right" :
-   enemy.yspeed = +3;
-   enemy.xspeed = 0;
-   break;
-   case "up":
-   enemy.yspeed = - enemy.yspeed;
-   break;
-   case "down":
-   enemy.xspeed = 3;
-   enemy.circleY = enemy.circleY + 6;
-   enemy.yspeed = 0;
-   break;
-   }
-   }
-   }
-   }
-   }
-   }*/
 }
