@@ -72,6 +72,9 @@ class Tile
 
         buttonStandingOn = false;
       }
+      else if(type == "windtile"){
+      p.speedY = 10;
+      }
     } else { 
       buttonStandingOn = false;
     }

@@ -29,7 +29,8 @@ class CollisionManager {
           tile.type == "button" ||
           tile.type == "finish" ||
           tile.type == "enemywalkable" ||
-          tile.type == "enemyOneWay") {
+          tile.type == "enemyOneWay" ||
+          tile.type == "windtile") {
 
           //setting the isWall variable
           isWall = false;
@@ -65,10 +66,11 @@ class CollisionManager {
           }
 
 
-          //checking what side is the closed side
+          //checking what side is the closest side
           float distX = p.x-playerHBX;
           float distY = p.y-playerHBY;
           float distance = sqrt(distX*distX) + sqrt(distY*distY);
+
 
           if (distance <= p.w / 2) {
             //looping thru the directions and setting the players position

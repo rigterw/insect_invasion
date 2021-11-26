@@ -23,9 +23,9 @@ int h = 40;
 int coinCounter = 0;
 int nCoins = 75;
 
-int mapcount = 1;
+int mapcount = 4;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, Player, enemy;
+PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile,windTile, mapOverlay, Player, enemy;
 
 color tileColor;
 
@@ -56,6 +56,7 @@ void setup() {
   buttonPressed = loadImage("data/tiles/ButtonPressed.png");
   doorOpenTile = loadImage("data/tiles/DoorOpenTile.png");
   finishTile = loadImage("data/tiles/FinishTile.png");
+  windTile = loadImage("data/tiles/WindTile.png");
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
 
@@ -155,6 +156,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
 
       tileColor = get(x, y);
 
+      if (x == 23 && y == 6)
+      {
+        println(hex(tileColor));
+      }
       switch(hex(tileColor)) {
       case "FFCE7C38" :
         tileType = "walkable";
@@ -191,6 +196,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
       case "FFFF3819" :
         tileType = "enemyOneWay";
         tileImage = walkTile;
+        break;
+        case "FF808080":
+        tileType = "windtile";
+        tileImage = windTile;
         break;
       default:
         tileType = "background"; 
@@ -239,7 +248,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
 void keyPressed() {
   //dev code to load in a new map
   if (keyCode == 32) {
-    updateMap("data/levels/level1.png", "data/levels/level1overlay.png");
+    updateMap("data/levels/level3.png", "data/levels/level3overlay.png");
     enemystatic.isEnabled = false;//disable static enemy for level 2
     enemymove.isEnabled = false;
     //enemymove2.isEnabled = true;//enable moving enemy for level 2
