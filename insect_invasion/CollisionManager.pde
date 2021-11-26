@@ -65,6 +65,7 @@ class CollisionManager {
             playerHBY = tile.y+tile.h;
             direction = "south";
           }
+          //translates the direction of one way to the side that won't have colission
           String openSide = null;
           if (tile.type == "oneWay") {
             switch(tile.direction) {
@@ -82,14 +83,13 @@ class CollisionManager {
               break;
             }
           }
-          if (i == 9 && j == 4) {
-            println(direction);
-            println( tile.type == "oneWay" && openSide == direction);
-          }
+
           //checking what side is the closest side
           float distX = p.x-playerHBX;
           float distY = p.y-playerHBY;
           float distance = sqrt(distX*distX) + sqrt(distY*distY);
+          
+          //checks if the tile is a one way tile and if so if the player is at the open side.
           if (tile.type == "oneWay" && direction == openSide) {
           } else if (distance <= p.w / 2) {
             //looping thru the directions and setting the players position
