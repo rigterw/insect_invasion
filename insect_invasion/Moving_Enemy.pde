@@ -33,6 +33,7 @@ class MovingEnemy extends MainEnemy {
     update();
 
     //inherits everything inside the draw of all enemy classes
+
     super.draw();
   }
 
@@ -97,7 +98,8 @@ class MovingEnemy extends MainEnemy {
       backTile = TileEnemy(1, 0);
       break;
     }
-    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") || frontTile.type.equals("enemyOneWay")) == false) {
+    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") 
+    || frontTile.type.equals("enemyOneWay")||(frontTile.type.equals("oneWay")&&frontTile.direction.equals(direction))) == false) {
       circleX = int(tileStanding.x + 0.5*tileStanding.w);
       circleY = int(tileStanding.y + 0.5*tileStanding.w);
       if ((rightTile.type.equals("enemywalkable") && !leftTile.type.equals("doorOpen")) || rightTile.type.equals("doorOpen")) {

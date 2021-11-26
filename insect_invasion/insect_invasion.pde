@@ -29,7 +29,7 @@ int staticEnemyCounter;
 
 int mapcount = 1;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, Player, enemy;
+PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, Player, enemy;
 
 color tileColor;
 
@@ -57,6 +57,7 @@ void setup() {
   wallTile = loadImage("data/tiles/WallTile.png");
   grassTile = loadImage("data/tiles/GrassTile.png");
   walkTile = loadImage("data/tiles/WalkTile.png"); 
+  oneWayTile = loadImage("data/tiles/OneWayTile.png");
   doorTile = loadImage("data/tiles/DoorTile.png");
   buttonTile = loadImage("data/tiles/ButtonTile.png"); 
   buttonPressed = loadImage("data/tiles/ButtonPressed.png");
@@ -64,6 +65,7 @@ void setup() {
   finishTile = loadImage("data/tiles/FinishTile.png");
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
+
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
@@ -186,7 +188,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
   //drawing the map image and overlay
   image(map, 0, 0);
   image(mapOverlay, 0, 18);
-
+  println(hex(get(9, 4)));
   //looping thru all the tiles of the map and overlay
   for (int x = 0; x < cols; x++) {
 
@@ -230,6 +232,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
       case "FFFF3819" :
         tileType = "enemyOneWay";
         tileImage = walkTile;
+        break;
+      case "FF404040":
+        tileType = "oneWay";
+        tileImage = oneWayTile;
         break;
       default:
         tileType = "background"; 
