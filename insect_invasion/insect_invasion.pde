@@ -25,7 +25,7 @@ int nCoins = 75;
 
 int mapcount = 4;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile,windTile, mapOverlay, Player, enemy;
+PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile,windTile, mapOverlay, Player, enemy;
 
 color tileColor;
 
@@ -51,6 +51,7 @@ void setup() {
   wallTile = loadImage("data/tiles/WallTile.png");
   grassTile = loadImage("data/tiles/GrassTile.png");
   walkTile = loadImage("data/tiles/WalkTile.png"); 
+  oneWayTile = loadImage("data/tiles/OneWayTile.png");
   doorTile = loadImage("data/tiles/DoorTile.png");
   buttonTile = loadImage("data/tiles/ButtonTile.png"); 
   buttonPressed = loadImage("data/tiles/ButtonPressed.png");
@@ -59,6 +60,7 @@ void setup() {
   windTile = loadImage("data/tiles/WindTile.png");
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
+
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
@@ -196,6 +198,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
       case "FFFF3819" :
         tileType = "enemyOneWay";
         tileImage = walkTile;
+        break;
+      case "FF404040":
+        tileType = "oneWay";
+        tileImage = oneWayTile;
         break;
         case "FF808080":
         tileType = "windtile";

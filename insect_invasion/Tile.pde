@@ -5,6 +5,7 @@ class Tile
   float w, h; //Tile width and height
   String type; //Tile type
   String colour; //Tile colour
+  String direction;
   PImage tile; // Tile image
   Boolean buttonStandingOn = false; // Boolean to see if player is standing on a button
   Boolean sound = true;// Boolean to toggle playing a sound
@@ -17,8 +18,7 @@ class Tile
    * @param String colour
    * @param PImage tile
    */
-  Tile(float x, float y, float w, float h, String type, String colour, PImage tile) 
-  {
+  Tile(float x, float y, float w, float h, String type, String colour, PImage tile) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -26,15 +26,35 @@ class Tile
     this.type = type;
     this.colour = colour;
     this.tile = tile;
+    
+    //for the one way tiles, translates the color code to direction.
+    if (type == "oneWay") {
+      switch(colour) {
+
+      case "FFFF0000": 
+        direction = "north";
+        break;
+      case "FF00FF21": 
+        direction = "east";
+        break;        
+      case "FF0026FF": 
+        direction = "south";
+        break;        
+      case "FFFFFFFF": 
+        direction= "west";
+        break;
+      }
+    }
   }
 
 
- /*
+  /*
  * Method to check the tiles
- * @return void
- */
+   * @return void
+   */
   void tileCheck() {
-  //Checks if the player is standing on this tile.
+    
+    //Checks if the player is standing on this tile.
     if ( (x + h > p.x && p.x > x) && (y + h > p.y && p.y > y)) {
       //checking if the current tile we are standing on is a button
       if ( type == "button") {
@@ -44,7 +64,7 @@ class Tile
           for (int xTile = 0; xTile < cols; xTile++) {
 
             for (int yTile = 0; yTile < rows; yTile++) { 
-              
+
               if (tiles[xTile][yTile].colour.equals(colour)) {  
 
                 if (tiles[xTile][yTile].type == "door" ) {
@@ -62,10 +82,10 @@ class Tile
         }
       } else if (type == "finish") {//code for finish + next level
         String map = str(int(random(1, mapcount + 1)));
-        
+
         //playing the finish sound
         finishSound.play();
-        
+
         //updating the map to the next level
         updateMap("data/levels/level" + map + ".png", "data/levels/level" + map + "overlay.png") ;
 
@@ -79,7 +99,7 @@ class Tile
       buttonStandingOn = false;
     }
   }
-  
+
   /*
    * Method to draw the tiles
    * @return void
@@ -106,9 +126,36 @@ class Tile
       }
 
       tint(unhex(colour));
-    } else {
+      image(tile, x, y);
+    } 
+    //for the oneWay tiles, it rotates the images to the right side.
+   /* else if (type == "oneWay") {
+      float rotation = 0;
+      float rotX = x;
+      float rotY = y;
+      switch(direction) {
+
+      case "east": 
+        rotation = 0.5*PI;
+        rotX += w;
+ 
+        break;        
+      case "south": 
+        rotation = PI;
+        rotX += w;
+        rotY += h;
+        break;        
+      case "west": 
+        rotation = 1.5*PI;
+        rotY += h;
+        break;
+      }
+      rotate(rotation);
+      image(tile, rotX, rotY);
+      rotate(-rotation);
+    }*/ else {
       noTint();
+      image(tile, x, y);
     }
-    image(tile, x, y);
   }
 }
