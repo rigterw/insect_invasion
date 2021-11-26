@@ -22,6 +22,10 @@ int w = 40;
 int h = 40;
 int coinCounter = 0;
 int nCoins = 75;
+int mEnemys = 50; //Amount of moving enemys for in the array
+int sEnemys = 50; //Amount of static enemys for in the array
+int movingEnemyCounter;
+int staticEnemyCounter;
 
 int mapcount = 1;
 
@@ -33,13 +37,15 @@ String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
 
-MovingEnemy enemymove = new MovingEnemy(0, -1, 339, 300, true, 1);
+//MovingEnemy enemymove = new MovingEnemy(0, -1, 339, 300, true, 1);
 //MovingEnemy enemymove2 = new MovingEnemy(3, 0, 340, 380, false, 2);
-StaticEnemy enemystatic = new StaticEnemy(739, 20);
+StaticEnemy enemystatic = new StaticEnemy();
 
 CollisionManager collisionmanager = new CollisionManager();
 
 Coin[] coins = new Coin[nCoins];
+MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
+StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 
 SoundFile coinSound, buttonSound, finishSound;
 
@@ -68,6 +74,15 @@ void setup() {
     coins[i] = new Coin();
   }
 
+  //StaticEnemys array vullen
+  for (int i = 0; i < sEnemys; i++) {
+    staticEnemys[i] = new StaticEnemy();
+  }
+
+  //MovingEnemys array vullen
+  for (int i = 0; i <mEnemys; i++) {
+    movingEnemys[i] = new MovingEnemy(3, 3);
+  }
 
   //variable to look what code belongs to the WASD keys
   s = "";
@@ -101,6 +116,15 @@ void draw() {
     coins[i].display();
   }
 
+  //Display the StaticEnemys from the array.
+  for (int i = 0; i < sEnemys; i++) {
+    staticEnemys[i].display();
+  }
+  //Display the MovingEnems from the array
+  for (int i = 0; i < mEnemys; i++) {
+    movingEnemys[i].display();
+  }
+
   //updating and drawing the player
   p.update();
   p.display();
@@ -111,17 +135,19 @@ void draw() {
   text(s, 100, 50);
 
   //drawing the moving enemy if enabled
-  if (enemymove.isEnabled) {
-    enemymove.draw();
-  }
-  //enemymove2.draw();
+  //if (enemymove.isEnabled) {
+  //  enemymove.draw();
+  //}
+  ////enemymove2.draw();
 
-  //drawing the static enemy
-  enemystatic.draw();
+  ////drawing the static enemy
+  //enemystatic.draw();
 
   //checking all the collisions
   collisionmanager.CheckCollisionToWall();
-  collisionmanager.CheckCollisionToEnemy();
+  for (int i = 0; i < mEnemys; i++) {
+    collisionmanager.CheckCollisionToEnemy(i);
+  }
   collisionmanager.CheckCollisionToFinish();
 }
 
@@ -137,8 +163,21 @@ void updateMap(String mapImage, String mapOverlayImage) {
   for (int j =0; j <nCoins; j++) {
     coins[j].isEnabled = false;
   }
-
+  
+  
+  //Disable the moving enemys
+  for (int i = 0; i < mEnemys; i++) {
+   movingEnemys[i].isEnabled = false; 
+  }
+  
+  //Disable the static enemys
+  for (int i = 0; i < sEnemys; i++) {
+   staticEnemys[i].isEnabled = false; 
+  }
+  
   coinCounter = 0;
+  movingEnemyCounter = 0;
+  staticEnemyCounter = 0;
 
   //loading in the map image and overlay
   map = loadImage(mapImage);
@@ -217,11 +256,15 @@ void updateMap(String mapImage, String mapOverlayImage) {
 
         case "FFFF0000" :
           //moving enemy aanroepen
+          movingEnemys[movingEnemyCounter].placeMovingEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
+          movingEnemyCounter++;
 
           break;
         case "FFFF6A00" :
           //stationair enemy
-
+          staticEnemys[staticEnemyCounter].placeStaticEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
+          staticEnemyCounter++;
+          
           break;
         case "FF00FF21":
           //respawning the player
@@ -240,8 +283,8 @@ void keyPressed() {
   //dev code to load in a new map
   if (keyCode == 32) {
     updateMap("data/levels/level1.png", "data/levels/level1overlay.png");
-    enemystatic.isEnabled = false;//disable static enemy for level 2
-    enemymove.isEnabled = false;
+    //enemystatic.isEnabled = false;//disable static enemy for level 2
+    //enemymove.isEnabled = false;
     //enemymove2.isEnabled = true;//enable moving enemy for level 2
   }
 

@@ -12,14 +12,17 @@ class MovingEnemy extends MainEnemy {
    * @param Boolean isEnabled
    * @param Integer level
    */
-  MovingEnemy(int xspeed, int yspeed, int circleX, int circleY, boolean isEnabled, int level) {
-    this.xspeed = xspeed;
-    this.yspeed = yspeed;
-    this.circleX = circleX;
-    this.circleY = circleY;
-    this.isEnabled = isEnabled;
-    this.level = level;
+  MovingEnemy(int xspeed_, int yspeed_) {
+    this.xspeed = xspeed_;
+    this.yspeed = yspeed_;
   }
+  
+  void placeMovingEnemy(float xPos_, float yPos_){
+    circleX = xPos_;
+    circleY = yPos_;
+    isEnabled = true;
+  }
+  
 
   /*
    * Method to draw the moving enemy

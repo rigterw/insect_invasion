@@ -5,9 +5,16 @@ class StaticEnemy extends MainEnemy {
    * @param Integer circleX
    * @param Integer circleY
    */
-  StaticEnemy(int circleX, int circleY) {
-    this.circleX = circleX;
-    this.circleY = circleY;
+  //StaticEnemy(int circleX_, int circleY_) {
+  //  this.circleX = circleX_;
+  //  this.circleY = circleY_;
+  //}
+  
+  
+  void placeStaticEnemy(float xPos_, float yPos_){
+    circleX = xPos_;
+    circleY = yPos_;
+    isEnabled = true;
   }
 
   /*

@@ -97,15 +97,17 @@ class CollisionManager {
   * Method to check the collision between player and enemy
    * @return void
    */
-  void CheckCollisionToEnemy() {
-    //checking distance between player and enemy
-    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) {
-      //Setting the hit time so the cooldown gets started
-      nowHit = millis();
-      //checking if the hit is within the cooldown
-      if (nowHit > (lastHit + cooldownTimer)) {
-        println("hit");
-        lastHit = nowHit;
+  void CheckCollisionToEnemy(int enemy_id) {
+    if (movingEnemys[enemy_id].isEnabled == true) {
+      //checking distance between player and enemy
+      if (dist(p.x, p.y, movingEnemys[enemy_id].circleX, movingEnemys[enemy_id].circleY) < p.w / 2 + movingEnemys[enemy_id].diameter / 2) {
+        //Setting the hit time so the cooldown gets started
+        nowHit = millis();
+        //checking if the hit is within the cooldown
+        if (nowHit > (lastHit + cooldownTimer)) {
+          println("hit");
+          lastHit = nowHit;
+        }
       }
     }
   }
@@ -128,7 +130,7 @@ class CollisionManager {
           (tile.y + tile.h > p.y && p.y > tile.y)) {
           // go to next level
           enemystatic.isEnabled = false;//disable static enemy for level 2
-          enemymove.isEnabled = false;
+          // enemymove.isEnabled = false;
         }
       }
     }

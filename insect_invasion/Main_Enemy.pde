@@ -1,11 +1,11 @@
 class MainEnemy {
-  int circleX; //Enemy x maybe change to enemyX? 
-  int circleY; //Enemy Y maybe change to enemyY?
+  float circleX; //Enemy x maybe change to enemyX? 
+  float circleY; //Enemy Y maybe change to enemyY?
   int xspeed; //Enemy x speed
   int yspeed; // Enemy y speed
   int diameter; // Enemy's diameter
   int level; // Current level
-  boolean isEnabled = true; //Boolean to disable the enemy
+  boolean isEnabled = false; //Boolean to disable the enemy
 
   /*
    * Constructor for the MainEnemy class
@@ -13,10 +13,11 @@ class MainEnemy {
   MainEnemy() {
     xspeed = 0;//starting speed in x direction
     yspeed = 0;//starting speed in y direction
-    circleX = 0; //start position x enemy
-    circleY = 0; //start position y enemy
+    circleX = 100; //start position x enemy
+    circleY = 100; //start position y enemy
     diameter = 32; //setting the diameter
     level = 1; // setting the level
+    
   }
 
 
@@ -36,16 +37,25 @@ class MainEnemy {
     return null;
   }
 
+  void display(){
+    if (isEnabled == true) { 
+     update(); 
+     draw();
+    }
+  }
+
+  void update() {
+   //Collision with player. 
+  }
+  
   /*
    * Method to draw the enemy
    * @return void
    */
   void draw() {
-    //checking if the enemy is enabled
-    if (isEnabled == true) {
       //drawing the enemy
       fill(255, 0, 0); //enemy
       image(enemy, circleX - (diameter / 2), circleY - (diameter / 2), diameter, diameter);
-    }
+    
   }
 }
