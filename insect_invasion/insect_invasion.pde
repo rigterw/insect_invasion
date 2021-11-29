@@ -49,9 +49,12 @@ StaticEnemy enemystatic = new StaticEnemy();
 
 CollisionManager collisionmanager = new CollisionManager();
 
+
 Coin[] coins = new Coin[nCoins];
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
+
+Timer timer = new Timer();
 
 SoundFile coinSound, buttonSound, finishSound, soundTrack;
 
@@ -59,7 +62,7 @@ SoundFile coinSound, buttonSound, finishSound, soundTrack;
  * Method to execute code before the game starts
  */
 void setup() {
-  //decalring all images and sounds
+  //declaring all images and sounds
   wallTile = loadImage("data/tiles/WallTile.png");
   grassTile = loadImage("data/tiles/GrassTile.png");
   walkTile = loadImage("data/tiles/WalkTile.png"); 
@@ -79,6 +82,7 @@ void setup() {
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
   finishSound = new SoundFile(this, "data/sounds/finish.wav");
   soundTrack = new SoundFile(this, "data/sounds/soundtrack.wav");
+
 
   //looping thru all the coins
   for (int i = 0; i < nCoins; i++) {
@@ -153,6 +157,7 @@ void drawMap() {
       tile = tiles[i][j]; 
       tile.tileCheck();
       tile.draw();
+      timer.drawTimer();
     }
   }
 
@@ -334,6 +339,12 @@ void updateMap(String mapImage, String mapOverlayImage) {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
+
+  if (stage == 1) {
+    timer.lastTime = millis();
+  } else if (stage == 2) {
+    timer.lastTime = millis();
+  }
   //changing the stage to launch game from main menu
   //dev code to load in a new map
   if (keyCode == 32) {
@@ -378,6 +389,8 @@ void keyPressed() {
 void keyReleased()
 {
   if (keyCode == 32) {
+    stage = 3;
+  } else {
     stage = 3;
   }
   if (keyCode == 65)        // naar links bewegen
