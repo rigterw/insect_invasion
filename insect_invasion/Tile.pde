@@ -26,7 +26,7 @@ class Tile
     this.type = type;
     this.colour = colour;
     this.tile = tile;
-    
+
     //for the one way tiles, translates the color code to direction.
     if (type == "oneWay") {
       switch(colour) {
@@ -53,7 +53,7 @@ class Tile
    * @return void
    */
   void tileCheck() {
-    
+
     //Checks if the player is standing on this tile.
     if ( (x + h > p.x && p.x > x) && (y + h > p.y && p.y > y)) {
       //checking if the current tile we are standing on is a button
@@ -91,6 +91,9 @@ class Tile
 
 
         buttonStandingOn = false;
+      } else if (type == "windtile") {
+        p.speedY = 10;
+        println("WOOOSH");
       }
     } else { 
       buttonStandingOn = false;
@@ -126,31 +129,31 @@ class Tile
       image(tile, x, y);
     } 
     //for the oneWay tiles, it rotates the images to the right side.
-   /* else if (type == "oneWay") {
-      float rotation = 0;
-      float rotX = x;
-      float rotY = y;
-      switch(direction) {
-
-      case "east": 
-        rotation = 0.5*PI;
-        rotX += w;
- 
-        break;        
-      case "south": 
-        rotation = PI;
-        rotX += w;
-        rotY += h;
-        break;        
-      case "west": 
-        rotation = 1.5*PI;
-        rotY += h;
-        break;
-      }
-      rotate(rotation);
-      image(tile, rotX, rotY);
-      rotate(-rotation);
-    }*/ else {
+    /* else if (type == "oneWay") {
+     float rotation = 0;
+     float rotX = x;
+     float rotY = y;
+     switch(direction) {
+     
+     case "east": 
+     rotation = 0.5*PI;
+     rotX += w;
+     
+     break;        
+     case "south": 
+     rotation = PI;
+     rotX += w;
+     rotY += h;
+     break;        
+     case "west": 
+     rotation = 1.5*PI;
+     rotY += h;
+     break;
+     }
+     rotate(rotation);
+     image(tile, rotX, rotY);
+     rotate(-rotation);
+     }*/    else {
       noTint();
       image(tile, x, y);
     }

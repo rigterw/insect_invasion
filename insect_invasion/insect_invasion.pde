@@ -35,7 +35,7 @@ int stage;
 
 PFont title;
 
-PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, Player, enemy, startScreen;
+PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, windTile, Player, enemy, startScreen;
 
 color tileColor;
 
@@ -69,6 +69,7 @@ void setup() {
   buttonPressed = loadImage("data/tiles/ButtonPressed.png");
   doorOpenTile = loadImage("data/tiles/DoorOpenTile.png");
   finishTile = loadImage("data/tiles/FinishTile.png");
+  windTile = loadImage("data/tiles/Wind.gif");
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
@@ -109,42 +110,38 @@ void setup() {
   //playing and looping the music
   soundTrack.play();
   soundTrack.loop();
-  
+
   //adjusting the volume of the sounds
   soundTrack.amp(0.1);
   buttonSound.amp(0.3);
   finishSound.amp(0.3);
   coinSound.amp(0.3);
-  
+
   //setting the screen for the main menu
   image(startScreen, 0, 0, screenSizeX, screenSizeY);
   stage = 1;
-
-  
 }
 
 /*
  * Method where processing actually draws to the screen
  */
 void draw() {
-  if(stage == 1) {
+  if (stage == 1) {
     textAlign(CENTER);
     textSize(75);
     text("INSECT INVASION", screenSizeX / 2, screenSizeY / 2 - 100);
     textSize(56);
     text("press any key to continue", screenSizeX / 2, screenSizeY / 2 + 100);
-  } else if(stage == 2) {
+  } else if (stage == 2) {
     drawMap();
   }
-  
-
 }
 
 /*
  * Method to draw the map
  */
 void drawMap() {
-//drawing all the tiles
+  //drawing all the tiles
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       tile = tiles[i][j]; 
@@ -277,6 +274,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
         tileType = "oneWay";
         tileImage = oneWayTile;
         break;
+      case "FF808080":
+        tileType = "windtile";
+        tileImage = windTile;
+        break;
       default:
         tileType = "background"; 
         tileImage = grassTile;
@@ -326,19 +327,18 @@ void updateMap(String mapImage, String mapOverlayImage) {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
-  
+
   //changing the stage to launch game from main menu
-  if(stage == 1) {
+  if (stage == 1) {
     stage = 2;
   }
-  
+
   //dev code to load in a new map
   if (keyCode == 32) {
-    updateMap("data/levels/level1.png", "data/levels/level1overlay.png");
+    updateMap("data/levels/level3.png", "data/levels/level3overlay.png");
     //enemystatic.isEnabled = false;//disable static enemy for level 2
     //enemymove.isEnabled = false;
     //enemymove2.isEnabled = true;//enable moving enemy for level 2
-
   }
 
   //setting the debug text to the pressed key
@@ -359,7 +359,6 @@ void keyPressed() {
   {
     up = true;
   } 
-    //checking if the player wants to move downwards
   //checking if the player wants to move downwards
   else if (keyCode == 83)
   {
