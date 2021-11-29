@@ -29,7 +29,13 @@ int staticEnemyCounter;
 
 int mapcount = 1;
 
-PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, Player, enemy;
+int screenSizeX = 1280;
+int screenSizeY = 720;
+int stage;
+
+PFont title;
+
+PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, Player, enemy, startScreen;
 
 color tileColor;
 
@@ -47,7 +53,7 @@ Coin[] coins = new Coin[nCoins];
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 
-SoundFile coinSound, buttonSound, finishSound;
+SoundFile coinSound, buttonSound, finishSound, soundTrack;
 
 /*
  * Method to execute code before the game starts
@@ -65,11 +71,13 @@ void setup() {
   finishTile = loadImage("data/tiles/FinishTile.png");
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
+  startScreen = loadImage("data/images/startScreen.png");
 
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
   finishSound = new SoundFile(this, "data/sounds/finish.wav");
+  soundTrack = new SoundFile(this, "data/sounds/soundtrack.wav");
 
   //looping thru all the coins
   for (int i = 0; i < nCoins; i++) {
@@ -97,14 +105,46 @@ void setup() {
   right = false;
   up = false;
   down = false;
+
+  //playing and looping the music
+  soundTrack.play();
+  soundTrack.loop();
+  
+  //adjusting the volume of the sounds
+  soundTrack.amp(0.1);
+  buttonSound.amp(0.3);
+  finishSound.amp(0.3);
+  coinSound.amp(0.3);
+  
+  //setting the screen for the main menu
+  image(startScreen, 0, 0, screenSizeX, screenSizeY);
+  stage = 1;
+
+  
 }
 
 /*
  * Method where processing actually draws to the screen
  */
 void draw() {
+  if(stage == 1) {
+    textAlign(CENTER);
+    textSize(75);
+    text("INSECT INVASION", screenSizeX / 2, screenSizeY / 2 - 100);
+    textSize(56);
+    text("press any key to continue", screenSizeX / 2, screenSizeY / 2 + 100);
+  } else if(stage == 2) {
+    drawMap();
+  }
+  
 
-  //drawing all the tiles
+}
+
+/*
+ * Method to draw the map
+ */
+void drawMap() {
+//drawing all the tiles
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       tile = tiles[i][j]; 
@@ -165,18 +205,18 @@ void updateMap(String mapImage, String mapOverlayImage) {
   for (int j =0; j <nCoins; j++) {
     coins[j].isEnabled = false;
   }
-  
-  
+
+
   //Disable the moving enemys
   for (int i = 0; i < mEnemys; i++) {
-   movingEnemys[i].isEnabled = false; 
+    movingEnemys[i].isEnabled = false;
   }
-  
+
   //Disable the static enemys
   for (int i = 0; i < sEnemys; i++) {
-   staticEnemys[i].isEnabled = false; 
+    staticEnemys[i].isEnabled = false;
   }
-  
+
   coinCounter = 0;
   movingEnemyCounter = 0;
   staticEnemyCounter = 0;
@@ -270,7 +310,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
           //stationair enemy
           staticEnemys[staticEnemyCounter].placeStaticEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
           staticEnemyCounter++;
-          
+
           break;
         case "FF00FF21":
           //respawning the player
@@ -286,6 +326,12 @@ void updateMap(String mapImage, String mapOverlayImage) {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
+  
+  //changing the stage to launch game from main menu
+  if(stage == 1) {
+    stage = 2;
+  }
+  
   //dev code to load in a new map
   if (keyCode == 32) {
     updateMap("data/levels/level1.png", "data/levels/level1overlay.png");
