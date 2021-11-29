@@ -35,7 +35,7 @@ int stage;
 
 PFont title;
 
-PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, Player, enemy, startScreen;
+PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, windTile, Player, enemy, startScreen;
 
 color tileColor;
 
@@ -72,6 +72,7 @@ void setup() {
   buttonPressed = loadImage("data/tiles/ButtonPressed.png");
   doorOpenTile = loadImage("data/tiles/DoorOpenTile.png");
   finishTile = loadImage("data/tiles/FinishTile.png");
+  windTile = loadImage("data/tiles/WindTile.png");
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
@@ -284,6 +285,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
         tileType = "oneWay";
         tileImage = oneWayTile;
         break;
+      case "FF808080":
+        tileType = "windtile";
+        tileImage = windTile;
+        break;
       default:
         tileType = "background"; 
         tileImage = grassTile;
@@ -351,12 +356,19 @@ void keyPressed() {
     if (stage == 1) {
       stage = 2;
       return;
+    } else {
+      updateMap("levels/level3.png", "levels/level3overlay.png");
     }
+<<<<<<< HEAD
 >>>>>>> 5f82a748433c703b0cdb7cb0289a55c025f76168
     //enemystatic.isEnabled = false;//disable static enemy for level 2
     //enemymove.isEnabled = false;
     //enemymove2.isEnabled = true;//enable moving enemy for level 2
+=======
+>>>>>>> 62a783bd9aba4ccea7cc0635d0490c9bb3ed97b6
   }
+
+  stage = 3;
 
   //setting the debug text to the pressed key
   s = "key: " + keyCode;
@@ -376,7 +388,6 @@ void keyPressed() {
   {
     up = true;
   } 
-  //checking if the player wants to move downwards
   //checking if the player wants to move downwards
   else if (keyCode == 83)
   {

@@ -30,7 +30,8 @@ class CollisionManager {
           tile.type == "button" ||
           tile.type == "finish" ||
           tile.type == "enemywalkable" ||
-          tile.type == "enemyOneWay") {
+          tile.type == "enemyOneWay" ||
+          tile.type == "windtile") {
 
           //setting the isWall variable
           isWall = false;
@@ -87,7 +88,7 @@ class CollisionManager {
           float distX = p.x-playerHBX;
           float distY = p.y-playerHBY;
           float distance = sqrt(distX*distX) + sqrt(distY*distY);
-          
+
           //checks if the tile is a one way tile and if so if the player is at the open side.
           if (tile.type == "oneWay" && direction == openSide) {
           } else if (distance <= p.w / 2) {
