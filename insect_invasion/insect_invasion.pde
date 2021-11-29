@@ -126,13 +126,19 @@ void setup() {
  * Method where processing actually draws to the screen
  */
 void draw() {
+  println(stage);
   if (stage == 1) {
     textAlign(CENTER);
-    textSize(75);
-    text("INSECT INVASION", screenSizeX / 2, screenSizeY / 2 - 100);
     textSize(56);
-    text("press any key to continue", screenSizeX / 2, screenSizeY / 2 + 100);
+    fill(#000000);
+    text("press any key to continue except spatiebalk", screenSizeX / 2, screenSizeY / 2 + 325);
   } else if (stage == 2) {
+    background(#000000);
+    textAlign(CENTER);
+    textSize(73);
+    fill(#FFFFFF);
+    text("WAT ZEIDEN WE NOU", screenSizeX / 2, screenSizeY / 2);
+  } else if (stage == 3) {
     drawMap();
   }
 }
@@ -310,6 +316,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         case "FFFF6A00" :
           //stationair enemy
           staticEnemys[staticEnemyCounter].placeStaticEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
+          println(y * h + 0.5 * h);
           staticEnemyCounter++;
 
           break;
@@ -329,16 +336,20 @@ void updateMap(String mapImage, String mapOverlayImage) {
 void keyPressed() {
 
   //changing the stage to launch game from main menu
-  if (stage == 1) {
-    stage = 2;
-  }
+  //dev code to load in a new map
+  if (keyCode == 32) {
+    if (stage == 1) {
+      stage = 2;
+      return;
+    }
 
   //dev code to load in a new map
   if (keyCode == 32) {
-    updateMap("data/levels/level3.png", "data/levels/level3overlay.png");
+    updateMap("data/levels/level1.png", "data/levels/level1overlay.png");
     //enemystatic.isEnabled = false;//disable static enemy for level 2
     //enemymove.isEnabled = false;
     //enemymove2.isEnabled = true;//enable moving enemy for level 2
+
   }
 
   //setting the debug text to the pressed key
@@ -371,6 +382,9 @@ void keyPressed() {
  */
 void keyReleased()
 {
+  if (keyCode == 32) {
+    stage = 3;
+  }
   if (keyCode == 65)        // naar links bewegen
   {
     left = false;
