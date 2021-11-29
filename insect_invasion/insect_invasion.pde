@@ -334,23 +334,18 @@ void updateMap(String mapImage, String mapOverlayImage) {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
- stage = 3;
   //changing the stage to launch game from main menu
   //dev code to load in a new map
   if (keyCode == 32) {
     if (stage == 1) {
       stage = 2;
       return;
+    } else {
+      updateMap("levels/level1.png", "levels/level1overlay.png");
     }
-
-  //dev code to load in a new map
-  if (keyCode == 32) {
-    updateMap("data/levels/level1.png", "data/levels/level1overlay.png");
-    //enemystatic.isEnabled = false;//disable static enemy for level 2
-    //enemymove.isEnabled = false;
-    //enemymove2.isEnabled = true;//enable moving enemy for level 2
-
   }
+
+  stage = 3;
 
   //setting the debug text to the pressed key
   s = "key: " + keyCode;
