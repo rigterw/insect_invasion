@@ -350,22 +350,12 @@ void keyPressed() {
   //changing the stage to launch game from main menu
   //dev code to load in a new map
   if (keyCode == 32) {
-<<<<<<< HEAD
-    updateMap("data/levels/level2.png", "data/levels/level2overlay.png");
-=======
     if (stage == 1) {
       stage = 2;
       return;
     } else {
       updateMap("levels/level3.png", "levels/level3overlay.png");
     }
-<<<<<<< HEAD
->>>>>>> 5f82a748433c703b0cdb7cb0289a55c025f76168
-    //enemystatic.isEnabled = false;//disable static enemy for level 2
-    //enemymove.isEnabled = false;
-    //enemymove2.isEnabled = true;//enable moving enemy for level 2
-=======
->>>>>>> 62a783bd9aba4ccea7cc0635d0490c9bb3ed97b6
   }
 
   stage = 3;
