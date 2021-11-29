@@ -329,7 +329,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
-
+ stage = 3;
   //changing the stage to launch game from main menu
   //dev code to load in a new map
   if (keyCode == 32) {
