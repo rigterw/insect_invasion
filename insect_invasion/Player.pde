@@ -87,10 +87,11 @@ class Player
   {
     fill(0);
     //displaying the score text
+    textAlign(LEFT);
     text("Score: " + score, 30, 680);
 
     fill(100, 100, 220);
-    
+
     //displaying the player
     image(Player, x - (w / 2), y - (h / 2), w, h);
   }

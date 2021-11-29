@@ -92,8 +92,7 @@ class Tile
 
         buttonStandingOn = false;
       } else if (type == "windtile") {
-        p.speedY = 10;
-        println("WOOOSH");
+        p.y += 10;
       }
     } else { 
       buttonStandingOn = false;
@@ -127,7 +126,7 @@ class Tile
 
       tint(unhex(colour));
       image(tile, x, y);
-    } 
+    }
     //for the oneWay tiles, it rotates the images to the right side.
     /* else if (type == "oneWay") {
      float rotation = 0;
@@ -153,7 +152,8 @@ class Tile
      rotate(rotation);
      image(tile, rotX, rotY);
      rotate(-rotation);
-     }*/    else {
+     }*/
+    else {
       noTint();
       image(tile, x, y);
     }

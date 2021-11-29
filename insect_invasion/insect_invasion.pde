@@ -69,7 +69,7 @@ void setup() {
   buttonPressed = loadImage("data/tiles/ButtonPressed.png");
   doorOpenTile = loadImage("data/tiles/DoorOpenTile.png");
   finishTile = loadImage("data/tiles/FinishTile.png");
-  windTile = loadImage("data/tiles/Wind.gif");
+  windTile = loadImage("data/tiles/WindTile.png");
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
@@ -341,7 +341,7 @@ void keyPressed() {
       stage = 2;
       return;
     } else {
-      updateMap("levels/level1.png", "levels/level1overlay.png");
+      updateMap("levels/level3.png", "levels/level3overlay.png");
     }
   }
 
