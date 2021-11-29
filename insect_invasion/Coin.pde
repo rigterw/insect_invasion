@@ -73,6 +73,8 @@ class Coin {
   void pickUp() {
     //updating the score
     p.score +=1;
+    //adding the time
+    timer.time += timer.extraTime;
 
     //playing the coin pickup sound
     coinSound.play();
