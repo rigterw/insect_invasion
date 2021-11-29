@@ -27,7 +27,7 @@ int sEnemys = 50; //Amount of static enemys for in the array
 int movingEnemyCounter;
 int staticEnemyCounter;
 
-int mapcount = 1;
+int mapcount = 4;
 
 int screenSizeX = 1280;
 int screenSizeY = 720;
@@ -303,6 +303,8 @@ void updateMap(String mapImage, String mapOverlayImage) {
         case "FFFF0000" :
           //moving enemy aanroepen
           movingEnemys[movingEnemyCounter].placeMovingEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
+          movingEnemys[movingEnemyCounter].pathcheck(tiles[x][y]);
+          println(movingEnemys[movingEnemyCounter].direction);
           movingEnemyCounter++;
 
           break;
@@ -334,7 +336,7 @@ void keyPressed() {
   
   //dev code to load in a new map
   if (keyCode == 32) {
-    updateMap("data/levels/level1.png", "data/levels/level1overlay.png");
+    updateMap("data/levels/level2.png", "data/levels/level2overlay.png");
     //enemystatic.isEnabled = false;//disable static enemy for level 2
     //enemymove.isEnabled = false;
     //enemymove2.isEnabled = true;//enable moving enemy for level 2

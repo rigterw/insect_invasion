@@ -36,7 +36,7 @@ class StaticEnemy extends MainEnemy {
         scared = true;
       }
     } else {
-      enemyY = 20;
+      enemyY = enemyY;
       scared = false;
   }
 

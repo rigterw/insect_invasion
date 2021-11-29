@@ -98,11 +98,12 @@ class MovingEnemy extends MainEnemy {
       backTile = TileEnemy(1, 0);
       break;
     }
-    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") 
+    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") || frontTile.type.equals("button") 
     || frontTile.type.equals("enemyOneWay")||(frontTile.type.equals("oneWay")&&frontTile.direction.equals(direction))) == false) {
       enemyX = int(tileStanding.x + 0.5*tileStanding.w);
       enemyY = int(tileStanding.y + 0.5*tileStanding.w);
-      if ((rightTile.type.equals("enemywalkable") && !leftTile.type.equals("doorOpen")) || rightTile.type.equals("doorOpen")) {
+      if (((rightTile.type.equals("enemywalkable") || rightTile.type.equals("button")||
+      (rightTile.type.equals("oneWay")&&rightTile.direction.equals(direction))) && !leftTile.type.equals("doorOpen")) || rightTile.type.equals("doorOpen")) {
 
         switch(direction) {
         case "north":
@@ -129,7 +130,8 @@ class MovingEnemy extends MainEnemy {
           direction = "north";
           break;
         }
-      } else if (leftTile.type.equals("enemywalkable") || leftTile.type.equals("doorOpen")) {
+      } else if (leftTile.type.equals("enemywalkable") || leftTile.type.equals("doorOpen")|| leftTile.type.equals("button")||
+      (leftTile.type.equals("oneWay")&&leftTile.direction.equals(direction))) {
         switch(direction) {
 
         case "south":
