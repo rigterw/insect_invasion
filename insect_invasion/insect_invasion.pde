@@ -309,6 +309,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         case "FFFF6A00" :
           //stationair enemy
           staticEnemys[staticEnemyCounter].placeStaticEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
+          println(y * h + 0.5 * h);
           staticEnemyCounter++;
 
           break;
