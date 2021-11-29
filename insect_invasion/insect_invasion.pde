@@ -49,9 +49,12 @@ StaticEnemy enemystatic = new StaticEnemy();
 
 CollisionManager collisionmanager = new CollisionManager();
 
+
 Coin[] coins = new Coin[nCoins];
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
+
+Timer timer = new Timer();
 
 SoundFile coinSound, buttonSound, finishSound, soundTrack;
 
@@ -59,7 +62,7 @@ SoundFile coinSound, buttonSound, finishSound, soundTrack;
  * Method to execute code before the game starts
  */
 void setup() {
-  //decalring all images and sounds
+  //declaring all images and sounds
   wallTile = loadImage("data/tiles/WallTile.png");
   grassTile = loadImage("data/tiles/GrassTile.png");
   walkTile = loadImage("data/tiles/WalkTile.png"); 
@@ -78,6 +81,7 @@ void setup() {
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
   finishSound = new SoundFile(this, "data/sounds/finish.wav");
   soundTrack = new SoundFile(this, "data/sounds/soundtrack.wav");
+
 
   //looping thru all the coins
   for (int i = 0; i < nCoins; i++) {
@@ -109,47 +113,50 @@ void setup() {
   //playing and looping the music
   soundTrack.play();
   soundTrack.loop();
-  
+
   //adjusting the volume of the sounds
   soundTrack.amp(0.1);
   buttonSound.amp(0.3);
   finishSound.amp(0.3);
   coinSound.amp(0.3);
-  
+
   //setting the screen for the main menu
   image(startScreen, 0, 0, screenSizeX, screenSizeY);
   stage = 1;
-
-  
 }
 
 /*
  * Method where processing actually draws to the screen
  */
 void draw() {
-  if(stage == 1) {
+  println(stage);
+  if (stage == 1) {
     textAlign(CENTER);
-    textSize(75);
-    text("INSECT INVASION", screenSizeX / 2, screenSizeY / 2 - 100);
     textSize(56);
-    text("press any key to continue", screenSizeX / 2, screenSizeY / 2 + 100);
-  } else if(stage == 2) {
+    fill(#000000);
+    text("press any key to continue except spatiebalk", screenSizeX / 2, screenSizeY / 2 + 325);
+  } else if (stage == 2) {
+    background(#000000);
+    textAlign(CENTER);
+    textSize(73);
+    fill(#FFFFFF);
+    text("WAT ZEIDEN WE NOU", screenSizeX / 2, screenSizeY / 2);
+  } else if (stage == 3) {
     drawMap();
   }
-  
-
 }
 
 /*
  * Method to draw the map
  */
 void drawMap() {
-//drawing all the tiles
+  //drawing all the tiles
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       tile = tiles[i][j]; 
       tile.tileCheck();
       tile.draw();
+      timer.drawTimer();
     }
   }
 
@@ -311,6 +318,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         case "FFFF6A00" :
           //stationair enemy
           staticEnemys[staticEnemyCounter].placeStaticEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
+          println(y * h + 0.5 * h);
           staticEnemyCounter++;
 
           break;
@@ -328,19 +336,26 @@ void updateMap(String mapImage, String mapOverlayImage) {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
-  
-  //changing the stage to launch game from main menu
-  if(stage == 1) {
-    stage = 2;
+
+  if (stage == 1) {
+    timer.lastTime = millis();
+  } else if (stage == 2) {
+    timer.lastTime = millis();
   }
-  
+  //changing the stage to launch game from main menu
   //dev code to load in a new map
   if (keyCode == 32) {
+<<<<<<< HEAD
     updateMap("data/levels/level2.png", "data/levels/level2overlay.png");
+=======
+    if (stage == 1) {
+      stage = 2;
+      return;
+    }
+>>>>>>> 5f82a748433c703b0cdb7cb0289a55c025f76168
     //enemystatic.isEnabled = false;//disable static enemy for level 2
     //enemymove.isEnabled = false;
     //enemymove2.isEnabled = true;//enable moving enemy for level 2
-
   }
 
   //setting the debug text to the pressed key
@@ -361,7 +376,7 @@ void keyPressed() {
   {
     up = true;
   } 
-    //checking if the player wants to move downwards
+  //checking if the player wants to move downwards
   //checking if the player wants to move downwards
   else if (keyCode == 83)
   {
@@ -374,6 +389,11 @@ void keyPressed() {
  */
 void keyReleased()
 {
+  if (keyCode == 32) {
+    stage = 3;
+  } else {
+    stage = 3;
+  }
   if (keyCode == 65)        // naar links bewegen
   {
     left = false;

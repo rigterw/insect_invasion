@@ -85,6 +85,7 @@ class Tile
 
         //playing the finish sound
         finishSound.play();
+        timer.time = timer.maxTime;
 
         //updating the map to the next level
         updateMap("data/levels/level" + map + ".png", "data/levels/level" + map + "overlay.png") ;
