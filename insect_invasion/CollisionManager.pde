@@ -120,7 +120,7 @@ class CollisionManager {
   void CheckCollisionToEnemy(int enemy_id) {
     if (movingEnemys[enemy_id].isEnabled == true) {
       //checking distance between player and enemy
-      if (dist(p.x, p.y, movingEnemys[enemy_id].circleX, movingEnemys[enemy_id].circleY) < p.w / 2 + movingEnemys[enemy_id].diameter / 2) {
+      if (dist(p.x, p.y, movingEnemys[enemy_id].enemyX, movingEnemys[enemy_id].enemyY) < p.w / 2 + movingEnemys[enemy_id].enemyDiameter / 2) {
         //Setting the hit time so the cooldown gets started
         nowHit = millis();
         //checking if the hit is within the cooldown

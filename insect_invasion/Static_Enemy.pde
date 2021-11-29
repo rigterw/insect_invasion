@@ -13,8 +13,8 @@ class StaticEnemy extends MainEnemy {
   boolean scared = false;
 
   void placeStaticEnemy(float xPos_, float yPos_) {
-    circleX = xPos_;
-    circleY = yPos_;
+    enemyX = xPos_;
+    enemyY = yPos_;
     isEnabled = true;
   }
 
@@ -26,17 +26,17 @@ class StaticEnemy extends MainEnemy {
     noStroke(); //enemy vision circle
     fill(0);
     noFill();
-    //drawing the enemy
-    ellipse(circleX, circleY, diameter+138, diameter+248);
+    //drawing enemy vision circle
+    ellipse(enemyX, enemyY, enemyDiameter+138, enemyDiameter+248);
 
-    //creator please comment this
-    if (p.x >= diameter+648 && p.x <= diameter+758 && p.y >= diameter+87 && p.y <= diameter+126) {
+    //checks if player is within range of enemy vision circle
+    if (p.x >= enemyDiameter+648 && p.x <= enemyDiameter+758 && p.y >= enemyDiameter+87 && p.y <= enemyDiameter+126) {
       if (scared == false) {
-        circleY = circleY + 40;
+        enemyY = enemyY + 40;
         scared = true;
       }
     } else {
-      circleY = 20;
+      enemyY = 20;
       scared = false;
   }
 
