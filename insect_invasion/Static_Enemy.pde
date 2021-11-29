@@ -9,9 +9,10 @@ class StaticEnemy extends MainEnemy {
   //  this.circleX = circleX_;
   //  this.circleY = circleY_;
   //}
-  
-  
-  void placeStaticEnemy(float xPos_, float yPos_){
+
+  boolean scared = false;
+
+  void placeStaticEnemy(float xPos_, float yPos_) {
     circleX = xPos_;
     circleY = yPos_;
     isEnabled = true;
@@ -30,10 +31,14 @@ class StaticEnemy extends MainEnemy {
 
     //creator please comment this
     if (p.x >= diameter+648 && p.x <= diameter+758 && p.y >= diameter+87 && p.y <= diameter+126) {
-      circleY = 60;
+      if (scared == false) {
+        circleY = circleY + 40;
+        scared = true;
+      }
     } else {
       circleY = 20;
-    }
+      scared = false;
+  }
 
     stroke(2);
     super.draw();//inherits everything inside the draw of all enemy classes
