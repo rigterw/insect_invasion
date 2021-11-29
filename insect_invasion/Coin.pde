@@ -79,5 +79,8 @@ class Coin {
 
     //disabling the coin so it wont be drawn anymore
     isEnabled = false;
+    
+    //Time++ :
+    //
   }
 }

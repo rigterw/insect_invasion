@@ -22,10 +22,20 @@ int w = 40;
 int h = 40;
 int coinCounter = 0;
 int nCoins = 75;
+int mEnemys = 50; //Amount of moving enemys for in the array
+int sEnemys = 50; //Amount of static enemys for in the array
+int movingEnemyCounter;
+int staticEnemyCounter;
 
 int mapcount = 1;
 
-PImage map, walkTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, Player, enemy;
+int screenSizeX = 1280;
+int screenSizeY = 720;
+int stage;
+
+PFont title;
+
+PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, Player, enemy, startScreen;
 
 color tileColor;
 
@@ -33,15 +43,17 @@ String tileType;
 
 Tile[][] tiles = new Tile[cols][rows];
 
-MovingEnemy enemymove = new MovingEnemy(0, -1, 339, 300, true, 1);
+//MovingEnemy enemymove = new MovingEnemy(0, -1, 339, 300, true, 1);
 //MovingEnemy enemymove2 = new MovingEnemy(3, 0, 340, 380, false, 2);
-StaticEnemy enemystatic = new StaticEnemy(739, 20);
+StaticEnemy enemystatic = new StaticEnemy();
 
 CollisionManager collisionmanager = new CollisionManager();
 
 Coin[] coins = new Coin[nCoins];
+MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
+StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 
-SoundFile coinSound, buttonSound, finishSound;
+SoundFile coinSound, buttonSound, finishSound, soundTrack;
 
 /*
  * Method to execute code before the game starts
@@ -51,6 +63,7 @@ void setup() {
   wallTile = loadImage("data/tiles/WallTile.png");
   grassTile = loadImage("data/tiles/GrassTile.png");
   walkTile = loadImage("data/tiles/WalkTile.png"); 
+  oneWayTile = loadImage("data/tiles/OneWayTile.png");
   doorTile = loadImage("data/tiles/DoorTile.png");
   buttonTile = loadImage("data/tiles/ButtonTile.png"); 
   buttonPressed = loadImage("data/tiles/ButtonPressed.png");
@@ -58,16 +71,28 @@ void setup() {
   finishTile = loadImage("data/tiles/FinishTile.png");
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
+  startScreen = loadImage("data/images/startScreen.png");
+
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
   finishSound = new SoundFile(this, "data/sounds/finish.wav");
+  soundTrack = new SoundFile(this, "data/sounds/soundtrack.wav");
 
   //looping thru all the coins
   for (int i = 0; i < nCoins; i++) {
     coins[i] = new Coin();
   }
 
+  //StaticEnemys array vullen
+  for (int i = 0; i < sEnemys; i++) {
+    staticEnemys[i] = new StaticEnemy();
+  }
+
+  //MovingEnemys array vullen
+  for (int i = 0; i <mEnemys; i++) {
+    movingEnemys[i] = new MovingEnemy(3, 3);
+  }
 
   //variable to look what code belongs to the WASD keys
   s = "";
@@ -80,14 +105,46 @@ void setup() {
   right = false;
   up = false;
   down = false;
+
+  //playing and looping the music
+  soundTrack.play();
+  soundTrack.loop();
+  
+  //adjusting the volume of the sounds
+  soundTrack.amp(0.1);
+  buttonSound.amp(0.3);
+  finishSound.amp(0.3);
+  coinSound.amp(0.3);
+  
+  //setting the screen for the main menu
+  image(startScreen, 0, 0, screenSizeX, screenSizeY);
+  stage = 1;
+
+  
 }
 
 /*
  * Method where processing actually draws to the screen
  */
 void draw() {
+  if(stage == 1) {
+    textAlign(CENTER);
+    textSize(75);
+    text("INSECT INVASION", screenSizeX / 2, screenSizeY / 2 - 100);
+    textSize(56);
+    text("press any key to continue", screenSizeX / 2, screenSizeY / 2 + 100);
+  } else if(stage == 2) {
+    drawMap();
+  }
+  
 
-  //drawing all the tiles
+}
+
+/*
+ * Method to draw the map
+ */
+void drawMap() {
+//drawing all the tiles
   for (int i = 0; i < cols; i++) {
     for (int j = 0; j < rows; j++) {
       tile = tiles[i][j]; 
@@ -101,6 +158,15 @@ void draw() {
     coins[i].display();
   }
 
+  //Display the StaticEnemys from the array.
+  for (int i = 0; i < sEnemys; i++) {
+    staticEnemys[i].display();
+  }
+  //Display the MovingEnems from the array
+  for (int i = 0; i < mEnemys; i++) {
+    movingEnemys[i].display();
+  }
+
   //updating and drawing the player
   p.update();
   p.display();
@@ -111,17 +177,19 @@ void draw() {
   text(s, 100, 50);
 
   //drawing the moving enemy if enabled
-  if (enemymove.isEnabled) {
-    enemymove.draw();
-  }
-  //enemymove2.draw();
+  //if (enemymove.isEnabled) {
+  //  enemymove.draw();
+  //}
+  ////enemymove2.draw();
 
-  //drawing the static enemy
-  enemystatic.draw();
+  ////drawing the static enemy
+  //enemystatic.draw();
 
   //checking all the collisions
   collisionmanager.CheckCollisionToWall();
-  collisionmanager.CheckCollisionToEnemy();
+  for (int i = 0; i < mEnemys; i++) {
+    collisionmanager.CheckCollisionToEnemy(i);
+  }
   collisionmanager.CheckCollisionToFinish();
 }
 
@@ -138,7 +206,20 @@ void updateMap(String mapImage, String mapOverlayImage) {
     coins[j].isEnabled = false;
   }
 
+
+  //Disable the moving enemys
+  for (int i = 0; i < mEnemys; i++) {
+    movingEnemys[i].isEnabled = false;
+  }
+
+  //Disable the static enemys
+  for (int i = 0; i < sEnemys; i++) {
+    staticEnemys[i].isEnabled = false;
+  }
+
   coinCounter = 0;
+  movingEnemyCounter = 0;
+  staticEnemyCounter = 0;
 
   //loading in the map image and overlay
   map = loadImage(mapImage);
@@ -147,7 +228,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
   //drawing the map image and overlay
   image(map, 0, 0);
   image(mapOverlay, 0, 18);
-
+  println(hex(get(9, 4)));
   //looping thru all the tiles of the map and overlay
   for (int x = 0; x < cols; x++) {
 
@@ -192,6 +273,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
         tileType = "enemyOneWay";
         tileImage = walkTile;
         break;
+      case "FF404040":
+        tileType = "oneWay";
+        tileImage = oneWayTile;
+        break;
       default:
         tileType = "background"; 
         tileImage = grassTile;
@@ -217,10 +302,14 @@ void updateMap(String mapImage, String mapOverlayImage) {
 
         case "FFFF0000" :
           //moving enemy aanroepen
+          movingEnemys[movingEnemyCounter].placeMovingEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
+          movingEnemyCounter++;
 
           break;
         case "FFFF6A00" :
           //stationair enemy
+          staticEnemys[staticEnemyCounter].placeStaticEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
+          staticEnemyCounter++;
 
           break;
         case "FF00FF21":
@@ -237,11 +326,17 @@ void updateMap(String mapImage, String mapOverlayImage) {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
+  
+  //changing the stage to launch game from main menu
+  if(stage == 1) {
+    stage = 2;
+  }
+  
   //dev code to load in a new map
   if (keyCode == 32) {
     updateMap("data/levels/level1.png", "data/levels/level1overlay.png");
-    enemystatic.isEnabled = false;//disable static enemy for level 2
-    enemymove.isEnabled = false;
+    //enemystatic.isEnabled = false;//disable static enemy for level 2
+    //enemymove.isEnabled = false;
     //enemymove2.isEnabled = true;//enable moving enemy for level 2
 <<<<<<< .merge_file_a17816
     collisionmanager.isEnabled = false;

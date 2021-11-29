@@ -12,14 +12,17 @@ class MovingEnemy extends MainEnemy {
    * @param Boolean isEnabled
    * @param Integer level
    */
-  MovingEnemy(int enemyvx, int enemyvy, int enemyX, int enemyY, boolean isEnabled, int level) {
-    this.enemyvx = enemyvx;
-    this.enemyvy = enemyvy;
-    this.enemyX = enemyX;
-    this.enemyY = enemyY;
-    this.isEnabled = isEnabled;
-    this.level = level;
+  MovingEnemy(int xspeed_, int yspeed_) {
+    this.xspeed = xspeed_;
+    this.yspeed = yspeed_;
   }
+  
+  void placeMovingEnemy(float xPos_, float yPos_){
+    circleX = xPos_;
+    circleY = yPos_;
+    isEnabled = true;
+  }
+  
 
   /*
    * Method to draw the moving enemy
@@ -30,6 +33,7 @@ class MovingEnemy extends MainEnemy {
     update();
 
     //inherits everything inside the draw of all enemy classes
+
     super.draw();
   }
 
@@ -41,22 +45,14 @@ class MovingEnemy extends MainEnemy {
     //assigns the tile where the enemy is standing on to a variabele.
     Tile tileStanding = TileEnemy(0, 0);
 
-<<<<<<< HEAD
-    //creator comment this please
-    if ((direction == "north" && tileStanding.y + 0.5 * tileStanding.h  >= enemyY) || (direction == "south" && tileStanding.y + 0.5 * tileStanding.w  <= enemyY) ||
-      (direction == "west" && tileStanding.x + 0.5 * tileStanding.w >= enemyX) || (direction == "east" && tileStanding.x + 0.5 * tileStanding.w <= enemyX) ) {
-      //creator comment this please
-      //doet iedere keer wanneer de enemy in het midden van een tile staat een check 
-=======
     //Checks if the enemy is standing in the middle of a tile.
     if ((direction == "north" && tileStanding.y + 0.5 * tileStanding.h  >= circleY) || (direction == "south" && tileStanding.y + 0.5 * tileStanding.w  <= circleY) ||
       (direction == "west" && tileStanding.x + 0.5 * tileStanding.w >= circleX) || (direction == "east" && tileStanding.x + 0.5 * tileStanding.w <= circleX) ) {
       //if the enemy is standing on a tile it checks the tiles around him to see which way he has to go.
->>>>>>> cf3a32ce93903ad381a3a1f2e61f02642d4e0706
       pathcheck(tileStanding);
     }
-    enemyX = enemyX + enemyvx;
-    enemyY = enemyY + enemyvy;
+    circleX = circleX + xspeed;
+    circleY = circleY + yspeed;
   }
 
 
@@ -102,33 +98,34 @@ class MovingEnemy extends MainEnemy {
       backTile = TileEnemy(1, 0);
       break;
     }
-    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") || frontTile.type.equals("enemyOneWay")) == false) {
-      enemyX = int(tileStanding.x + 0.5*tileStanding.w);
-      enemyY = int(tileStanding.y + 0.5*tileStanding.w);
+    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") 
+    || frontTile.type.equals("enemyOneWay")||(frontTile.type.equals("oneWay")&&frontTile.direction.equals(direction))) == false) {
+      circleX = int(tileStanding.x + 0.5*tileStanding.w);
+      circleY = int(tileStanding.y + 0.5*tileStanding.w);
       if ((rightTile.type.equals("enemywalkable") && !leftTile.type.equals("doorOpen")) || rightTile.type.equals("doorOpen")) {
 
         switch(direction) {
         case "north":
-          enemyvx = speed;
-          enemyvy = 0;
+          xspeed = speed;
+          yspeed = 0;
           direction = "east";
           break;
 
         case "east":
-          enemyvx = 0;
-          enemyvy = speed;
+          xspeed = 0;
+          yspeed = speed;
           direction = "south";
           break;
 
         case "south":
-          enemyvx = -speed;
-          enemyvy = 0;
+          xspeed = -speed;
+          yspeed = 0;
           direction = "west";
           break;
 
         case "west":
-          enemyvx = 0;
-          enemyvy = -speed;
+          xspeed = 0;
+          yspeed = -speed;
           direction = "north";
           break;
         }
@@ -136,52 +133,52 @@ class MovingEnemy extends MainEnemy {
         switch(direction) {
 
         case "south":
-          enemyvx = speed;
-          enemyvy = 0;
+          xspeed = speed;
+          yspeed = 0;
           direction = "east";
           break;
 
         case "west":
-          enemyvx = 0;
-          enemyvy = speed;
+          xspeed = 0;
+          yspeed = speed;
           direction = "south";
           break;
 
         case "north":
-          enemyvx = -speed;
-          enemyvy = 0;
+          xspeed = -speed;
+          yspeed = 0;
           direction = "west";
           break;
 
         case "east":
-          enemyvx = 0;
-          enemyvy = -speed;
+          xspeed = 0;
+          yspeed = -speed;
           direction = "north";
           break;
         }
       } else { 
         switch(direction) {
         case "north":
-          enemyvx = 0;
-          enemyvy = speed;
+          xspeed = 0;
+          yspeed = speed;
           direction = "south";
           break;
 
         case "east":
-          enemyvx = -speed;
-          enemyvy = 0;
+          xspeed = -speed;
+          yspeed = 0;
           direction = "west";
           break;
 
         case "south":
-          enemyvx = 0;
-          enemyvy = -speed;
+          xspeed = 0;
+          yspeed = -speed;
           direction = "north";
           break;
 
         case "west":
-          enemyvx = speed;
-          enemyvy = 0;
+          xspeed = speed;
+          yspeed = 0;
           direction = "east";
           break;
         }

@@ -12,6 +12,7 @@ class CollisionManager {
    * @return void
    */
   void CheckCollisionToWall() {
+
     //looping thru all the tiles
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
@@ -45,45 +46,64 @@ class CollisionManager {
           //checking the left side of the tile
           if (p.x < tile.x) {
             playerHBX = tile.x;
-            direction = "left";
+            direction = "west";
           } 
           //checking the right side of the tile
           else if (p.x > tile.x+tile.w) { 
             playerHBX = tile.x+tile.w;
-            direction = "right";
+            direction = "east";
           }
 
           //checking the top side of the tile
           if (p.y < tile.y) {
             playerHBY = tile.y;
-            direction = "up";
+            direction = "north";
           }
           //checking the bottom side of the tile
           else if (p.y > tile.y+tile.h) {
             playerHBY = tile.y+tile.h;
-            direction = "down";
+            direction = "south";
+          }
+          //translates the direction of one way to the side that won't have colission
+          String openSide = null;
+          if (tile.type == "oneWay") {
+            switch(tile.direction) {
+            case "north" :
+              openSide = "south";
+              break;
+            case "south" :
+              openSide = "north";
+              break;  
+            case "east" :
+              openSide = "west";
+              break;  
+            case "west" :
+              openSide = "east";
+              break;
+            }
           }
 
-
-          //checking what side is the closed side
+          //checking what side is the closest side
           float distX = p.x-playerHBX;
           float distY = p.y-playerHBY;
           float distance = sqrt(distX*distX) + sqrt(distY*distY);
-
-          if (distance <= p.w / 2) {
+          
+          //checks if the tile is a one way tile and if so if the player is at the open side.
+          if (tile.type == "oneWay" && direction == openSide) {
+          } else if (distance <= p.w / 2) {
             //looping thru the directions and setting the players position
             switch (direction) {
 
-            case "left" :
+            case "west" :
               p.x = p.x - p.maxSpeed;
               break;
-            case "right" :
+            case "east" :
               p.x = p.x + p.maxSpeed;
               break;
-            case "up":
+            case "north":
               p.y = p.y - p.maxSpeed;
               break;
-            case "down":
+            case "south":
               p.y = p.y + p.maxSpeed;
               break;
             }
@@ -97,29 +117,18 @@ class CollisionManager {
   * Method to check the collision between player and enemy
    * @return void
    */
-  void CheckCollisionToEnemy() {
-<<<<<<< .merge_file_a14332
-    //checking if the enemy is enabled
-    if (isEnabled == true) {
+  void CheckCollisionToEnemy(int enemy_id) {
+    if (movingEnemys[enemy_id].isEnabled == true) {
       //checking distance between player and enemy
-      if (dist(p.x, p.y, enemymove.enemyX, enemymove.enemyY) < p.w / 2 + enemymove.enemyDiameter / 2) {
+      if (dist(p.x, p.y, movingEnemys[enemy_id].circleX, movingEnemys[enemy_id].circleY) < p.w / 2 + movingEnemys[enemy_id].diameter / 2) {
         //Setting the hit time so the cooldown gets started
         nowHit = millis();
         //checking if the hit is within the cooldown
         if (nowHit > (lastHit + cooldownTimer)) {
           println("hit");
+          noLoop();
           lastHit = nowHit;
         }
-=======
-    //checking distance between player and enemy
-    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) {
-      //Setting the hit time so the cooldown gets started
-      nowHit = millis();
-      //checking if the hit is within the cooldown
-      if (nowHit > (lastHit + cooldownTimer)) {
-        println("hit");
-        lastHit = nowHit;
->>>>>>> .merge_file_a07572
       }
     }
   }
@@ -142,7 +151,7 @@ class CollisionManager {
           (tile.y + tile.h > p.y && p.y > tile.y)) {
           // go to next level
           enemystatic.isEnabled = false;//disable static enemy for level 2
-          enemymove.isEnabled = false;
+          // enemymove.isEnabled = false;
         }
       }
     }
