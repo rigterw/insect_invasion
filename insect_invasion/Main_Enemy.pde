@@ -21,7 +21,7 @@ class MainEnemy {
   }
 
 
-  //creator comment this please
+  //returns the tile where the enemy is standing on
   Tile TileEnemy(int xVerschuiving, int yVerschuiving) {
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
