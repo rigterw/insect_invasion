@@ -15,6 +15,8 @@ boolean left, right, up, down, g;
 Player p = new Player();
 String s;
 
+Wind wind;
+
 int cols = 32;
 int rows = 18;
 
@@ -184,21 +186,11 @@ void drawMap() {
   textSize(24);
   text(s, 100, 50);
 
-  //drawing the moving enemy if enabled
-  //if (enemymove.isEnabled) {
-  //  enemymove.draw();
-  //}
-  ////enemymove2.draw();
-
-  ////drawing the static enemy
-  //enemystatic.draw();
-
   //checking all the collisions
   collisionmanager.CheckCollisionToWall();
   for (int i = 0; i < mEnemys; i++) {
     collisionmanager.CheckCollisionToEnemy(i);
   }
-  collisionmanager.CheckCollisionToFinish();
 }
 
 /*
@@ -286,6 +278,8 @@ void updateMap(String mapImage, String mapOverlayImage) {
         tileImage = oneWayTile;
         break;
       case "FF808080":
+        wind = new Wind(x, y, "north", 10);
+        wind.drawWind();
         tileType = "windtile";
         tileImage = windTile;
         break;
