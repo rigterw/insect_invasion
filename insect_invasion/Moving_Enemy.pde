@@ -12,14 +12,17 @@ class MovingEnemy extends MainEnemy {
    * @param Boolean isEnabled
    * @param Integer level
    */
-  MovingEnemy(int xspeed, int yspeed, int circleX, int circleY, boolean isEnabled, int level) {
-    this.xspeed = xspeed;
-    this.yspeed = yspeed;
-    this.circleX = circleX;
-    this.circleY = circleY;
-    this.isEnabled = isEnabled;
-    this.level = level;
+  MovingEnemy(int xspeed_, int yspeed_) {
+    this.enemyvx = xspeed_;
+    this.enemyvy = yspeed_;
   }
+  
+  void placeMovingEnemy(float xPos_, float yPos_){
+    enemyX = xPos_;
+    enemyY = yPos_;
+    isEnabled = true;
+  }
+  
 
   /*
    * Method to draw the moving enemy
@@ -43,13 +46,13 @@ class MovingEnemy extends MainEnemy {
     Tile tileStanding = TileEnemy(0, 0);
 
     //Checks if the enemy is standing in the middle of a tile.
-    if ((direction == "north" && tileStanding.y + 0.5 * tileStanding.h  >= circleY) || (direction == "south" && tileStanding.y + 0.5 * tileStanding.w  <= circleY) ||
-      (direction == "west" && tileStanding.x + 0.5 * tileStanding.w >= circleX) || (direction == "east" && tileStanding.x + 0.5 * tileStanding.w <= circleX) ) {
+    if ((direction == "north" && tileStanding.y + 0.5 * tileStanding.h  >= enemyY) || (direction == "south" && tileStanding.y + 0.5 * tileStanding.w  <= enemyY) ||
+      (direction == "west" && tileStanding.x + 0.5 * tileStanding.w >= enemyX) || (direction == "east" && tileStanding.x + 0.5 * tileStanding.w <= enemyX) ) {
       //if the enemy is standing on a tile it checks the tiles around him to see which way he has to go.
       pathcheck(tileStanding);
     }
-    circleX = circleX + xspeed;
-    circleY = circleY + yspeed;
+    enemyX = enemyX + enemyvx;
+    enemyY = enemyY + enemyvy;
   }
 
 
@@ -95,87 +98,92 @@ class MovingEnemy extends MainEnemy {
       backTile = TileEnemy(1, 0);
       break;
     }
-    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") 
+    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") || frontTile.type.equals("button") 
     || frontTile.type.equals("enemyOneWay")||(frontTile.type.equals("oneWay")&&frontTile.direction.equals(direction))) == false) {
-      circleX = int(tileStanding.x + 0.5*tileStanding.w);
-      circleY = int(tileStanding.y + 0.5*tileStanding.w);
-      if ((rightTile.type.equals("enemywalkable") && !leftTile.type.equals("doorOpen")) || rightTile.type.equals("doorOpen")) {
+      enemyX = int(tileStanding.x + 0.5*tileStanding.w);
+      enemyY = int(tileStanding.y + 0.5*tileStanding.w);
+      if (((rightTile.type.equals("enemywalkable") || rightTile.type.equals("button")||
+      (rightTile.type.equals("oneWay")&&((direction == "north" && rightTile.direction.equals("east"))||(direction == "east" && rightTile.direction.equals("south"))
+      ||(direction == "south" && rightTile.direction.equals("west"))||(direction == "west" && rightTile.direction.equals("north"))))
+      && !leftTile.type.equals("doorOpen")) || rightTile.type.equals("doorOpen"))) {
 
         switch(direction) {
         case "north":
-          xspeed = speed;
-          yspeed = 0;
+          enemyvx = speed;
+          enemyvy = 0;
           direction = "east";
           break;
 
         case "east":
-          xspeed = 0;
-          yspeed = speed;
+          enemyvx = 0;
+          enemyvy = speed;
           direction = "south";
           break;
 
         case "south":
-          xspeed = -speed;
-          yspeed = 0;
+          enemyvx = -speed;
+          enemyvy = 0;
           direction = "west";
           break;
 
         case "west":
-          xspeed = 0;
-          yspeed = -speed;
+          enemyvx = 0;
+          enemyvy = -speed;
           direction = "north";
           break;
         }
-      } else if (leftTile.type.equals("enemywalkable") || leftTile.type.equals("doorOpen")) {
+      } else if (leftTile.type.equals("enemywalkable") || leftTile.type.equals("doorOpen")|| leftTile.type.equals("button")||
+      (leftTile.type.equals("oneWay")&&((direction == "north" && leftTile.direction.equals("west"))||(direction == "east" && leftTile.direction.equals("north"))
+      ||(direction == "south" && leftTile.direction.equals("east"))||(direction == "west" && leftTile.direction.equals("south"))))) {
         switch(direction) {
 
         case "south":
-          xspeed = speed;
-          yspeed = 0;
+          enemyvx = speed;
+          enemyvy = 0;
           direction = "east";
           break;
 
         case "west":
-          xspeed = 0;
-          yspeed = speed;
+          enemyvx = 0;
+          enemyvy = speed;
           direction = "south";
           break;
 
         case "north":
-          xspeed = -speed;
-          yspeed = 0;
+          enemyvx = -speed;
+          enemyvy = 0;
           direction = "west";
           break;
 
         case "east":
-          xspeed = 0;
-          yspeed = -speed;
+          enemyvx = 0;
+          enemyvy = -speed;
           direction = "north";
           break;
         }
       } else { 
         switch(direction) {
         case "north":
-          xspeed = 0;
-          yspeed = speed;
+          enemyvx = 0;
+          enemyvy = speed;
           direction = "south";
           break;
 
         case "east":
-          xspeed = -speed;
-          yspeed = 0;
+          enemyvx = -speed;
+          enemyvy = 0;
           direction = "west";
           break;
 
         case "south":
-          xspeed = 0;
-          yspeed = -speed;
+          enemyvx = 0;
+          enemyvy = -speed;
           direction = "north";
           break;
 
         case "west":
-          xspeed = speed;
-          yspeed = 0;
+          enemyvx = speed;
+          enemyvy = 0;
           direction = "east";
           break;
         }

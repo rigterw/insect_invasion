@@ -88,7 +88,7 @@ class CollisionManager {
           float distX = p.x-playerHBX;
           float distY = p.y-playerHBY;
           float distance = sqrt(distX*distX) + sqrt(distY*distY);
-          
+
           //checks if the tile is a one way tile and if so if the player is at the open side.
           if (tile.type == "oneWay" && direction == openSide) {
           } else if (distance <= p.w / 2) {
@@ -118,15 +118,18 @@ class CollisionManager {
   * Method to check the collision between player and enemy
    * @return void
    */
-  void CheckCollisionToEnemy() {
-    //checking distance between player and enemy
-    if (dist(p.x, p.y, enemymove.circleX, enemymove.circleY) < p.w / 2 + enemymove.diameter / 2) {
-      //Setting the hit time so the cooldown gets started
-      nowHit = millis();
-      //checking if the hit is within the cooldown
-      if (nowHit > (lastHit + cooldownTimer)) {
-        println("hit");
-        lastHit = nowHit;
+  void CheckCollisionToEnemy(int enemy_id) {
+    if (movingEnemys[enemy_id].isEnabled == true) {
+      //checking distance between player and enemy
+      if (dist(p.x, p.y, movingEnemys[enemy_id].enemyX, movingEnemys[enemy_id].enemyY) < p.w / 2 + movingEnemys[enemy_id].enemyDiameter / 2) {
+        //Setting the hit time so the cooldown gets started
+        nowHit = millis();
+        //checking if the hit is within the cooldown
+        if (nowHit > (lastHit + cooldownTimer)) {
+          println("hit");
+          noLoop();
+          lastHit = nowHit;
+        }
       }
     }
   }
@@ -136,22 +139,5 @@ class CollisionManager {
    * Method to check the collision between player and finish
    * @return void
    */
-  void CheckCollisionToFinish() {
-    //looping thru the tiles
-    for (int i = 0; i < cols; i++) {
-      for (int j = 0; j < rows; j++) {
-        //seting the current tile
-        tile = tiles[i][j];
 
-        //check if the tile type is finish
-        if (tile.type == "finish" && 
-          (tile.x + tile.h > p.x && p.x > tile.x) && 
-          (tile.y + tile.h > p.y && p.y > tile.y)) {
-          // go to next level
-          enemystatic.isEnabled = false;//disable static enemy for level 2
-          enemymove.isEnabled = false;
-        }
-      }
-    }
-  }
 }

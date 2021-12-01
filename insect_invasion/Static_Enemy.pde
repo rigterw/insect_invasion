@@ -5,9 +5,17 @@ class StaticEnemy extends MainEnemy {
    * @param Integer circleX
    * @param Integer circleY
    */
-  StaticEnemy(int circleX, int circleY) {
-    this.circleX = circleX;
-    this.circleY = circleY;
+  //StaticEnemy(int circleX_, int circleY_) {
+  //  this.circleX = circleX_;
+  //  this.circleY = circleY_;
+  //}
+
+  boolean scared = false;
+
+  void placeStaticEnemy(float xPos_, float yPos_) {
+    enemyX = xPos_;
+    enemyY = yPos_;
+    isEnabled = true;
   }
 
   /*
@@ -18,15 +26,19 @@ class StaticEnemy extends MainEnemy {
     noStroke(); //enemy vision circle
     fill(0);
     noFill();
-    //drawing the enemy
-    ellipse(circleX, circleY, diameter+138, diameter+248);
+    //drawing enemy vision circle
+    ellipse(enemyX, enemyY, enemyDiameter+138, enemyDiameter+248);
 
-    //creator please comment this
-    if (p.x >= diameter+648 && p.x <= diameter+758 && p.y >= diameter+87 && p.y <= diameter+126) {
-      circleY = 60;
+    //checks if player is within range of enemy vision circle
+    if (p.x >= enemyDiameter+648 && p.x <= enemyDiameter+758 && p.y >= enemyDiameter+87 && p.y <= enemyDiameter+126) {
+      if (scared == false) {
+        enemyY = enemyY + 40;
+        scared = true;
+      }
     } else {
-      circleY = 20;
-    }
+      enemyY = enemyY;
+      scared = false;
+  }
 
     stroke(2);
     super.draw();//inherits everything inside the draw of all enemy classes
