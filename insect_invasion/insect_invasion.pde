@@ -132,7 +132,7 @@ void setup() {
  * Method where processing actually draws to the screen
  */
 void draw() {
-  println(stage);
+
   if (stage == 1) {
     textAlign(CENTER);
     textSize(56);
@@ -146,6 +146,12 @@ void draw() {
     text("WAT ZEIDEN WE NOU", screenSizeX / 2, screenSizeY / 2);
   } else if (stage == 3) {
     drawMap();
+  } else if (stage == 4) {
+    textAlign(CENTER);
+    textSize(73);
+    fill(#FFFFFF);
+    text("GAME OVER", screenSizeX / 2, screenSizeY / 2);
+    text("press the 'r' key to restart", screenSizeX / 2, screenSizeY / 2 + 325);
   }
 }
 
@@ -335,6 +341,14 @@ void updateMap(String mapImage, String mapOverlayImage) {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
+  if (stage == 4 && keyCode == 82) {
+    updateMap("levels/level0.png", "levels/level0overlay.png");
+    stage = 2;
+    println("test");
+  } else if ( stage == 4 && keyCode != 82) {
+    println("not 82");
+    return;
+  }
 
   if (stage == 1) {
     timer.lastTime = millis();
@@ -385,8 +399,6 @@ void keyPressed() {
 void keyReleased()
 {
   if (keyCode == 32) {
-    stage = 3;
-  } else {
     stage = 3;
   }
   if (keyCode == 65)        // naar links bewegen

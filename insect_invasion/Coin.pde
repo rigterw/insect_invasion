@@ -72,7 +72,7 @@ class Coin {
    */
   void pickUp() {
     //updating the score
-    p.score +=1;
+    //p.score +=1;
     //adding the time
     timer.time += timer.extraTime;
 
