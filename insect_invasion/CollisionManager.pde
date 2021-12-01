@@ -139,22 +139,5 @@ class CollisionManager {
    * Method to check the collision between player and finish
    * @return void
    */
-  void CheckCollisionToFinish() {
-    //looping thru the tiles
-    for (int i = 0; i < cols; i++) {
-      for (int j = 0; j < rows; j++) {
-        //seting the current tile
-        tile = tiles[i][j];
 
-        //check if the tile type is finish
-        if (tile.type == "finish" && 
-          (tile.x + tile.h > p.x && p.x > tile.x) && 
-          (tile.y + tile.h > p.y && p.y > tile.y)) {
-          // go to next level
-          enemystatic.isEnabled = false;//disable static enemy for level 2
-          // enemymove.isEnabled = false;
-        }
-      }
-    }
-  }
 }
