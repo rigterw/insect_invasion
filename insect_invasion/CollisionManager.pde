@@ -127,7 +127,7 @@ class CollisionManager {
         //checking if the hit is within the cooldown
         if (nowHit > (lastHit + cooldownTimer)) {
           println("hit");
-          noLoop();
+          stage= 4;
           lastHit = nowHit;
         }
       }
