@@ -1,5 +1,5 @@
 class Timer {
-  float time = 30000; //Amount of starting time in ms
+  float time = 60000; //Amount of starting time in ms
   float maxTime = time; //Max amount of time in ms
   int timerMaxWidth = 1280; //Max width timer
   int timerHeight = 25; //Height timer
@@ -29,5 +29,8 @@ class Timer {
     nowTime = millis(); //Decreasign the value of time
     time -= (nowTime - lastTime);
     lastTime = nowTime;
+    if (time<0) {
+      noLoop();
+    }
   }
 }

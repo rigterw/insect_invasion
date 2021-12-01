@@ -85,6 +85,7 @@ class Tile
 
         //playing the finish sound
         finishSound.play();
+        p.score += int(timer.time / 1000);
         timer.time = timer.maxTime;
 
         //updating the map to the next level
