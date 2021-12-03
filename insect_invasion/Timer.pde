@@ -4,7 +4,7 @@ class Timer {
   int timerMaxWidth = 1280; //Max width timer
   int timerHeight = 25; //Height timer
   int timeBarX = 0; //Timer position X
-  int timeBarY = 695; //Timer position Y
+  int timeBarY = 0; //Timer position Y
   int nowTime; //Time passed since starting the game
   int lastTime; //Last time the amount of time decreased
   int extraTime = 5000; //Amount of seconds added when grabbing a coin in MS
