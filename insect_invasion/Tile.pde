@@ -5,9 +5,10 @@ class Tile
   float w, h; //Tile width and height
   String type; //Tile type
   String colour; //Tile colour
-  String direction;
+  String direction, windDirection;
   PImage tile; // Tile image
-  Boolean buttonStandingOn = false; // Boolean to see if player is standing on a button
+  Boolean buttonStandingOn = false;
+  Boolean canWind, hasWind = false; // Boolean to see if player is standing on a button
   Boolean sound = true;// Boolean to toggle playing a sound
   /*
    * 7 argument constructor for the Tile class
@@ -18,7 +19,7 @@ class Tile
    * @param String colour
    * @param PImage tile
    */
-  Tile(float x, float y, float w, float h, String type, String colour, PImage tile) {
+  Tile(float x, float y, float w, float h, String type, String colour, PImage tile, Boolean wind) {
     this.x = x;
     this.y = y;
     this.w = w;
@@ -26,6 +27,7 @@ class Tile
     this.type = type;
     this.colour = colour;
     this.tile = tile;
+    canWind = wind;
 
     //for the one way tiles, translates the color code to direction.
     if (type == "oneWay") {
@@ -65,30 +67,22 @@ class Tile
 
             for (int yTile = 0; yTile < rows; yTile++) { 
 
-              if (tiles[xTile][yTile].type == "windtile") {
-                println(xTile,yTile);
-                tiles[xTile][yTile].type = "walkable"; 
-                tiles[xTile][yTile].tile = walkTile;
-                println(tiles[xTile][yTile].type);
-              }
-
-              if (wind != null) {
-                wind = new Wind(wind.windX, wind.windY, wind.direction, wind.MaxLength);
-                wind.drawWind();
-              }
               if (tiles[xTile][yTile].colour.equals(colour)) {  
 
                 if (tiles[xTile][yTile].type == "door" ) {
                   tiles[xTile][yTile].type = "doorOpen";
+                  tiles[xTile][yTile].canWind = true;
                   tiles[xTile][yTile].tile = doorOpenTile;
                 } else if (tiles[xTile][yTile].type == "doorOpen") {
 
                   tiles[xTile][yTile].type = "door"; 
+                  tiles[xTile][yTile].canWind = false;
                   tiles[xTile][yTile].tile = doorTile;
                 }
               }
             }
           }
+          updateWind();
         }
         buttonStandingOn = true;
       } else if (type == "finish") {//code for finish + next level
@@ -104,7 +98,21 @@ class Tile
 
 
         buttonStandingOn = false;
-      } else if (type == "windtile") {
+      } else if (hasWind) {
+        switch(windDirection) {
+        case "north":
+          p.y -= windSpeed;
+          break;     
+        case "east":
+          p.x += windSpeed;
+          break;     
+        case "south":
+          p.y += windSpeed; 
+          break;
+        case "west":
+          p.x -= windSpeed;   
+          break;
+        }
         p.y += 10;
       }
     } else { 
@@ -169,6 +177,55 @@ class Tile
     else {
       noTint();
       image(tile, x, y);
+    }
+    if (hasWind) {
+      image(windTile, x, y);
+    }
+  }
+
+
+  //assings itself wind and activates the next tile
+  void spreadWind(int x, int y, String direction) {
+    if (canWind) {
+      if (type == "door") {
+        println("deurtje"); 
+        println(canWind, "wind"); 
+        println();
+      }
+      hasWind = true;
+      windDirection = direction;
+      switch (direction) {     
+      case "north":
+        tiles[x][y-1].spreadWind(x, y-1, direction);
+        break;     
+      case "east":
+        tiles[x+1][y].spreadWind(x+1, y, direction);
+        break;     
+      case "south":
+        tiles[x][y+1].spreadWind(x, y+1, direction); 
+        break;
+      case "west":
+        tiles[x-1][y].spreadWind(x-1, y, direction);    
+        break;
+      }
+    }
+  }
+
+
+  //for the wind tiles, initiates the spawn of wind
+  void spawnWind(int x, int y) {
+    if (tiles[x][y-1].canWind) {
+      direction = "north";
+      tiles[x][y-1].spreadWind(x, y-1, direction);
+    } else if (tiles[x+1][y].canWind) {
+      direction = "east";
+      tiles[x+1][y].spreadWind(x+1, y, direction);
+    } else if (tiles[x][y+1].canWind) {
+      direction = "south";
+      tiles[x][y+1].spreadWind(x, y+1, direction);
+    } else if (tiles[x-1][y].canWind) {
+      direction = "west";
+      tiles[x-1][y].spreadWind(x-1, y, direction);
     }
   }
 }

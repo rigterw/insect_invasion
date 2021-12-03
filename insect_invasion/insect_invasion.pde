@@ -11,11 +11,11 @@ void settings() {
 //initializing all the variables
 Tile tile;
 
-boolean left, right, up, down, g;
+boolean left, right, up, down, g, canWind;
 Player p = new Player();
 String s;
 
-Wind wind;
+
 
 int cols = 32;
 int rows = 18;
@@ -30,7 +30,7 @@ int movingEnemyCounter;
 int staticEnemyCounter;
 
 int mapcount = 4;
-
+int windSpeed = 10;
 int screenSizeX = 1280;
 int screenSizeY = 720;
 int stage;
@@ -212,7 +212,6 @@ void updateMap(String mapImage, String mapOverlayImage) {
     coins[j].isEnabled = false;
   }
 
-  wind = null;
 
   //Disable the moving enemys
   for (int i = 0; i < mEnemys; i++) {
@@ -235,42 +234,48 @@ void updateMap(String mapImage, String mapOverlayImage) {
   //drawing the map image and overlay
   image(map, 0, 0);
   image(mapOverlay, 0, 18);
-  println(hex(get(9, 4)));
+
   //looping thru all the tiles of the map and overlay
   for (int x = 0; x < cols; x++) {
 
     for (int y = 0; y < rows; y++) {
-
       tileColor = get(x, y);
 
       switch(hex(tileColor)) {
       case "FFCE7C38" :
         tileType = "walkable";
         tileImage = walkTile;
+        canWind = true;
         break;
       case "FF000000":
         tileType = "wall";
         tileImage = wallTile;
+        canWind = false;
         break;
       case"FF228A15" :
         tileType = "grass";
         tileImage = grassTile;
+        canWind = false;
         break;
       case "FF0026FF" : 
         tileType = "door";
         tileImage = doorTile;
+        canWind = false;
         break;
       case "FF4C64FF" : 
         tileType = "doorOpen";
         tileImage = doorOpenTile;
+        canWind = true;
         break;
       case "FF00FFFF" : 
         tileType = "button";
         tileImage = buttonTile;
+        canWind = true;
         break;
       case "FFF2FF02" : 
         tileType = "finish";
         tileImage = finishTile;
+        canWind = true;
         break;
       case "FF7F3300":
         tileType = "enemywalkable";
@@ -279,29 +284,40 @@ void updateMap(String mapImage, String mapOverlayImage) {
       case "FFFF3819" :
         tileType = "enemyOneWay";
         tileImage = walkTile;
+        canWind = true;
         break;
       case "FF404040":
         tileType = "oneWay";
         tileImage = oneWayTile;
+        canWind = true;
         break;
       case "FF808080":
-        wind = new Wind(x, y, "north", 10);
         tileType = "windtile";
-        tileImage = windTile;
+        tileImage = grassTile;
+        canWind = false;
+        break;
+      case "FFCECECE":
+        tileType = "windStop";
+        tileImage = walkTile;
+        canWind = false;
         break;
       default:
         tileType = "background"; 
         tileImage = grassTile;
+        canWind = false;
       }
       //geting the tile color
       tileColor = get(x, y + 18);
 
       //create new tile
-      Tile newTile = new Tile(w * x, h * y, w, h, tileType, hex(tileColor), tileImage);
+      Tile newTile = new Tile(w * x, h * y, w, h, tileType, hex(tileColor), tileImage, canWind);
 
       //put the tile in the array
       tiles[x][y] = newTile;
-
+      //spawns the wind
+      if (newTile.type.equals("windTile")) {
+        newTile.spawnWind(x, y);
+      }
       //check if tile is walkable
       if (tiles[x][y].type == "walkable" || tiles[x][y].type == "enemywalkable") {
         switch(hex(tileColor)) {
@@ -316,14 +332,13 @@ void updateMap(String mapImage, String mapOverlayImage) {
           //moving enemy aanroepen
           movingEnemys[movingEnemyCounter].placeMovingEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
           movingEnemys[movingEnemyCounter].pathcheck(tiles[x][y]);
-          println(movingEnemys[movingEnemyCounter].direction);
+
           movingEnemyCounter++;
 
           break;
         case "FFFF6A00" :
           //stationair enemy
           staticEnemys[staticEnemyCounter].placeStaticEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
-          println(y * h + 0.5 * h);
           staticEnemyCounter++;
 
           break;
@@ -335,11 +350,25 @@ void updateMap(String mapImage, String mapOverlayImage) {
       }
     }
   }
-  if (wind != null) {
-    wind.drawWind();
-  }
+  updateWind();
 }
 
+//this function updates all the wind
+void updateWind() {
+  for (int xTile = 0; xTile < cols; xTile++) {
+    for (int yTile = 0; yTile < rows; yTile++) {
+      tiles[xTile][yTile].hasWind = false;
+    }
+  }
+
+  for (int xTile = 0; xTile < cols; xTile++) {
+    for (int yTile = 0; yTile < rows; yTile++) {
+      if (tiles[xTile][yTile].type == "windtile") {
+        tiles[xTile][yTile].spawnWind(xTile, yTile);        
+      }
+    }
+  }  println(tiles[23][8].hasWind);
+}
 /*
  * method to check if a key is pressed on the keyboard
  */

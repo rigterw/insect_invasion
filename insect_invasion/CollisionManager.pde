@@ -31,7 +31,7 @@ class CollisionManager {
           tile.type == "finish" ||
           tile.type == "enemywalkable" ||
           tile.type == "enemyOneWay" ||
-          tile.type == "windtile") {
+          tile.type == "windStop") {
 
           //setting the isWall variable
           isWall = false;
