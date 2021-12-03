@@ -65,6 +65,17 @@ class Tile
 
             for (int yTile = 0; yTile < rows; yTile++) { 
 
+              if (tiles[xTile][yTile].type == "windtile") {
+                println(xTile,yTile);
+                tiles[xTile][yTile].type = "walkable"; 
+                tiles[xTile][yTile].tile = walkTile;
+                println(tiles[xTile][yTile].type);
+              }
+
+              if (wind != null) {
+                wind = new Wind(wind.windX, wind.windY, wind.direction, wind.MaxLength);
+                wind.drawWind();
+              }
               if (tiles[xTile][yTile].colour.equals(colour)) {  
 
                 if (tiles[xTile][yTile].type == "door" ) {
@@ -78,8 +89,8 @@ class Tile
               }
             }
           }
-          buttonStandingOn = true;
         }
+        buttonStandingOn = true;
       } else if (type == "finish") {//code for finish + next level
         String map = str(int(random(1, mapcount + 1)));
 
@@ -95,9 +106,6 @@ class Tile
         buttonStandingOn = false;
       } else if (type == "windtile") {
         p.y += 10;
-      }
-      else if(type == "windtile"){
-      p.speedY = 10;
       }
     } else { 
       buttonStandingOn = false;

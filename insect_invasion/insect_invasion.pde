@@ -212,6 +212,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
     coins[j].isEnabled = false;
   }
 
+  wind = null;
 
   //Disable the moving enemys
   for (int i = 0; i < mEnemys; i++) {
@@ -285,7 +286,6 @@ void updateMap(String mapImage, String mapOverlayImage) {
         break;
       case "FF808080":
         wind = new Wind(x, y, "north", 10);
-        wind.drawWind();
         tileType = "windtile";
         tileImage = windTile;
         break;
@@ -334,6 +334,9 @@ void updateMap(String mapImage, String mapOverlayImage) {
         }
       }
     }
+  }
+  if (wind != null) {
+    wind.drawWind();
   }
 }
 
