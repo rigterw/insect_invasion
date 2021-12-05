@@ -98,7 +98,8 @@ class Tile
 
 
         buttonStandingOn = false;
-      } else if (hasWind) {
+      }
+      if (hasWind) {
         switch(windDirection) {
         case "north":
           p.y -= windSpeed;
@@ -113,7 +114,6 @@ class Tile
           p.x -= windSpeed;   
           break;
         }
-        p.y += 10;
       }
     } else { 
       buttonStandingOn = false;
