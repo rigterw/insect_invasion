@@ -422,7 +422,7 @@ void showHighscores(SQLConnection connection) {
 void keyPressed() {
   if (stage == 4 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 2;
+    stage = 3;
     timer.time = timer.maxTime;
     println("test");
   } else if (stage == 4 && keyCode == 72) {
@@ -435,7 +435,7 @@ void keyPressed() {
   }
   if (stage == 5 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 2;
+    stage = 3;
     timer.time = timer.maxTime;
     println("test");
   }
@@ -452,11 +452,11 @@ void keyPressed() {
       stage = 2;
       return;
     } else {
-      updateMap("levels/level3.png", "levels/level3overlay.png");
+      updateMap("levels/level1.png", "levels/level1overlay.png");
     }
   }
 
-  stage = 3;
+ // stage = 3;
 
   //setting the debug text to the pressed key
   s = "key: " + keyCode;
