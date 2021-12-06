@@ -36,7 +36,7 @@ class StaticEnemy extends MainEnemy {
     ellipse(enemyX, enemyY, visionW, visionH);
 
     if (PlayerToEnemy <= p.radius + visionRadius) {
-      
+      enemyY = enemyY +1;
     }
 
 

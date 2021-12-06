@@ -52,14 +52,14 @@ final int xPositionScores = xPositionName + 200;
 
 Tile[][] tiles = new Tile[cols][rows];
 
-//MovingEnemy enemymove = new MovingEnemy(0, -1, 339, 300, true, 1);
-//MovingEnemy enemymove2 = new MovingEnemy(3, 0, 340, 380, false, 2);
-StaticEnemy enemystatic = new StaticEnemy();
 
 CollisionManager collisionmanager = new CollisionManager();
 
 
 Coin[] coins = new Coin[nCoins];
+
+//arrays for all enemys
+MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 
@@ -98,15 +98,23 @@ void setup() {
     coins[i] = new Coin();
   }
 
-  //StaticEnemys array vullen
+
+  //making array of MovingEnemys
+  //puts all MovingEnemys in allEnemys Array
   for (int i = 0; i < sEnemys; i++) {
-    staticEnemys[i] = new StaticEnemy();
+    MovingEnemy m = new MovingEnemy(3, 3);
+    movingEnemys[i] = m;
+    allEnemys[i] = m;
   }
 
-  //MovingEnemys array vullen
-  for (int i = 0; i <mEnemys; i++) {
-    movingEnemys[i] = new MovingEnemy(3, 3);
+  //making array of StaticEnemys
+  //puts all StaticEnemys in allEnemys Array
+  for (int i = 0; i < sEnemys; i++) {
+    StaticEnemy s = new StaticEnemy();
+    staticEnemys [i] = s;
+    allEnemys[i] = s;
   }
+
 
   //variable to look what code belongs to the WASD keys
   s = "";
