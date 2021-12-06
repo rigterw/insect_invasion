@@ -161,7 +161,8 @@ void draw() {
     text("press the 'h' key to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
     text("press the 'r' key to restart", screenSizeX / 2, screenSizeY / 2 + 325);
   } else if (stage == 5) {
-    text("press the 'r' key to restart", screenSizeX / 2, screenSizeY / 2 + 325);
+    textAlign(RIGHT);
+    text("press the 'r' key to restart", screenSizeX - 25, screenSizeY - 25);
     //println("this is stage 5");
   }
 }
@@ -416,14 +417,25 @@ void showHighscores(SQLConnection connection) {
   }
 }
 
+void onlyInsertNewHighscore() {
+  Properties props = new Properties();
+  props.setProperty("user", "berkeln1");
+  props.setProperty("password", "ytAT+sPYwZl7JH");
+  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
+  insertNewHighscore(myConnection);
+}
+
 /*
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
   if (stage == 4 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 2;
+    stage = 3;
+    onlyInsertNewHighscore();
     timer.time = timer.maxTime;
+    timer.lastTime = millis();
+    p.score = 0;
     println("test");
   } else if (stage == 4 && keyCode == 72) {
     drawGameOver();
@@ -435,9 +447,14 @@ void keyPressed() {
   }
   if (stage == 5 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 2;
+    stage = 3;
     timer.time = timer.maxTime;
+    timer.lastTime = millis();
+    p.score = 0;
     println("test");
+  } else if (stage == 5 && keyCode != 82) {
+    println("not 82");
+    return;
   }
 
   if (stage == 1) {
