@@ -17,7 +17,6 @@ Tile tile;
 
 boolean left, right, up, down, g, canWind;
 Player p = new Player();
-String s;
 
 
 
@@ -116,9 +115,6 @@ void setup() {
   }
 
 
-  //variable to look what code belongs to the WASD keys
-  s = "";
-
   //updateing the map with the tutorial level
   updateMap("levels/level0.png", "levels/level0overlay.png");    
 
@@ -209,7 +205,6 @@ void drawMap() {
   //displaying debug text(pressed keys)
   fill(0);
   textSize(24);
-  text(s, 100, 50);
 
   //checking all the collisions
   collisionmanager.CheckCollisionToWall();
@@ -466,8 +461,6 @@ void keyPressed() {
 
   stage = 3;
 
-  //setting the debug text to the pressed key
-  s = "key: " + keyCode;
 
   //checking if the player wants to move to the left
   if (keyCode == 65)
