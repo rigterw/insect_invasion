@@ -30,6 +30,7 @@ int coinCounter = 0;
 int nCoins = 75;
 int mEnemys = 50; //Amount of moving enemys for in the array
 int sEnemys = 50; //Amount of static enemys for in the array
+int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
 
@@ -59,7 +60,7 @@ CollisionManager collisionmanager = new CollisionManager();
 Coin[] coins = new Coin[nCoins];
 
 //arrays for all enemys
-MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
+MainEnemy[] allEnemys = new MainEnemy[totalEnemys];
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 
@@ -101,7 +102,7 @@ void setup() {
 
   //making array of MovingEnemys
   //puts all MovingEnemys in allEnemys Array
-  for (int i = 0; i < sEnemys; i++) {
+  for (int i = 0; i < mEnemys; i++) {
     MovingEnemy m = new MovingEnemy(3, 3);
     movingEnemys[i] = m;
     allEnemys[i] = m;
@@ -112,7 +113,7 @@ void setup() {
   for (int i = 0; i < sEnemys; i++) {
     StaticEnemy s = new StaticEnemy();
     staticEnemys [i] = s;
-    allEnemys[i] = s;
+    allEnemys[i+mEnemys] = s;
   }
 
 
@@ -213,7 +214,7 @@ void drawMap() {
 
   //checking all the collisions
   collisionmanager.CheckCollisionToWall();
-  for (int i = 0; i < mEnemys; i++) {
+  for (int i = 0; i < totalEnemys; i++) {
     collisionmanager.CheckCollisionToEnemy(i);
   }
 }
@@ -430,7 +431,7 @@ void showHighscores(SQLConnection connection) {
 void keyPressed() {
   if (stage == 4 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 2;
+    stage = 3;
     timer.time = timer.maxTime;
     println("test");
   } else if (stage == 4 && keyCode == 72) {
@@ -443,7 +444,7 @@ void keyPressed() {
   }
   if (stage == 5 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 2;
+    stage = 3;
     timer.time = timer.maxTime;
     println("test");
   }
@@ -459,12 +460,14 @@ void keyPressed() {
     if (stage == 1) {
       stage = 2;
       return;
-    } else {
-      updateMap("levels/level3.png", "levels/level3overlay.png");
+    } else if (stage == 3) {
+      updateMap("levels/level1.png", "levels/level1overlay.png");
     }
   }
 
-  stage = 3;
+  if (stage == 1) {
+    stage = 3;
+  }
 
   //setting the debug text to the pressed key
   s = "key: " + keyCode;
