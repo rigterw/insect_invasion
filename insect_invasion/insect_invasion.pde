@@ -1,10 +1,6 @@
 //importing the sound library
 import processing.sound.*;
 
-//importing the squelized related libraries
-import samuelal.squelized.*;
-import java.util.Properties;
-
 /*
  * initializing the settings
  */
@@ -47,19 +43,14 @@ color tileColor;
 
 String tileType;
 
-final int xPositionName = 400, yPosition = 100;
-final int xPositionScores = xPositionName + 200;
-
 Tile[][] tiles = new Tile[cols][rows];
-
-//MovingEnemy enemymove = new MovingEnemy(0, -1, 339, 300, true, 1);
-//MovingEnemy enemymove2 = new MovingEnemy(3, 0, 340, 380, false, 2);
-StaticEnemy enemystatic = new StaticEnemy();
 
 CollisionManager collisionmanager = new CollisionManager();
 
-
 Coin[] coins = new Coin[nCoins];
+
+//arrays for all enemys
+MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 
@@ -98,15 +89,21 @@ void setup() {
     coins[i] = new Coin();
   }
 
-  //StaticEnemys array vullen
-  for (int i = 0; i < sEnemys; i++) {
-    staticEnemys[i] = new StaticEnemy();
-  }
+//making array of MovingEnemys
+//puts all MovingEnemys in allEnemys Array
+for(int i = 0; i < sEnemys; i++){
+  MovingEnemy m = new MovingEnemy(3,3);
+  movingEnemys[i] = m;
+  allEnemys[i] = m;
+}
 
-  //MovingEnemys array vullen
-  for (int i = 0; i <mEnemys; i++) {
-    movingEnemys[i] = new MovingEnemy(3, 3);
-  }
+//making array of StaticEnemys
+//puts all StaticEnemys in allEnemys Array
+for(int i = 0; i < sEnemys; i++){
+  StaticEnemy s = new StaticEnemy();
+  staticEnemys [i] = s;
+  allEnemys[i] = s;
+}
 
   //variable to look what code belongs to the WASD keys
   s = "";
@@ -158,11 +155,7 @@ void draw() {
     textSize(73);
     fill(#FFFFFF);
     text("GAME OVER", screenSizeX / 2, screenSizeY / 2);
-    text("press the 'h' key to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
     text("press the 'r' key to restart", screenSizeX / 2, screenSizeY / 2 + 325);
-  } else if (stage == 5) {
-    text("press the 'r' key to restart", screenSizeX / 2, screenSizeY / 2 + 325);
-    //println("this is stage 5");
   }
 }
 
@@ -381,41 +374,6 @@ void updateWind() {
   }  
   println(tiles[23][8].hasWind);
 }
-
-void drawGameOver() 
-{
-
-  background(52, 190, 130);
-  textSize(32);
-  fill(208, 98, 36);
-
-  Properties props = new Properties();
-  props.setProperty("user", "berkeln1");
-  props.setProperty("password", "ytAT+sPYwZl7JH");
-  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
-  insertNewHighscore(myConnection);
-  showHighscores (myConnection);
-}
-
-void insertNewHighscore(SQLConnection connection) {
-  String name = "Insect";
-  connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES(\""+ name + "\", "+ p.score +");");
-}
-
-void showHighscores(SQLConnection connection) {
-  Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore ORDER BY highscore DESC");
-  textAlign(LEFT);
-  text("NAME", xPositionName, yPosition);
-  text("HIGHSCORE", xPositionScores, yPosition);
-  text("________________________", xPositionName, yPosition + 10);
-
-  for (int i = 0; i < highscores.getRowCount(); i++) {
-    TableRow row = highscores.getRow(i);
-    text(row.getString(0), xPositionName, yPosition + (i+1) * 50);
-    text(row.getString(1), xPositionScores, yPosition + (i+1) * 50);
-  }
-}
-
 /*
  * method to check if a key is pressed on the keyboard
  */
@@ -423,21 +381,10 @@ void keyPressed() {
   if (stage == 4 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
     stage = 2;
-    timer.time = timer.maxTime;
     println("test");
-  } else if (stage == 4 && keyCode == 72) {
-    drawGameOver();
-    stage = 5;
+  } else if ( stage == 4 && keyCode != 82) {
+    println("not 82");
     return;
-  } else if ( stage == 4 && keyCode != 82 && keyCode != 72) {
-    println("not 82 or 72");
-    return;
-  }
-  if (stage == 5 && keyCode == 82) {
-    updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 2;
-    timer.time = timer.maxTime;
-    println("test");
   }
 
   if (stage == 1) {
