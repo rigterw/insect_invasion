@@ -6,6 +6,7 @@ class MainEnemy {
   int enemyDiameter; // Enemy's diameter
   int level; // Current level
   boolean isEnabled = false; //Boolean to disable the enemy
+  int vision;
 
   /*
    * Constructor for the MainEnemy class
@@ -17,7 +18,7 @@ class MainEnemy {
     enemyY = 100; //start position y enemy
     enemyDiameter = 32; //setting the diameter
     level = 1; // setting the level
-    
+    vision = 250;
   }
 
 

@@ -23,22 +23,22 @@ class StaticEnemy extends MainEnemy {
    * @return void
    */
   void draw() {
-    noStroke(); //enemy vision circle
-    fill(0);
+    //Draws a vision circle on top of the enemy
     noFill();
-    //drawing enemy vision circle
-    ellipse(enemyX, enemyY, enemyDiameter+138, enemyDiameter+248);
+    noStroke();
+    ellipseMode(CENTER);
 
-    //checks if player is within range of enemy vision circle
-    if (p.x >= enemyDiameter+648 && p.x <= enemyDiameter+758 && p.y >= enemyDiameter+87 && p.y <= enemyDiameter+126) {
-      if (scared == false) {
-        enemyY = enemyY + 40;
-        scared = true;
-      }
-    } else {
-      enemyY = enemyY;
-      scared = false;
-  }
+    float visionW = 250;
+    float visionH = 250;
+    float visionRadius =  visionW/2;
+    float PlayerToEnemy = dist(enemyX, enemyY, p.x, p.y);
+    
+    ellipse(enemyX, enemyY, visionW, visionH);
+
+    if (PlayerToEnemy <= p.radius + visionRadius) {
+      enemyY = enemyY +1;
+    }
+
 
     stroke(2);
     super.draw();//inherits everything inside the draw of all enemy classes

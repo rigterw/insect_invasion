@@ -17,7 +17,6 @@ Tile tile;
 
 boolean left, right, up, down, g, canWind;
 Player p = new Player();
-String s;
 
 
 
@@ -30,6 +29,7 @@ int coinCounter = 0;
 int nCoins = 75;
 int mEnemys = 50; //Amount of moving enemys for in the array
 int sEnemys = 50; //Amount of static enemys for in the array
+int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
 
@@ -52,14 +52,14 @@ final int xPositionScores = xPositionName + 200;
 
 Tile[][] tiles = new Tile[cols][rows];
 
-//MovingEnemy enemymove = new MovingEnemy(0, -1, 339, 300, true, 1);
-//MovingEnemy enemymove2 = new MovingEnemy(3, 0, 340, 380, false, 2);
-StaticEnemy enemystatic = new StaticEnemy();
 
 CollisionManager collisionmanager = new CollisionManager();
 
 
 Coin[] coins = new Coin[nCoins];
+
+//arrays for all enemys
+MainEnemy[] allEnemys = new MainEnemy[totalEnemys];
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 
@@ -98,18 +98,23 @@ void setup() {
     coins[i] = new Coin();
   }
 
-  //StaticEnemys array vullen
+
+  //making array of MovingEnemys
+  //puts all MovingEnemys in allEnemys Array
+  for (int i = 0; i < mEnemys; i++) {
+    MovingEnemy m = new MovingEnemy(3, 3);
+    movingEnemys[i] = m;
+    allEnemys[i] = m;
+  }
+
+  //making array of StaticEnemys
+  //puts all StaticEnemys in allEnemys Array
   for (int i = 0; i < sEnemys; i++) {
-    staticEnemys[i] = new StaticEnemy();
+    StaticEnemy s = new StaticEnemy();
+    staticEnemys [i] = s;
+    allEnemys[i+mEnemys] = s;
   }
 
-  //MovingEnemys array vullen
-  for (int i = 0; i <mEnemys; i++) {
-    movingEnemys[i] = new MovingEnemy(3, 3);
-  }
-
-  //variable to look what code belongs to the WASD keys
-  s = "";
 
   //updateing the map with the tutorial level
   updateMap("levels/level0.png", "levels/level0overlay.png");    
@@ -202,11 +207,10 @@ void drawMap() {
   //displaying debug text(pressed keys)
   fill(0);
   textSize(24);
-  text(s, 100, 50);
 
   //checking all the collisions
   collisionmanager.CheckCollisionToWall();
-  for (int i = 0; i < mEnemys; i++) {
+  for (int i = 0; i < totalEnemys; i++) {
     collisionmanager.CheckCollisionToEnemy(i);
   }
 }
@@ -468,15 +472,15 @@ void keyPressed() {
     if (stage == 1) {
       stage = 2;
       return;
-    } else {
-      updateMap("levels/level3.png", "levels/level3overlay.png");
+    } else if (stage == 3) {
+      updateMap("levels/level1.png", "levels/level1overlay.png");
     }
   }
 
-  stage = 3;
+  if (stage == 1) {
+    stage = 3;
+  }
 
-  //setting the debug text to the pressed key
-  s = "key: " + keyCode;
 
   //checking if the player wants to move to the left
   if (keyCode == 65)
