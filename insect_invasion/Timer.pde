@@ -30,7 +30,7 @@ class Timer {
     time -= (nowTime - lastTime);
     lastTime = nowTime;
     if (time<0) {
-      noLoop();
+      stage = 4;
     }
   }
 }
