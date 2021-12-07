@@ -40,14 +40,17 @@ class StaticEnemy extends MainEnemy {
 
   void draw() {
     //Draws a vision circle on top of the enemy
-    //noFill();
+    noFill();
+    //fill(255);
     noStroke();
-    ellipseMode(CENTER);
+    rectMode(CENTER);
 
-    float visionW = 0;
-    float visionH = 0;
+    float visionW = 250;
+    float visionH = 250;
     float visionRadius =  visionW/2;
     float PlayerToEnemy = dist(enemyX, enemyY, p.x, p.y);
+
+    rect(enemyX, enemyY, visionW, visionH);
 
     switch (direction) {
 
@@ -72,12 +75,11 @@ class StaticEnemy extends MainEnemy {
       break;
     }
 
-    ellipse(enemyX, enemyY, visionW, visionH);
 
     //checks if the player is in range 
     //switch makes enemy move towards player direction
     if (PlayerToEnemy <= p.radius + visionRadius) {
-      if (!TileEnemy(0, 0).type.equals("door")) {
+      if (!TileEnemy(0, 0).type.equals("door") || (TileEnemy(0, 0).type.equals("grass"))) {
 
         switch (direction) {
 
@@ -98,8 +100,50 @@ class StaticEnemy extends MainEnemy {
           break;
         }
       }
+    } else if (TileEnemy(0, 0).type.equals("door") || (TileEnemy(0, 0).type.equals("grass") && (!PlayerToEnemy <= p.radius + visionRadius)){
+    switch (direction) {
+
+      case "south": 
+        enemyY -= speed; 
+        break;
+
+      case "east":
+        enemyX -= speed;
+        break;
+
+      case "north":
+        enemyY += speed;
+        break;
+
+      case "west":
+        enemyX += speed;
+        break;
+      }
+    }
     }
 
     super.draw();//inherits everything inside the draw of all enemy classes
   }
 }
+
+
+
+//else {
+//      switch (direction) {
+
+//      case "south": 
+//        enemyY -= speed; 
+//        break;
+
+//      case "east":
+//        enemyX -= speed;
+//        break;
+
+//      case "north":
+//        enemyY += speed;
+//        break;
+
+//      case "west":
+//        enemyX += speed;
+//        break;
+//      }

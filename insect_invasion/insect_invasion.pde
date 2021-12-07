@@ -334,9 +334,15 @@ void updateMap(String mapImage, String mapOverlayImage) {
       if (newTile.type.equals("windTile")) {
         newTile.spawnWind(x, y);
       }
+    }
+  }
+  for (int x = 0; x < cols; x++) {
+
+    for (int y = 0; y < rows; y++) {
+
       //check if tile is walkable
       if (tiles[x][y].type == "walkable" || tiles[x][y].type == "enemywalkable") {
-        switch(hex(tileColor)) {
+        switch(tiles[x][y].colour) {
         case "FFFFD800" :
           //coin aanroepen
           coins[coinCounter].place(x * w + 0.5 * w, y * h + 0.5 * h);
