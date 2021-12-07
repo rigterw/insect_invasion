@@ -47,6 +47,8 @@ color tileColor;
 
 String tileType;
 
+int currentMap;
+
 final int xPositionName = 400, yPosition = 100;
 final int xPositionScores = xPositionName + 200;
 
@@ -59,11 +61,10 @@ CollisionManager collisionmanager = new CollisionManager();
 Coin[] coins = new Coin[nCoins];
 
 //arrays for all enemys
-<<<<<<< HEAD
 
-=======
-MainEnemy[] allEnemys = new MainEnemy[totalEnemys];
->>>>>>> 05cdc3cca20bf2e22533e68205a8eabc79449e15
+
+
+
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
@@ -214,329 +215,328 @@ void drawMap() {
 
   //checking all the collisions
   collisionmanager.CheckCollisionToWall();
-<<<<<<< HEAD
-  for (int i = 0; i < allEnemys.length; i++) {
-=======
-  for (int i = 0; i < totalEnemys; i++) {
->>>>>>> 05cdc3cca20bf2e22533e68205a8eabc79449e15
-    collisionmanager.CheckCollisionToEnemy(i);
+
+    for (int i = 0; i < allEnemys.length; i++) {
+  
+
+        collisionmanager.CheckCollisionToEnemy(i);
+    
   }
 }
-
-/*
+  /*
  * Method to update the displayed map
- * @params String mapImage
- * @params String mapOverlayImage
- * @return void
- */
-void updateMap(String mapImage, String mapOverlayImage) {
+   * @params String mapImage
+   * @params String mapOverlayImage
+   * @return void
+   */
+  void updateMap(String mapImage, String mapOverlayImage) {
 
-  //looping thru all the coins and disable them
-  for (int j =0; j <nCoins; j++) {
-    coins[j].isEnabled = false;
-  }
-
-
-  //Disable the moving enemys
-  for (int i = 0; i < mEnemys; i++) {
-    movingEnemys[i].isEnabled = false;
-  }
-
-  //Disable the static enemys
-  for (int i = 0; i < sEnemys; i++) {
-    staticEnemys[i].isEnabled = false;
-  }
-
-  coinCounter = 0;
-  movingEnemyCounter = 0;
-  staticEnemyCounter = 0;
-
-  //loading in the map image and overlay
-  map = loadImage(mapImage);
-  mapOverlay = loadImage(mapOverlayImage);
-
-  //drawing the map image and overlay
-  image(map, 0, 0);
-  image(mapOverlay, 0, 18);
-
-  //looping thru all the tiles of the map and overlay
-  for (int x = 0; x < cols; x++) {
-
-    for (int y = 0; y < rows; y++) {
-      tileColor = get(x, y);
-
-      switch(hex(tileColor)) {
-      case "FFCE7C38" :
-        tileType = "walkable";
-        tileImage = walkTile;
-        canWind = true;
-        break;
-      case "FF000000":
-        tileType = "wall";
-        tileImage = wallTile;
-        canWind = false;
-        break;
-      case"FF228A15" :
-        tileType = "grass";
-        tileImage = grassTile;
-        canWind = false;
-        break;
-      case "FF0026FF" : 
-        tileType = "door";
-        tileImage = doorTile;
-        canWind = false;
-        break;
-      case "FF4C64FF" : 
-        tileType = "doorOpen";
-        tileImage = doorOpenTile;
-        canWind = true;
-        break;
-      case "FF00FFFF" : 
-        tileType = "button";
-        tileImage = buttonTile;
-        canWind = true;
-        break;
-      case "FFF2FF02" : 
-        tileType = "finish";
-        tileImage = finishTile;
-        canWind = true;
-        break;
-      case "FF7F3300":
-        tileType = "enemywalkable";
-        tileImage = walkTile;
-        break;
-      case "FFFF3819" :
-        tileType = "enemyOneWay";
-        tileImage = walkTile;
-        canWind = true;
-        break;
-      case "FF404040":
-        tileType = "oneWay";
-        tileImage = oneWayTile;
-        canWind = true;
-        break;
-      case "FF808080":
-        tileType = "windtile";
-        tileImage = grassTile;
-        canWind = false;
-        break;
-      case "FFCECECE":
-        tileType = "windStop";
-        tileImage = walkTile;
-        canWind = false;
-        break;
-      default:
-        tileType = "background"; 
-        tileImage = grassTile;
-        canWind = false;
-      }
-      //geting the tile color
-      tileColor = get(x, y + 18);
-
-      //create new tile
-      Tile newTile = new Tile(w * x, h * y, w, h, tileType, hex(tileColor), tileImage, canWind);
-
-      //put the tile in the array
-      tiles[x][y] = newTile;
-      //spawns the wind
-      if (newTile.type.equals("windTile")) {
-        newTile.spawnWind(x, y);
-      }
+    //looping thru all the coins and disable them
+    for (int j =0; j <nCoins; j++) {
+      coins[j].isEnabled = false;
     }
-  }
-  for (int x = 0; x < cols; x++) {
 
-    for (int y = 0; y < rows; y++) {
 
-      //check if tile is walkable
-      if (tiles[x][y].type == "walkable" || tiles[x][y].type == "enemywalkable") {
-        switch(tiles[x][y].colour) {
-        case "FFFFD800" :
-          //coin aanroepen
-          coins[coinCounter].place(x * w + 0.5 * w, y * h + 0.5 * h);
-          coinCounter++;
+    //Disable the moving enemys
+    for (int i = 0; i < mEnemys; i++) {
+      movingEnemys[i].isEnabled = false;
+    }
 
+    //Disable the static enemys
+    for (int i = 0; i < sEnemys; i++) {
+      staticEnemys[i].isEnabled = false;
+    }
+
+    coinCounter = 0;
+    movingEnemyCounter = 0;
+    staticEnemyCounter = 0;
+
+    //loading in the map image and overlay
+    map = loadImage(mapImage);
+    mapOverlay = loadImage(mapOverlayImage);
+
+    //drawing the map image and overlay
+    image(map, 0, 0);
+    image(mapOverlay, 0, 18);
+
+    //looping thru all the tiles of the map and overlay
+    for (int x = 0; x < cols; x++) {
+
+      for (int y = 0; y < rows; y++) {
+        tileColor = get(x, y);
+
+        switch(hex(tileColor)) {
+        case "FFCE7C38" :
+          tileType = "walkable";
+          tileImage = walkTile;
+          canWind = true;
           break;
-
-        case "FFFF0000" :
-          //moving enemy aanroepen
-          movingEnemys[movingEnemyCounter].placeMovingEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
-          movingEnemys[movingEnemyCounter].pathcheck(tiles[x][y]);
-
-          movingEnemyCounter++;
-
+        case "FF000000":
+          tileType = "wall";
+          tileImage = wallTile;
+          canWind = false;
           break;
-        case "FFFF6A00" :
-          //stationair enemy
-          staticEnemys[staticEnemyCounter].placeStaticEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
-          staticEnemyCounter++;
+        case"FF228A15" :
+          tileType = "grass";
+          tileImage = grassTile;
+          canWind = false;
+          break;
+        case "FF0026FF" : 
+          tileType = "door";
+          tileImage = doorTile;
+          canWind = false;
+          break;
+        case "FF4C64FF" : 
+          tileType = "doorOpen";
+          tileImage = doorOpenTile;
+          canWind = true;
+          break;
+        case "FF00FFFF" : 
+          tileType = "button";
+          tileImage = buttonTile;
+          canWind = true;
+          break;
+        case "FFF2FF02" : 
+          tileType = "finish";
+          tileImage = finishTile;
+          canWind = true;
+          break;
+        case "FF7F3300":
+          tileType = "enemywalkable";
+          tileImage = walkTile;
+          break;
+        case "FFFF3819" :
+          tileType = "enemyOneWay";
+          tileImage = walkTile;
+          canWind = true;
+          break;
+        case "FF404040":
+          tileType = "oneWay";
+          tileImage = oneWayTile;
+          canWind = true;
+          break;
+        case "FF808080":
+          tileType = "windtile";
+          tileImage = grassTile;
+          canWind = false;
+          break;
+        case "FFCECECE":
+          tileType = "windStop";
+          tileImage = walkTile;
+          canWind = false;
+          break;
+        default:
+          tileType = "background"; 
+          tileImage = grassTile;
+          canWind = false;
+        }
+        //geting the tile color
+        tileColor = get(x, y + 18);
 
-          break;
-        case "FF00FF21":
-          //respawning the player
-          p.place(x*w + 0.5*w, y*h + 0.5*h);
-          break;
+        //create new tile
+        Tile newTile = new Tile(w * x, h * y, w, h, tileType, hex(tileColor), tileImage, canWind);
+
+        //put the tile in the array
+        tiles[x][y] = newTile;
+        //spawns the wind
+        if (newTile.type.equals("windTile")) {
+          newTile.spawnWind(x, y);
         }
       }
     }
-  }
-  updateWind();
-}
+    for (int x = 0; x < cols; x++) {
 
-//this function updates all the wind
-void updateWind() {
-  for (int xTile = 0; xTile < cols; xTile++) {
-    for (int yTile = 0; yTile < rows; yTile++) {
-      tiles[xTile][yTile].hasWind = false;
-    }
-  }
+      for (int y = 0; y < rows; y++) {
 
-  for (int xTile = 0; xTile < cols; xTile++) {
-    for (int yTile = 0; yTile < rows; yTile++) {
-      if (tiles[xTile][yTile].type == "windtile") {
-        tiles[xTile][yTile].spawnWind(xTile, yTile);
+        //check if tile is walkable
+        if (tiles[x][y].type == "walkable" || tiles[x][y].type == "enemywalkable") {
+          switch(tiles[x][y].colour) {
+          case "FFFFD800" :
+            //coin aanroepen
+            coins[coinCounter].place(x * w + 0.5 * w, y * h + 0.5 * h);
+            coinCounter++;
+
+            break;
+
+          case "FFFF0000" :
+            //moving enemy aanroepen
+            movingEnemys[movingEnemyCounter].placeMovingEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
+            movingEnemys[movingEnemyCounter].pathcheck(tiles[x][y]);
+
+            movingEnemyCounter++;
+
+            break;
+          case "FFFF6A00" :
+            //stationair enemy
+            staticEnemys[staticEnemyCounter].placeStaticEnemy(x * w + 0.5 * w, y * h + 0.5 * h);
+            staticEnemyCounter++;
+
+            break;
+          case "FF00FF21":
+            //respawning the player
+            p.place(x*w + 0.5*w, y*h + 0.5*h);
+            break;
+          }
+        }
       }
     }
-  }  
-  println(tiles[23][8].hasWind);
-}
-
-void drawGameOver() 
-{
-
-  background(52, 190, 130);
-  textSize(32);
-  fill(208, 98, 36);
-
-  Properties props = new Properties();
-  props.setProperty("user", "berkeln1");
-  props.setProperty("password", "ytAT+sPYwZl7JH");
-  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
-  insertNewHighscore(myConnection);
-  showHighscores (myConnection);
-}
-
-void insertNewHighscore(SQLConnection connection) {
-  String name = "Insect";
-  connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES(\""+ name + "\", "+ p.score +");");
-}
-
-void showHighscores(SQLConnection connection) {
-  Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore ORDER BY highscore DESC");
-  textAlign(LEFT);
-  text("NAME", xPositionName, yPosition);
-  text("HIGHSCORE", xPositionScores, yPosition);
-  text("________________________", xPositionName, yPosition + 10);
-
-  for (int i = 0; i < highscores.getRowCount(); i++) {
-    TableRow row = highscores.getRow(i);
-    text(row.getString(0), xPositionName, yPosition + (i+1) * 50);
-    text(row.getString(1), xPositionScores, yPosition + (i+1) * 50);
-  }
-}
-
-void onlyInsertNewHighscore() {
-  Properties props = new Properties();
-  props.setProperty("user", "berkeln1");
-  props.setProperty("password", "ytAT+sPYwZl7JH");
-  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
-  insertNewHighscore(myConnection);
-}
-
-/*
- * method to check if a key is pressed on the keyboard
- */
-void keyPressed() {
-  if (stage == 4 && keyCode == 82) {
-    updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 3;
-    onlyInsertNewHighscore();
-    timer.time = timer.maxTime;
-    timer.lastTime = millis();
-    p.score = 0;
-    println("test");
-  } else if (stage == 4 && keyCode == 72) {
-    drawGameOver();
-    stage = 5;
-    return;
-  } else if ( stage == 4 && keyCode != 82 && keyCode != 72) {
-    println("not 82 or 72");
-    return;
-  }
-  if (stage == 5 && keyCode == 82) {
-    updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 3;
-    timer.time = timer.maxTime;
-    timer.lastTime = millis();
-    p.score = 0;
-    println("test");
-  } else if (stage == 5 && keyCode != 82) {
-    println("not 82");
-    return;
+    updateWind();
   }
 
-  if (stage == 1) {
-    timer.lastTime = millis();
-  } else if (stage == 2) {
-    timer.lastTime = millis();
+  //this function updates all the wind
+  void updateWind() {
+    for (int xTile = 0; xTile < cols; xTile++) {
+      for (int yTile = 0; yTile < rows; yTile++) {
+        tiles[xTile][yTile].hasWind = false;
+      }
+    }
+
+    for (int xTile = 0; xTile < cols; xTile++) {
+      for (int yTile = 0; yTile < rows; yTile++) {
+        if (tiles[xTile][yTile].type == "windtile") {
+          tiles[xTile][yTile].spawnWind(xTile, yTile);
+        }
+      }
+    }  
+    println(tiles[23][8].hasWind);
   }
-  //changing the stage to launch game from main menu
-  //dev code to load in a new map
-  if (keyCode == 32) {
-    if (stage == 1) {
-      stage = 2;
-      return;
-    } else if (stage == 3) {
-      updateMap("levels/level3.png", "levels/level3overlay.png");
+
+  void drawGameOver() 
+  {
+
+    background(52, 190, 130);
+    textSize(32);
+    fill(208, 98, 36);
+
+    Properties props = new Properties();
+    props.setProperty("user", "berkeln1");
+    props.setProperty("password", "ytAT+sPYwZl7JH");
+    SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
+    insertNewHighscore(myConnection);
+    showHighscores (myConnection);
+  }
+
+  void insertNewHighscore(SQLConnection connection) {
+    String name = "Insect";
+    connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES(\""+ name + "\", "+ p.score +");");
+  }
+
+  void showHighscores(SQLConnection connection) {
+    Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore ORDER BY highscore DESC");
+    textAlign(LEFT);
+    text("NAME", xPositionName, yPosition);
+    text("HIGHSCORE", xPositionScores, yPosition);
+    text("________________________", xPositionName, yPosition + 10);
+
+    for (int i = 0; i < highscores.getRowCount(); i++) {
+      TableRow row = highscores.getRow(i);
+      text(row.getString(0), xPositionName, yPosition + (i+1) * 50);
+      text(row.getString(1), xPositionScores, yPosition + (i+1) * 50);
     }
   }
 
-  if (stage == 1) {
-    stage = 3;
+  void onlyInsertNewHighscore() {
+    Properties props = new Properties();
+    props.setProperty("user", "berkeln1");
+    props.setProperty("password", "ytAT+sPYwZl7JH");
+    SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
+    insertNewHighscore(myConnection);
   }
 
+  /*
+ * method to check if a key is pressed on the keyboard
+   */
+  void keyPressed() {
+    if (stage == 4 && keyCode == 82) {
+      updateMap("levels/level0.png", "levels/level0overlay.png");
+      stage = 3;
+      onlyInsertNewHighscore();
+      timer.time = timer.maxTime;
+      timer.lastTime = millis();
+      p.score = 0;
+      println("test");
+    } else if (stage == 4 && keyCode == 72) {
+      drawGameOver();
+      stage = 5;
+      return;
+    } else if ( stage == 4 && keyCode != 82 && keyCode != 72) {
+      println("not 82 or 72");
+      return;
+    }
+    if (stage == 5 && keyCode == 82) {
+      updateMap("levels/level0.png", "levels/level0overlay.png");
+      stage = 3;
+      timer.time = timer.maxTime;
+      timer.lastTime = millis();
+      p.score = 0;
+      println("test");
+    } else if (stage == 5 && keyCode != 82) {
+      println("not 82");
+      return;
+    }
 
-  //checking if the player wants to move to the left
-  if (keyCode == 65)
-  {
-    left = true;
-  }
-  //checking if the player wants to move to the right
-  else if (keyCode == 68)
-  {
-    right = true;
-  }
-  //checking if the player wants to move upwards
-  else if (keyCode == 87)
-  {
-    up = true;
-  } 
-  //checking if the player wants to move downwards
-  else if (keyCode == 83)
-  {
-    down = true;
-  }
-}
+    if (stage == 1) {
+      timer.lastTime = millis();
+    } else if (stage == 2) {
+      timer.lastTime = millis();
+    }
+    //changing the stage to launch game from main menu
+    //dev code to load in a new map
+    if (keyCode == 32) {
+      if (stage == 1) {
+        stage = 2;
+        return;
+      } else if (stage == 3) {
+        updateMap("levels/level3.png", "levels/level3overlay.png");
+      }
+    }
 
-/*
+    if (stage == 1) {
+      stage = 3;
+    }
+
+
+    //checking if the player wants to move to the left
+    if (keyCode == 65)
+    {
+      left = true;
+    }
+    //checking if the player wants to move to the right
+    else if (keyCode == 68)
+    {
+      right = true;
+    }
+    //checking if the player wants to move upwards
+    else if (keyCode == 87)
+    {
+      up = true;
+    } 
+    //checking if the player wants to move downwards
+    else if (keyCode == 83)
+    {
+      down = true;
+    }
+  }
+
+  /*
  * method to check if a key is released on the keyboard
- */
-void keyReleased()
-{
-  if (keyCode == 32) {
-    stage = 3;
+   */
+  void keyReleased()
+  {
+    if (keyCode == 32) {
+      stage = 3;
+    }
+    if (keyCode == 65)        // naar links bewegen
+    {
+      left = false;
+    } else if (keyCode == 68) // naar rechts bewegen
+    {
+      right = false;
+    } else if (keyCode == 87) // naar boven bewegen
+    {
+      up = false;
+    } else if (keyCode == 83) // naar benden bewegen
+    {
+      down = false;
+    }
   }
-  if (keyCode == 65)        // naar links bewegen
-  {
-    left = false;
-  } else if (keyCode == 68) // naar rechts bewegen
-  {
-    right = false;
-  } else if (keyCode == 87) // naar boven bewegen
-  {
-    up = false;
-  } else if (keyCode == 83) // naar benden bewegen
-  {
-    down = false;
-  }
-}

@@ -86,7 +86,7 @@ class Tile
         }
         buttonStandingOn = true;
       } else if (type == "finish") {//code for finish + next level
-        String map = str(int(random(1, mapcount + 1)));
+         currentMap = int(random(1, mapcount + 1));
 
         //playing the finish sound
         finishSound.play();
@@ -94,7 +94,7 @@ class Tile
         timer.time = timer.maxTime;
 
         //updating the map to the next level
-        updateMap("data/levels/level" + map + ".png", "data/levels/level" + map + "overlay.png") ;
+        updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png") ;
 
 
         buttonStandingOn = false;
