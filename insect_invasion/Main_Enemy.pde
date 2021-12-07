@@ -7,7 +7,7 @@ class MainEnemy {
   int level; // Current level
   boolean isEnabled = false; //Boolean to disable the enemy
   int vision;
-
+  int speed;
   /*
    * Constructor for the MainEnemy class
    */
@@ -19,6 +19,7 @@ class MainEnemy {
     enemyDiameter = 32; //setting the diameter
     level = 1; // setting the level
     vision = 250;
+    speed = 3;// setting the moving enemy's moving speed
   }
 
 
@@ -38,25 +39,24 @@ class MainEnemy {
     return null;
   }
 
-  void display(){
+  void display() {
     if (isEnabled == true) { 
-     update(); 
-     draw();
+      update(); 
+      draw();
     }
   }
 
   void update() {
-   //Collision with player. 
+
   }
-  
+
   /*
    * Method to draw the enemy
    * @return void
    */
   void draw() {
-      //drawing the enemy
-      fill(255, 0, 0); //enemy
-      image(enemy, enemyX - (enemyDiameter / 2), enemyY - (enemyDiameter / 2), enemyDiameter, enemyDiameter);
-    
+    //drawing the enemy
+    fill(255, 0, 0); //enemy
+    image(enemy, enemyX - (enemyDiameter / 2), enemyY - (enemyDiameter / 2), enemyDiameter, enemyDiameter);
   }
 }

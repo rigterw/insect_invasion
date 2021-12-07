@@ -17,7 +17,6 @@ Tile tile;
 
 boolean left, right, up, down, g, canWind;
 Player p = new Player();
-String s;
 
 
 
@@ -30,6 +29,7 @@ int coinCounter = 0;
 int nCoins = 75;
 int mEnemys = 50; //Amount of moving enemys for in the array
 int sEnemys = 50; //Amount of static enemys for in the array
+int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
 
@@ -59,7 +59,11 @@ CollisionManager collisionmanager = new CollisionManager();
 Coin[] coins = new Coin[nCoins];
 
 //arrays for all enemys
+<<<<<<< HEAD
 
+=======
+MainEnemy[] allEnemys = new MainEnemy[totalEnemys];
+>>>>>>> 05cdc3cca20bf2e22533e68205a8eabc79449e15
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
@@ -112,12 +116,9 @@ void setup() {
   for (int i = 0; i < sEnemys; i++) {
     StaticEnemy s = new StaticEnemy();
     staticEnemys [i] = s;
-    allEnemys[i] = s;
+    allEnemys[i+mEnemys] = s;
   }
 
-
-  //variable to look what code belongs to the WASD keys
-  s = "";
 
   //updateing the map with the tutorial level
   updateMap("levels/level0.png", "levels/level0overlay.png");    
@@ -169,7 +170,8 @@ void draw() {
     text("press the 'h' key to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
     text("press the 'r' key to restart", screenSizeX / 2, screenSizeY / 2 + 325);
   } else if (stage == 5) {
-    text("press the 'r' key to restart", screenSizeX / 2, screenSizeY / 2 + 325);
+    textAlign(RIGHT);
+    text("press the 'r' key to restart", screenSizeX - 25, screenSizeY - 25);
     //println("this is stage 5");
   }
 }
@@ -209,11 +211,14 @@ void drawMap() {
   //displaying debug text(pressed keys)
   fill(0);
   textSize(24);
-  text(s, 100, 50);
 
   //checking all the collisions
   collisionmanager.CheckCollisionToWall();
+<<<<<<< HEAD
   for (int i = 0; i < allEnemys.length; i++) {
+=======
+  for (int i = 0; i < totalEnemys; i++) {
+>>>>>>> 05cdc3cca20bf2e22533e68205a8eabc79449e15
     collisionmanager.CheckCollisionToEnemy(i);
   }
 }
@@ -337,9 +342,15 @@ void updateMap(String mapImage, String mapOverlayImage) {
       if (newTile.type.equals("windTile")) {
         newTile.spawnWind(x, y);
       }
+    }
+  }
+  for (int x = 0; x < cols; x++) {
+
+    for (int y = 0; y < rows; y++) {
+
       //check if tile is walkable
       if (tiles[x][y].type == "walkable" || tiles[x][y].type == "enemywalkable") {
-        switch(hex(tileColor)) {
+        switch(tiles[x][y].colour) {
         case "FFFFD800" :
           //coin aanroepen
           coins[coinCounter].place(x * w + 0.5 * w, y * h + 0.5 * h);
@@ -424,14 +435,25 @@ void showHighscores(SQLConnection connection) {
   }
 }
 
+void onlyInsertNewHighscore() {
+  Properties props = new Properties();
+  props.setProperty("user", "berkeln1");
+  props.setProperty("password", "ytAT+sPYwZl7JH");
+  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
+  insertNewHighscore(myConnection);
+}
+
 /*
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
   if (stage == 4 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 2;
+    stage = 3;
+    onlyInsertNewHighscore();
     timer.time = timer.maxTime;
+    timer.lastTime = millis();
+    p.score = 0;
     println("test");
   } else if (stage == 4 && keyCode == 72) {
     drawGameOver();
@@ -443,9 +465,14 @@ void keyPressed() {
   }
   if (stage == 5 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
-    stage = 2;
+    stage = 3;
     timer.time = timer.maxTime;
+    timer.lastTime = millis();
+    p.score = 0;
     println("test");
+  } else if (stage == 5 && keyCode != 82) {
+    println("not 82");
+    return;
   }
 
   if (stage == 1) {
@@ -459,15 +486,15 @@ void keyPressed() {
     if (stage == 1) {
       stage = 2;
       return;
-    } else {
+    } else if (stage == 3) {
       updateMap("levels/level3.png", "levels/level3overlay.png");
     }
   }
 
-  stage = 3;
+  if (stage == 1) {
+    stage = 3;
+  }
 
-  //setting the debug text to the pressed key
-  s = "key: " + keyCode;
 
   //checking if the player wants to move to the left
   if (keyCode == 65)
