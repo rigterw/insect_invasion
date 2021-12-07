@@ -109,7 +109,7 @@ void setup() {
   for (int i = 0; i < mEnemys; i++) {
     MovingEnemy m = new MovingEnemy(3, 3);
     movingEnemys[i] = m;
-    allEnemys[i+50] = m;
+    allEnemys[i] = m;
   }
 
   //making array of StaticEnemys
