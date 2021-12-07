@@ -59,10 +59,10 @@ CollisionManager collisionmanager = new CollisionManager();
 Coin[] coins = new Coin[nCoins];
 
 //arrays for all enemys
-MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
+
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
-
+MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
 Timer timer = new Timer();
 
 SoundFile coinSound, buttonSound, finishSound, soundTrack;
@@ -101,10 +101,10 @@ void setup() {
 
   //making array of MovingEnemys
   //puts all MovingEnemys in allEnemys Array
-  for (int i = 0; i < sEnemys; i++) {
+  for (int i = 0; i < mEnemys; i++) {
     MovingEnemy m = new MovingEnemy(3, 3);
     movingEnemys[i] = m;
-    allEnemys[i] = m;
+    allEnemys[i+50] = m;
   }
 
   //making array of StaticEnemys
@@ -213,7 +213,7 @@ void drawMap() {
 
   //checking all the collisions
   collisionmanager.CheckCollisionToWall();
-  for (int i = 0; i < mEnemys; i++) {
+  for (int i = 0; i < allEnemys.length; i++) {
     collisionmanager.CheckCollisionToEnemy(i);
   }
 }

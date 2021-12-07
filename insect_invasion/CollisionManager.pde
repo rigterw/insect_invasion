@@ -119,6 +119,7 @@ class CollisionManager {
    * @return void
    */
   void CheckCollisionToEnemy(int enemy_id) {
+
     if (allEnemys[enemy_id].isEnabled == true) {
       //checking distance between player and enemy
       if (dist(p.x, p.y, allEnemys[enemy_id].enemyX, allEnemys[enemy_id].enemyY) < p.w / 2 + allEnemys[enemy_id].enemyDiameter / 2) {
