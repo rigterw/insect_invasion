@@ -12,7 +12,6 @@ class StaticEnemy extends MainEnemy {
 
 
   void placeStaticEnemy(float xPos_, float yPos_) {
-
     enemyX = xPos_;
     enemyY = yPos_;
     isEnabled = true;
@@ -39,47 +38,54 @@ class StaticEnemy extends MainEnemy {
 
 
   void draw() {
-    //Draws a vision circle on top of the enemy
-    noFill();
-    //fill(255);
+    //Draws a vision area of the static enemy
+    //noFill();
+    fill(255);
     noStroke();
     rectMode(CENTER);
 
-    float visionW = 250;
-    float visionH = 250;
+//variables for the vision area of thestatic enemy
+    float visionW = 150;
+    float visionH = 125;
+    float visionX = 0;
+    float visionY = 0;
     float visionRadius =  visionW/2;
-    float PlayerToEnemy = dist(enemyX, enemyY, p.x, p.y);
 
-    rect(enemyX, enemyY, visionW, visionH);
-
+//switch for the vision area of the static enemy
     switch (direction) {
 
     case "south":
-      visionW = 0;
-      visionH = 250;
+      visionY = 75;
+      visionX = 0;
+      visionW = 40;
       break;
 
     case "east":
-      visionW = 250;
-      visionH = 0;
+      visionY = 0;
+      visionX = 75;
+      visionH = 40;
       break;
 
     case "north":
-      visionW = 0;
-      visionH = -250;
+      visionY = -75;
+      visionX = 0;
+      visionW = 40;
       break;
 
     case "west":
-      visionW = -250;
-      visionH = 0;
+      visionY = 0;
+      visionX = -75;
+      visionH = 40;
       break;
     }
 
+    float PlayerToEnemy = dist(enemyX + visionX, enemyY + visionY, p.x, p.y);
+    rect(enemyX + visionX, enemyY + visionY, visionW, visionH);
 
-    //checks if the player is in range 
+    //checks if the player is in range of static enemy vision area
     //switch makes enemy move towards player direction
     if (PlayerToEnemy <= p.radius + visionRadius) {
-      if (!TileEnemy(0, 0).type.equals("door") || (TileEnemy(0, 0).type.equals("grass"))) {
+      if (!TileEnemy(0, 0).type.equals("door")|| (TileEnemy(0, 0).type.equals("grass"))) {
 
         switch (direction) {
 
@@ -100,8 +106,8 @@ class StaticEnemy extends MainEnemy {
           break;
         }
       }
-    } else if (TileEnemy(0, 0).type.equals("door") || (TileEnemy(0, 0).type.equals("grass") && (!PlayerToEnemy <= p.radius + visionRadius)){
-    switch (direction) {
+    } else if (TileEnemy(0, 0).type.equals("door") || (!(TileEnemy(0, 0).type.equals("grass")) || (TileEnemy(0, 0).type.equals("enemywalkable") && (!(PlayerToEnemy <= p.radius + visionRadius))))) {
+      switch (direction) {
 
       case "south": 
         enemyY -= speed; 
@@ -120,30 +126,8 @@ class StaticEnemy extends MainEnemy {
         break;
       }
     }
-    }
+
 
     super.draw();//inherits everything inside the draw of all enemy classes
   }
 }
-
-
-
-//else {
-//      switch (direction) {
-
-//      case "south": 
-//        enemyY -= speed; 
-//        break;
-
-//      case "east":
-//        enemyX -= speed;
-//        break;
-
-//      case "north":
-//        enemyY += speed;
-//        break;
-
-//      case "west":
-//        enemyX += speed;
-//        break;
-//      }

@@ -479,7 +479,7 @@ void keyPressed() {
       stage = 2;
       return;
     } else if (stage == 3) {
-      updateMap("levels/level1.png", "levels/level1overlay.png");
+      updateMap("levels/level3.png", "levels/level3overlay.png");
     }
   }
 
