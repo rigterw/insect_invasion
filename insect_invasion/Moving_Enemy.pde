@@ -1,7 +1,6 @@
 class MovingEnemy extends MainEnemy {
 
   String direction = "north"; // setting the moving enemy's moving direction
-  int speed = 3; // setting the moving enemy's moving speed
 
   /*
    * Constructor for the MovingEnemy class
