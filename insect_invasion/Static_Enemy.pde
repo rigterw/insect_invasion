@@ -39,8 +39,7 @@ class StaticEnemy extends MainEnemy {
 
   void draw() {
     //Draws a vision area of the static enemy
-    //noFill();
-    fill(255);
+    noFill();
     noStroke();
     rectMode(CENTER);
 
