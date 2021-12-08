@@ -168,11 +168,11 @@ void draw() {
     textSize(73);
     fill(#FFFFFF);
     text("GAME OVER", screenSizeX / 2, screenSizeY / 2);
-    text("press the 'h' key to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
-    text("press the 'r' key to restart", screenSizeX / 2, screenSizeY / 2 + 325);
+    text("press X to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
+    text("press A to restart", screenSizeX / 2, screenSizeY / 2 + 325);
   } else if (stage == 5) {
     textAlign(RIGHT);
-    text("press the 'r' key to restart", screenSizeX - 25, screenSizeY - 25);
+    text("press A to restart", screenSizeX - 25, screenSizeY - 25);
     //println("this is stage 5");
   }
 }
