@@ -47,7 +47,7 @@ color tileColor;
 
 String tileType;
 
-int currentMap;
+int currentMap = 0;
 
 final int xPositionName = 400, yPosition = 100;
 final int xPositionScores = xPositionName + 200;
@@ -187,10 +187,10 @@ void drawMap() {
       tile = tiles[i][j]; 
       tile.tileCheck();
       tile.draw();
-      timer.drawTimer();
+ 
     }
   }
-
+     timer.drawTimer();
   //looping thru all the coins and draw them
   for (int i = 0; i < nCoins; i++) { // tekent de coins
     coins[i].display();

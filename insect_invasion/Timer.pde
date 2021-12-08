@@ -12,7 +12,8 @@ class Timer {
 
   void drawTimer()
   {
-
+    fill(0);
+rect(timeBarX, timeBarY, width*2, timerHeight);
     float greenColor = time / maxTime *255 *2; //The timer transitions from green to red as time decreases
     float redColor = 255 *2 - time / maxTime * 255 *2;
     float blueColor = 0;

@@ -1,5 +1,7 @@
 class StaticEnemy extends MainEnemy {
   String direction = null;
+  
+  float originX, originY;
   /*
    * 2 argument constructor from the StaticEnemy class
    * @param Integer circleX
@@ -14,6 +16,8 @@ class StaticEnemy extends MainEnemy {
   void placeStaticEnemy(float xPos_, float yPos_) {
     enemyX = xPos_;
     enemyY = yPos_;
+    originX = xPos_;
+    originY = yPos_;
     isEnabled = true;
     direction = "north";
 
@@ -109,19 +113,25 @@ class StaticEnemy extends MainEnemy {
       switch (direction) {
 
       case "south": 
-        enemyY -= speed; 
+      if(enemyY > originY){
+        enemyY -= speed; }
         break;
 
       case "east":
-        enemyX -= speed;
+      if(enemyX>originX){
+        enemyX -= speed;}
         break;
 
       case "north":
+      if(enemyY<originY){
         enemyY += speed;
+      }
         break;
 
       case "west":
+      if(enemyX<originX){
         enemyX += speed;
+      }
         break;
       }
     }
