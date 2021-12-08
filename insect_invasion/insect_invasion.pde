@@ -304,6 +304,7 @@ void drawMap() {
         case "FF7F3300":
           tileType = "enemywalkable";
           tileImage = walkTile;
+          canWind = true;
           break;
         case "FFFF3819" :
           tileType = "enemyOneWay";

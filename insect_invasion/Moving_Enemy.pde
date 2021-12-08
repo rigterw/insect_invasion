@@ -98,12 +98,12 @@ class MovingEnemy extends MainEnemy {
       break;
     }
     //checks if the enemy can continue walking forward
-    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") || frontTile.type.equals("button") 
+    if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") || frontTile.type.equals("button") || frontTile.type.equals("windStop") 
     || frontTile.type.equals("enemyOneWay")||(frontTile.type.equals("oneWay")&&frontTile.direction.equals(direction))) == false) {
       enemyX = int(tileStanding.x + 0.5*tileStanding.w);
       enemyY = int(tileStanding.y + 0.5*tileStanding.w);
       //checks if the enemy can go right and if there is no open door on the left
-      if ((((rightTile.type.equals("enemywalkable") || rightTile.type.equals("button")||
+      if ((((rightTile.type.equals("enemywalkable") || rightTile.type.equals("button")|| || frontTile.type.equals("windStop")
       (rightTile.type.equals("oneWay")&&((direction == "north" && rightTile.direction.equals("east"))||(direction == "east" && rightTile.direction.equals("south"))
       ||(direction == "south" && rightTile.direction.equals("west"))||(direction == "west" && rightTile.direction.equals("north")))))
       && !leftTile.type.equals("doorOpen")) || rightTile.type.equals("doorOpen"))) {
@@ -133,7 +133,7 @@ class MovingEnemy extends MainEnemy {
           direction = "north";
           break;
         }
-      } else if (leftTile.type.equals("enemywalkable") || leftTile.type.equals("doorOpen")|| leftTile.type.equals("button")||
+      } else if (leftTile.type.equals("enemywalkable") || leftTile.type.equals("doorOpen")|| leftTile.type.equals("button")|| || frontTile.type.equals("windStop")
       (leftTile.type.equals("oneWay")&&((direction == "north" && leftTile.direction.equals("west"))||(direction == "east" && leftTile.direction.equals("north"))
       ||(direction == "south" && leftTile.direction.equals("east"))||(direction == "west" && leftTile.direction.equals("south"))))) {
         switch(direction) {
