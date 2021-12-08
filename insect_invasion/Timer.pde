@@ -1,8 +1,8 @@
 class Timer {
-  float time = 60000; //Amount of starting time in ms
+  float time = 45000; //Amount of starting time in ms
   float maxTime = time; //Max amount of time in ms
-  int timerMaxWidth = 1280; //Max width timer
-  int timerHeight = 25; //Height timer
+  int timerMaxWidth = 2560; //Max width timer
+  int timerHeight = 50; //Height timer
   int timeBarX = 0; //Timer position X
   int timeBarY = 0; //Timer position Y
   int nowTime; //Time passed since starting the game
