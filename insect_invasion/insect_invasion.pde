@@ -188,10 +188,9 @@ void drawMap() {
       tile = tiles[i][j]; 
       tile.tileCheck();
       tile.draw();
- 
     }
   }
-     timer.drawTimer();
+  timer.drawTimer();
   //looping thru all the coins and draw them
   for (int i = 0; i < nCoins; i++) { // tekent de coins
     coins[i].display();
@@ -209,6 +208,8 @@ void drawMap() {
   //updating and drawing the player
   p.update();
   p.display();
+  p.playerTileX = int(p.x / 40);
+  p.playerTileY = int(p.y / 40);
 
   //displaying debug text(pressed keys)
   fill(0);
@@ -304,7 +305,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
       case "FF7F3300":
         tileType = "enemywalkable";
         tileImage = walkTile;
-          canWind = true;
+        canWind = true;
         break;
       case "FFFF3819" :
         tileType = "enemyOneWay";
@@ -429,11 +430,11 @@ void onlyInsertNewHighscore() {
 
 void insertNewHighscore(SQLConnection connection) {
   String name = "Insect";
-  connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES(\""+ name + "\", "+ p.score +");");
+  connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES('"+ name + "', '"+ p.score +"');");
 }
 
 void insertDeath(SQLConnection connection) {
-  connection.updateQuery("INSERT INTO Deaths (map, xPos, yPos, cause) VALUES('"+ currentMap +"', '"+ p.x +"', '"+ p.y +"', '"+ deathCause +"');");
+  connection.updateQuery("INSERT INTO Deaths (map, xTile, yTile, cause) VALUES('"+ currentMap +"', '"+ p.playerTileX +"', '"+ p.playerTileY +"', '"+ deathCause +"');");
 }
 
 void showHighscores(SQLConnection connection) {
