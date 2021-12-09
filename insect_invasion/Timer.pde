@@ -30,6 +30,7 @@ class Timer {
     time -= (nowTime - lastTime);
     lastTime = nowTime;
     if (time<0) {
+      deathCause = "time";
       stage = 4;
     }
   }
