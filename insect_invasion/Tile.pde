@@ -86,8 +86,11 @@ class Tile
         }
         buttonStandingOn = true;
       } else if (type == "finish") {//code for finish + next level
-         currentMap = int(random(1, mapcount + 1));
-
+        int nextMap = int(random(1, mapcount + 1));
+        while (nextMap == currentMap) {
+          nextMap = int(random(1, mapcount + 1));
+        }
+        currentMap = nextMap;
         //playing the finish sound
         finishSound.play();
         p.score += int(timer.time / 1000);

@@ -47,7 +47,7 @@ color tileColor;
 
 String tileType;
 
-int currentMap;
+int currentMap = 0;
 
 String deathCause;
 
@@ -188,10 +188,10 @@ void drawMap() {
       tile = tiles[i][j]; 
       tile.tileCheck();
       tile.draw();
-      timer.drawTimer();
+ 
     }
   }
-
+     timer.drawTimer();
   //looping thru all the coins and draw them
   for (int i = 0; i < nCoins; i++) { // tekent de coins
     coins[i].display();
@@ -304,6 +304,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
       case "FF7F3300":
         tileType = "enemywalkable";
         tileImage = walkTile;
+          canWind = true;
         break;
       case "FFFF3819" :
         tileType = "enemyOneWay";
