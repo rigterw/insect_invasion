@@ -33,7 +33,7 @@ int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
 
-int mapcount = 4;
+int mapcount = 6;
 int windSpeed = 10;
 int screenSizeX = 1280;
 int screenSizeY = 720;
@@ -496,7 +496,7 @@ void keyPressed() {
       stage = 2;
       return;
     } else if (stage == 3) {
-      updateMap("levels/level3.png", "levels/level3overlay.png");
+      updateMap("levels/level6.png", "levels/level6overlay.png");
     }
   }
 
