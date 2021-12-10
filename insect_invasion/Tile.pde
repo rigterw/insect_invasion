@@ -151,6 +151,7 @@ class Tile
 
       tint(unhex(colour));
       image(tile, x, y);
+      noTint();
     }
     //for the oneWay tiles, it rotates the images to the right side.
     else if (type == "oneWay") {

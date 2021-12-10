@@ -40,9 +40,14 @@ int screenSizeY = 720;
 int stage;
 
 PFont title;
+<<<<<<< HEAD
 PImage  map, mapOverlay;
 PImage Player, enemy;
 PImage walkTile, oneWayTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
+=======
+
+PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, windTile, Player, enemy, startScreen, TimeCoin;
+>>>>>>> 9b06d4a50defbf9ff8852de5a31728b16a4ddc4d
 
 color tileColor;
 
@@ -97,6 +102,7 @@ void setup() {
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
+  TimeCoin = loadImage("data/Player/TimeCoin.png");
 
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
@@ -193,10 +199,9 @@ void drawMap() {
       tile = tiles[i][j]; 
       tile.tileCheck();
       tile.draw();
- 
     }
   }
-     timer.drawTimer();
+  timer.drawTimer();
   //looping thru all the coins and draw them
   for (int i = 0; i < nCoins; i++) { // tekent de coins
     coins[i].display();
@@ -214,6 +219,8 @@ void drawMap() {
   //updating and drawing the player
   p.update();
   p.display();
+  p.playerTileX = int(p.x / 40);
+  p.playerTileY = int(p.y / 40);
 
   //displaying debug text(pressed keys)
   fill(0);
@@ -309,7 +316,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
       case "FF7F3300":
         tileType = "enemywalkable";
         tileImage = walkTile;
-          canWind = true;
+        canWind = true;
         break;
       case "FFFF3819" :
         tileType = "enemyOneWay";
@@ -407,6 +414,57 @@ void updateWind() {
   println(tiles[23][8].hasWind);
 }
 
+<<<<<<< HEAD
+=======
+void drawGameOver() 
+{
+
+  background(52, 190, 130);
+  textSize(32);
+  fill(208, 98, 36);
+
+  Properties props = new Properties();
+  props.setProperty("user", "berkeln1");
+  props.setProperty("password", "ytAT+sPYwZl7JH");
+  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
+  insertDeath(myConnection);
+  insertNewHighscore(myConnection);
+  showHighscores (myConnection);
+}
+
+void onlyInsertNewHighscore() {
+  Properties props = new Properties();
+  props.setProperty("user", "berkeln1");
+  props.setProperty("password", "ytAT+sPYwZl7JH");
+  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
+  insertDeath(myConnection);
+  insertNewHighscore(myConnection);
+}
+
+void insertNewHighscore(SQLConnection connection) {
+  String name = "Insect";
+  connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES('"+ name + "', '"+ p.score +"');");
+}
+
+void insertDeath(SQLConnection connection) {
+  connection.updateQuery("INSERT INTO Deaths (map, xTile, yTile, cause) VALUES('"+ currentMap +"', '"+ p.playerTileX +"', '"+ p.playerTileY +"', '"+ deathCause +"');");
+}
+
+void showHighscores(SQLConnection connection) {
+  Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore ORDER BY highscore DESC");
+  textAlign(LEFT);
+  text("NAME", xPositionName, yPosition);
+  text("HIGHSCORE", xPositionScores, yPosition);
+  text("________________________", xPositionName, yPosition + 10);
+
+  for (int i = 0; i < highscores.getRowCount(); i++) {
+    TableRow row = highscores.getRow(i);
+    text(row.getString(0), xPositionName, yPosition + (i+1) * 50);
+    text(row.getString(1), xPositionScores, yPosition + (i+1) * 50);
+  }
+}
+
+>>>>>>> 9b06d4a50defbf9ff8852de5a31728b16a4ddc4d
 
 
 /*

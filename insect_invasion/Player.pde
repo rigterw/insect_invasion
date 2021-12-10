@@ -4,6 +4,7 @@ class Player
   float speedX, speedY, maxSpeed; //Player movement speed
   float radius; //Player radius for the collisions
   float distance; //Distance used for the collision between player and coin
+  int playerTileX, playerTileY; //Tile the player is located on
   int score; // Score (picked up coins)
 
   /*
