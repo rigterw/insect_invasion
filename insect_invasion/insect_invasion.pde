@@ -12,6 +12,10 @@ void settings() {
   size(1280, 720);
 }
 
+//developer settings
+int testMap = 3;
+boolean online = true;
+
 //initializing all the variables
 Tile tile;
 
@@ -40,14 +44,12 @@ int screenSizeY = 720;
 int stage;
 
 PFont title;
-<<<<<<< HEAD
 PImage  map, mapOverlay;
 PImage Player, enemy;
-PImage walkTile, oneWayTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
-=======
+PImage walkTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
 
-PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, windTile, Player, enemy, startScreen, TimeCoin;
->>>>>>> 9b06d4a50defbf9ff8852de5a31728b16a4ddc4d
+
+PImage  TimeCoin;
 
 color tileColor;
 
@@ -61,7 +63,7 @@ final int xPositionName = 400, yPosition = 100;
 final int xPositionScores = xPositionName + 200;
 
 Tile[][] tiles = new Tile[cols][rows];
-
+SQLConnection connection;
 DatabaseManager databasemanager = new DatabaseManager();
 CollisionManager collisionmanager = new CollisionManager();
 
@@ -84,15 +86,18 @@ SoundFile coinSound, buttonSound, finishSound, soundTrack;
  * Method to execute code before the game starts
  */
 void setup() {
+  background(0);
+  textAlign(CENTER);
+  textSize(30);
+  text("loading...", width/2, height/2);
   //declaring all images and sounds
   wallTile = loadImage("data/tiles/WallTile.png");
   grassTile = loadImage("data/tiles/GrassTile.png");
   walkTile = loadImage("data/tiles/WalkTile.png"); 
-  oneWayTile = loadImage("data/tiles/OneWayTile.png");
   oneWayNorth = loadImage("data/tiles/OneWayNorth.png");
-    oneWayEast = loadImage("data/tiles/OneWayEast.png");
-      oneWaySouth = loadImage("data/tiles/OneWaySouth.png");
-        oneWayWest = loadImage("data/tiles/OneWayWest.png");
+  oneWayEast = loadImage("data/tiles/OneWayEast.png");
+  oneWaySouth = loadImage("data/tiles/OneWaySouth.png");
+  oneWayWest = loadImage("data/tiles/OneWayWest.png");
   doorTile = loadImage("data/tiles/DoorTile.png");
   buttonTile = loadImage("data/tiles/ButtonTile.png"); 
   buttonPressed = loadImage("data/tiles/ButtonPressed.png");
@@ -110,7 +115,18 @@ void setup() {
   finishSound = new SoundFile(this, "data/sounds/finish.wav");
   soundTrack = new SoundFile(this, "data/sounds/soundtrack.wav");
 
+  //connects the database    
+  Properties props = new Properties();
+  props.setProperty("user", "berkeln1");
+  props.setProperty("password", "ytAT+sPYwZl7JH");
 
+ 
+if(online){
+    connection  = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
+}
+
+    
+  
   //looping thru all the coins
   for (int i = 0; i < nCoins; i++) {
     coins[i] = new Coin();
@@ -177,15 +193,22 @@ void draw() {
   } else if (stage == 3) {
     drawMap();
   } else if (stage == 4) {
+        databasemanager.showDeaths();
     textAlign(CENTER);
     textSize(73);
     fill(#FFFFFF);
-    text("GAME OVER", screenSizeX / 2, screenSizeY / 2-100);
-    text("press X to view highscores", screenSizeX / 2, screenSizeY / 2 + 150);
-    text("press A to restart", screenSizeX / 2, screenSizeY / 2 + 225);
+    text("GAME OVER", screenSizeX / 2, 100);
+    textSize(36);
+    text("press X to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
+    text("press A to restart", screenSizeX / 2, screenSizeY / 2 + 325);
+    //databasemanager.showDeaths();
   } else if (stage == 5) {
     textAlign(RIGHT);
     text("press A to restart", screenSizeX - 25, screenSizeY - 25);
+  } else if (stage == 6) {
+    background(100, 200, 100);
+    textAlign(CENTER);
+    text("game paused", width/2, height/2);
   }
 }
 
@@ -325,7 +348,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         break;
       case "FF404040":
         tileType = "oneWay";
-        tileImage = oneWayTile;
+        tileImage = oneWayNorth;
         canWind = true;
         break;
       case "FF808080":
@@ -414,68 +437,23 @@ void updateWind() {
   println(tiles[23][8].hasWind);
 }
 
-<<<<<<< HEAD
-=======
-void drawGameOver() 
-{
 
-  background(52, 190, 130);
-  textSize(32);
-  fill(208, 98, 36);
-
-  Properties props = new Properties();
-  props.setProperty("user", "berkeln1");
-  props.setProperty("password", "ytAT+sPYwZl7JH");
-  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
-  insertDeath(myConnection);
-  insertNewHighscore(myConnection);
-  showHighscores (myConnection);
-}
-
-void onlyInsertNewHighscore() {
-  Properties props = new Properties();
-  props.setProperty("user", "berkeln1");
-  props.setProperty("password", "ytAT+sPYwZl7JH");
-  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
-  insertDeath(myConnection);
-  insertNewHighscore(myConnection);
-}
-
-void insertNewHighscore(SQLConnection connection) {
-  String name = "Insect";
-  connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES('"+ name + "', '"+ p.score +"');");
-}
-
-void insertDeath(SQLConnection connection) {
-  connection.updateQuery("INSERT INTO Deaths (map, xTile, yTile, cause) VALUES('"+ currentMap +"', '"+ p.playerTileX +"', '"+ p.playerTileY +"', '"+ deathCause +"');");
-}
-
-void showHighscores(SQLConnection connection) {
-  Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore ORDER BY highscore DESC");
-  textAlign(LEFT);
-  text("NAME", xPositionName, yPosition);
-  text("HIGHSCORE", xPositionScores, yPosition);
-  text("________________________", xPositionName, yPosition + 10);
-
-  for (int i = 0; i < highscores.getRowCount(); i++) {
-    TableRow row = highscores.getRow(i);
-    text(row.getString(0), xPositionName, yPosition + (i+1) * 50);
-    text(row.getString(1), xPositionScores, yPosition + (i+1) * 50);
-  }
-}
-
->>>>>>> 9b06d4a50defbf9ff8852de5a31728b16a4ddc4d
 
 
 /*
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
-
+if(stage == 0 && keyCode == 79){
+  online = false;
+  
+}
   if (stage == 4 && keyCode == 82) {
-    updateMap("levels/level0.png", "levels/level0overlay.png");
     stage = 3;
     databasemanager.onlyInsertNewHighscore();
+    databasemanager.insertDeath();
+    updateMap("levels/level0.png", "levels/level0overlay.png");
+
     timer.time = timer.maxTime;
     timer.lastTime = millis();
     p.score = 0;
@@ -488,13 +466,12 @@ void keyPressed() {
     println("not 82 or 72");
     return;
   }
-  if(stage == 3 && keyCode == 70){
+  if (stage == 3 && keyCode == 70) {
     paused = true;
- stage = 6;
-    
+    stage = 6;
   }
-  if(stage == 6 && keyCode == 71){
-timer.lastTime = millis();
+  if (stage == 6 && keyCode == 71) {
+    timer.lastTime = millis();
     stage = 3;    
     paused = false;
   }
@@ -522,7 +499,8 @@ timer.lastTime = millis();
       stage = 2;
       return;
     } else if (stage == 3) {
-      updateMap("levels/level3.png", "levels/level3overlay.png");
+      updateMap("levels/level"+testMap+".png", "levels/level"+testMap+"overlay.png");
+      currentMap = testMap;
     }
   }
 
