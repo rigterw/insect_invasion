@@ -41,7 +41,7 @@ int stage;
 
 PFont title;
 
-PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, windTile, Player, enemy, startScreen;
+PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, windTile, Player, enemy, startScreen, TimeCoin;
 
 color tileColor;
 
@@ -92,6 +92,7 @@ void setup() {
   Player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
+  TimeCoin = loadImage("data/Player/TimeCoin.png");
 
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
