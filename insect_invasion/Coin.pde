@@ -1,6 +1,6 @@
 class Coin {
   float x, y; //Coin x en y position
-  float w, h; //Coin width en height 
+  float w, h; //Height and width of the coin
   float coinRadius; //Radius for the coin collision
   boolean isEnabled; //Boolean for enabling and disabling the coin
   color coinColor; //The color of the coin
@@ -10,8 +10,8 @@ class Coin {
    * No argument constructor for the Coin class
    */
   Coin() { 
-    w = 18;
-    h = 20; 
+    w = 26;
+    h = 32;
     coinRadius = w/2;
     isEnabled = false;
     coinColor = color(250, 250, 0);
@@ -60,10 +60,7 @@ class Coin {
    * Method to draw the coin
    */
   void draw() {
-    stroke(coinStroke);
-    fill(coinColor);
-    ellipse(x, y, w, h);
-    stroke(0);
+    image(TimeCoin, x - (w / 2), y - (h / 2), w, h);
   }
 
   /*
@@ -81,7 +78,7 @@ class Coin {
 
     //disabling the coin so it wont be drawn anymore
     isEnabled = false;
-    
+
     //Time++ :
     //
   }
