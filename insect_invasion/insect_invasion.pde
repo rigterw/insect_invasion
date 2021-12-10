@@ -37,7 +37,7 @@ int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
 
-int mapcount = 4;
+int mapcount = 6;
 int windSpeed = 10;
 int screenSizeX = 1280;
 int screenSizeY = 720;

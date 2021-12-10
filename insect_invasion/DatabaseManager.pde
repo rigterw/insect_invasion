@@ -43,7 +43,6 @@ class DatabaseManager {
 
 
  void showDeaths() {
-    println("dood");
     Table deathLocation = connection.runQuery("SELECT xPos, yPos FROM Deaths WHERE map ="+ currentMap +" AND cause !='time';");
 
     for (int i=0; i<deathLocation.getRowCount(); i++) {
