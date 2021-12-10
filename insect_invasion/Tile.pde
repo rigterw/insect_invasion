@@ -128,11 +128,12 @@ class Tile
    * @return void
    */
   void draw() {
+    image(walkTile, x, y);
     //checking if the tile type is a door/(open) or a button
     if (type == "door" || type == "doorOpen" || type == "button") {
 
       //drawing the tile image
-      image(walkTile, x, y);
+
 
       //Updates the button pressed 
       if (type == "button") {
@@ -152,32 +153,24 @@ class Tile
       image(tile, x, y);
     }
     //for the oneWay tiles, it rotates the images to the right side.
-    /* else if (type == "oneWay") {
-     float rotation = 0;
-     float rotX = x;
-     float rotY = y;
-     switch(direction) {
-     
-     case "east": 
-     rotation = 0.5*PI;
-     rotX += w;
-     
-     break;        
-     case "south": 
-     rotation = PI;
-     rotX += w;
-     rotY += h;
-     break;        
-     case "west": 
-     rotation = 1.5*PI;
-     rotY += h;
-     break;
-     }
-     rotate(rotation);
-     image(tile, rotX, rotY);
-     rotate(-rotation);
-     }*/
-    else {
+    else if (type == "oneWay") {
+
+      switch(direction) {
+
+      case "east": 
+        tile = oneWayEast;
+        break;        
+      case "south": 
+        tile = oneWaySouth;
+        break;        
+      case "west": 
+        tile = oneWayWest;
+        break;
+      case "north":
+        tile = oneWayNorth;
+      }
+      image(tile, x, y);
+    } else {
       noTint();
       image(tile, x, y);
     }

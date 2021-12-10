@@ -28,6 +28,7 @@ rect(timeBarX, timeBarY, width*2, timerHeight);
 
     rect(timeBarX, timeBarY, timerWidth, timerHeight); //Drawing the timer
     nowTime = millis(); //Decreasign the value of time
+
     time -= (nowTime - lastTime);
     lastTime = nowTime;
     if (time<0) {

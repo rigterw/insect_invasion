@@ -15,7 +15,7 @@ void settings() {
 //initializing all the variables
 Tile tile;
 
-boolean left, right, up, down, g, canWind;
+boolean left, right, up, down, g, canWind, paused = false;
 Player p = new Player();
 
 
@@ -40,8 +40,9 @@ int screenSizeY = 720;
 int stage;
 
 PFont title;
-
-PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, windTile, Player, enemy, startScreen;
+PImage  map, mapOverlay;
+PImage Player, enemy;
+PImage walkTile, oneWayTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
 
 color tileColor;
 
@@ -56,7 +57,7 @@ final int xPositionScores = xPositionName + 200;
 
 Tile[][] tiles = new Tile[cols][rows];
 
-
+DatabaseManager databasemanager = new DatabaseManager();
 CollisionManager collisionmanager = new CollisionManager();
 
 
@@ -83,6 +84,10 @@ void setup() {
   grassTile = loadImage("data/tiles/GrassTile.png");
   walkTile = loadImage("data/tiles/WalkTile.png"); 
   oneWayTile = loadImage("data/tiles/OneWayTile.png");
+  oneWayNorth = loadImage("data/tiles/OneWayNorth.png");
+    oneWayEast = loadImage("data/tiles/OneWayEast.png");
+      oneWaySouth = loadImage("data/tiles/OneWaySouth.png");
+        oneWayWest = loadImage("data/tiles/OneWayWest.png");
   doorTile = loadImage("data/tiles/DoorTile.png");
   buttonTile = loadImage("data/tiles/ButtonTile.png"); 
   buttonPressed = loadImage("data/tiles/ButtonPressed.png");
@@ -169,9 +174,9 @@ void draw() {
     textAlign(CENTER);
     textSize(73);
     fill(#FFFFFF);
-    text("GAME OVER", screenSizeX / 2, screenSizeY / 2);
-    text("press X to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
-    text("press A to restart", screenSizeX / 2, screenSizeY / 2 + 325);
+    text("GAME OVER", screenSizeX / 2, screenSizeY / 2-100);
+    text("press X to view highscores", screenSizeX / 2, screenSizeY / 2 + 150);
+    text("press A to restart", screenSizeX / 2, screenSizeY / 2 + 225);
   } else if (stage == 5) {
     textAlign(RIGHT);
     text("press A to restart", screenSizeX - 25, screenSizeY - 25);
@@ -402,75 +407,38 @@ void updateWind() {
   println(tiles[23][8].hasWind);
 }
 
-void drawGameOver() 
-{
-
-  background(52, 190, 130);
-  textSize(32);
-  fill(208, 98, 36);
-
-  Properties props = new Properties();
-  props.setProperty("user", "berkeln1");
-  props.setProperty("password", "ytAT+sPYwZl7JH");
-  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
-  insertDeath(myConnection);
-  insertNewHighscore(myConnection);
-  showHighscores (myConnection);
-}
-
-void onlyInsertNewHighscore() {
-  Properties props = new Properties();
-  props.setProperty("user", "berkeln1");
-  props.setProperty("password", "ytAT+sPYwZl7JH");
-  SQLConnection myConnection = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
-  insertDeath(myConnection);
-  insertNewHighscore(myConnection);
-}
-
-void insertNewHighscore(SQLConnection connection) {
-  String name = "Insect";
-  connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES(\""+ name + "\", "+ p.score +");");
-}
-
-void insertDeath(SQLConnection connection) {
-  connection.updateQuery("INSERT INTO Deaths (map, xPos, yPos, cause) VALUES('"+ currentMap +"', '"+ p.x +"', '"+ p.y +"', '"+ deathCause +"');");
-}
-
-void showHighscores(SQLConnection connection) {
-  Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore ORDER BY highscore DESC");
-  textAlign(LEFT);
-  text("NAME", xPositionName, yPosition);
-  text("HIGHSCORE", xPositionScores, yPosition);
-  text("________________________", xPositionName, yPosition + 10);
-
-  for (int i = 0; i < highscores.getRowCount(); i++) {
-    TableRow row = highscores.getRow(i);
-    text(row.getString(0), xPositionName, yPosition + (i+1) * 50);
-    text(row.getString(1), xPositionScores, yPosition + (i+1) * 50);
-  }
-}
-
 
 
 /*
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
+
   if (stage == 4 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
     stage = 3;
-    onlyInsertNewHighscore();
+    databasemanager.onlyInsertNewHighscore();
     timer.time = timer.maxTime;
     timer.lastTime = millis();
     p.score = 0;
     println("test");
   } else if (stage == 4 && keyCode == 72) {
-    drawGameOver();
+    databasemanager.drawGameOver();
     stage = 5;
     return;
   } else if ( stage == 4 && keyCode != 82 && keyCode != 72) {
     println("not 82 or 72");
     return;
+  }
+  if(stage == 3 && keyCode == 70){
+    paused = true;
+ stage = 6;
+    
+  }
+  if(stage == 6 && keyCode == 71){
+timer.lastTime = millis();
+    stage = 3;    
+    paused = false;
   }
   if (stage == 5 && keyCode == 82) {
     updateMap("levels/level0.png", "levels/level0overlay.png");
