@@ -40,14 +40,9 @@ int screenSizeY = 720;
 int stage;
 
 PFont title;
-<<<<<<< HEAD
 PImage  map, mapOverlay;
 PImage Player, enemy;
-PImage walkTile, oneWayTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
-=======
-
-PImage map, walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, mapOverlay, windTile, Player, enemy, startScreen, TimeCoin;
->>>>>>> 9b06d4a50defbf9ff8852de5a31728b16a4ddc4d
+PImage walkTile, oneWayTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen,TimeCoin;
 
 color tileColor;
 
@@ -414,8 +409,7 @@ void updateWind() {
   println(tiles[23][8].hasWind);
 }
 
-<<<<<<< HEAD
-=======
+
 void drawGameOver() 
 {
 
@@ -464,7 +458,7 @@ void showHighscores(SQLConnection connection) {
   }
 }
 
->>>>>>> 9b06d4a50defbf9ff8852de5a31728b16a4ddc4d
+
 
 
 /*
