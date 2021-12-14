@@ -1,8 +1,8 @@
 class Timer {
   float time = 45000; //Amount of starting time in ms
   float maxTime = time; //Max amount of time in ms
-  int timerMaxWidth = 2560; //Max width timer
-  int timerHeight = 50; //Height timer
+  int timerMaxWidth = 1280; //Max width timer
+  int timerHeight = 25; //Height timer
   int timeBarX = 0; //Timer position X
   int timeBarY = 0; //Timer position Y
   int nowTime; //Time passed since starting the game
@@ -13,7 +13,8 @@ class Timer {
   void drawTimer()
   {
     fill(0);
-    rect(timeBarX, timeBarY, width*2, timerHeight);
+    rectMode(CORNER);
+    rect(timeBarX, timeBarY, width, timerHeight);
     float greenColor = time / maxTime *255 *2; //The timer transitions from green to red as time decreases
     float redColor = 255 *2 - time / maxTime * 255 *2;
     float blueColor = 0;
