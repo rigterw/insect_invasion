@@ -128,6 +128,7 @@ class CollisionManager {
         //checking if the hit is within the cooldown
         if (nowHit > (lastHit + cooldownTimer)) {
           println("hit");
+          clickSound.play();
           deathCause = "enemy";
           stage= 4;
           lastHit = nowHit;
@@ -141,5 +142,4 @@ class CollisionManager {
    * Method to check the collision between player and finish
    * @return void
    */
-
 }
