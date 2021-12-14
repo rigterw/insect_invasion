@@ -43,6 +43,8 @@ int screenSizeX = 1280;
 int screenSizeY = 720;
 int stage;
 
+int nextMap;
+
 PFont title;
 PImage  map, mapOverlay;
 PImage Player, enemy;
@@ -120,13 +122,13 @@ void setup() {
   props.setProperty("user", "berkeln1");
   props.setProperty("password", "ytAT+sPYwZl7JH");
 
- 
-if(online){
-    connection  = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
-}
 
-    
-  
+  if (online) {
+    connection  = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
+  }
+
+
+
   //looping thru all the coins
   for (int i = 0; i < nCoins; i++) {
     coins[i] = new Coin();
@@ -193,7 +195,7 @@ void draw() {
   } else if (stage == 3) {
     drawMap();
   } else if (stage == 4) {
-        databasemanager.showDeaths();
+    databasemanager.showDeaths();
     textAlign(CENTER);
     textSize(73);
     fill(#FFFFFF);
@@ -444,15 +446,15 @@ void updateWind() {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
-if(stage == 0 && keyCode == 79){
-  online = false;
-  
-}
+  if (stage == 0 && keyCode == 79) {
+    online = false;
+  }
   if (stage == 4 && keyCode == 82) {
     stage = 3;
     databasemanager.onlyInsertNewHighscore();
     databasemanager.insertDeath();
-    updateMap("levels/level0.png", "levels/level0overlay.png");
+    nextMap = int(random(1, mapcount + 1));
+    updateMap("data/levels/level" + str(nextMap) + ".png", "data/levels/level" + str(nextMap) + "overlay.png") ;
 
     timer.time = timer.maxTime;
     timer.lastTime = millis();
