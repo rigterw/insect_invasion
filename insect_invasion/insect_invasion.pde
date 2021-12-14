@@ -171,6 +171,7 @@ void setup() {
   buttonSound.amp(0.3);
   finishSound.amp(0.3);
   coinSound.amp(0.3);
+  clickSound.amp(0.3);
 
   //setting the screen for the main menu
   image(startScreen, 0, 0, screenSizeX, screenSizeY);
