@@ -80,7 +80,7 @@ StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
 Timer timer = new Timer();
 
-SoundFile coinSound, buttonSound, finishSound, soundTrack;
+SoundFile coinSound, buttonSound, finishSound, soundTrack,clickSound;
 
 /*
  * Method to execute code before the game starts
@@ -113,6 +113,7 @@ void setup() {
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
   finishSound = new SoundFile(this, "data/sounds/finish.wav");
+  clickSound = new SoundFile(this, "data/sounds/click.wav");
   soundTrack = new SoundFile(this, "data/sounds/soundtrack.wav");
 
   //connects the database    
