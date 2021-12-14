@@ -41,7 +41,16 @@ int mapcount = 6;
 int windSpeed = 10;
 int screenSizeX = 1280;
 int screenSizeY = 720;
-int stage;
+int stage; // integer to keep track of the game state
+/*
+ * stage 1 = main menu
+ * stage 2 = Easter egg
+ * stage 3 = the running game
+ * stage 4 = game over
+ * stage 5 = highscores
+ * stage 6 = pause
+ * stage 7 = settings
+ */
 
 int nextMap;
 
@@ -211,6 +220,10 @@ void draw() {
     background(100, 200, 100);
     textAlign(CENTER);
     text("game paused", width/2, height/2);
+  } else if( stage == 7) {
+     background(100, 200, 100);
+    textAlign(CENTER);
+    text("settings", width/2, height/2);
   }
 }
 
