@@ -99,7 +99,7 @@ SoundFile coinSound, buttonSound, finishSound, soundTrack, clickSound;
  * Method to execute code before the game starts
  */
 void setup() {
-  
+
   //shows loading screen
   background(0);
   textAlign(CENTER);
@@ -226,9 +226,8 @@ void draw() {
     background(100, 200, 100);
     textAlign(CENTER);
     text("game paused", width/2, height/2);
-    
-  } else if( stage == 7) {//draws settings screen
-     background(100, 200, 100);
+  } else if ( stage == 7) {//draws settings screen
+    background(100, 200, 100);
   } else if (stage == 7) {
     background(100, 200, 100);
     textAlign(CENTER);
@@ -402,10 +401,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
       }
     }
   }
-  
+
   for (int x = 0; x < cols; x++) {
     for (int y = 0; y < rows; y++) {
-      
+
       //check if tile is walkable
       if (tiles[x][y].type == "walkable" || tiles[x][y].type == "enemywalkable") {
         switch(tiles[x][y].colour) {
@@ -442,6 +441,8 @@ void updateMap(String mapImage, String mapOverlayImage) {
 }
 
 void newMap() {
+  timer.time = timer.maxTime;
+  timer.lastTime = millis();
   int nextMap = int(random(1, mapCount + 1));
   while (nextMap == currentMap) {
     nextMap = int(random(1, mapCount + 1));
@@ -452,11 +453,10 @@ void newMap() {
   updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png") ;
 }
 
-void restart(){
- newMap(); 
-      timer.time = timer.maxTime;
-    timer.lastTime = millis();
-    p.score = 0;
+void restart() {
+  newMap(); 
+
+  p.score = 0;
 }
 
 //this function updates all the wind
@@ -473,7 +473,7 @@ void updateWind() {
         tiles[xTile][yTile].spawnWind(xTile, yTile);
       }
     }
-  }  
+  }
 }
 
 
@@ -487,9 +487,8 @@ void keyPressed() {
     stage = 3;
     databasemanager.insertValues();
     restart();
-    
   } else if (stage == 4 && keyCode == 72) {//loads the highscore screen
-databasemanager.insertValues();
+    databasemanager.insertValues();
     databasemanager.drawHighScores();
     stage = 5;
     return;
@@ -509,7 +508,7 @@ databasemanager.insertValues();
   if (stage == 5 && keyCode == 82) {//restarts the game from highscores
 
     stage = 3;
-restart();
+    restart();
   } else if (stage == 5 && keyCode != 82) {
     println("not 82");
     return;

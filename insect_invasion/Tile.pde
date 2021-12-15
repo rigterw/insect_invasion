@@ -10,6 +10,7 @@ class Tile
   Boolean buttonStandingOn = false;
   Boolean canWind, hasWind = false; // Boolean to see if player is standing on a button
   Boolean sound = true;// Boolean to toggle playing a sound
+
   /*
    * 7 argument constructor for the Tile class
    * @param float x
@@ -86,18 +87,7 @@ class Tile
         }
         buttonStandingOn = true;
       } else if (type == "finish") {//code for finish + next level
-        int nextMap = int(random(1, mapCount + 1));
-        while (nextMap == currentMap) {
-          nextMap = int(random(1, mapCount + 1));
-        }
-        currentMap = nextMap;
-        //playing the finish sound
-        finishSound.play();
-        p.score += int(timer.time / 1000);
-        timer.time = timer.maxTime;
-
-        //updating the map to the next level
-        updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png") ;
+        newMap();
 
 
         buttonStandingOn = false;
@@ -184,11 +174,6 @@ class Tile
   //assings itself wind and activates the next tile
   void spreadWind(int x, int y, String direction) {
     if (canWind) {
-      if (type == "door") {
-        println("deurtje"); 
-        println(canWind, "wind"); 
-        println();
-      }
       hasWind = true;
       windDirection = direction;
       switch (direction) {     
