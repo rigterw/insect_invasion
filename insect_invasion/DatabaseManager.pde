@@ -5,7 +5,7 @@ class DatabaseManager {
     background(52, 190, 130);
     textSize(32);
     fill(208, 98, 36); 
-    insertDeath();
+
     insertValues();
     showHighscores ();
   }
