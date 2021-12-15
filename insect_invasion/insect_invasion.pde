@@ -91,7 +91,7 @@ StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
 Timer timer = new Timer();
 
-SoundFile coinSound, buttonSound, finishSound, soundTrack,clickSound;
+SoundFile coinSound, buttonSound, finishSound, soundTrack, clickSound;
 
 /*
  * Method to execute code before the game starts
@@ -222,8 +222,8 @@ void draw() {
     background(100, 200, 100);
     textAlign(CENTER);
     text("game paused", width/2, height/2);
-  } else if( stage == 7) {
-     background(100, 200, 100);
+  } else if (stage == 7) {
+    background(100, 200, 100);
     textAlign(CENTER);
     text("settings", width/2, height/2);
   }
@@ -436,6 +436,17 @@ void updateMap(String mapImage, String mapOverlayImage) {
   updateWind();
 }
 
+void newMap() {
+  int nextMap = int(random(1, mapcount + 1));
+  while (nextMap == currentMap) {
+    nextMap = int(random(1, mapcount + 1));
+  }
+  currentMap = nextMap;
+
+  //updating the map to the next level
+  updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png") ;
+}
+
 //this function updates all the wind
 void updateWind() {
   for (int xTile = 0; xTile < cols; xTile++) {
@@ -468,8 +479,7 @@ void keyPressed() {
     stage = 3;
     databasemanager.onlyInsertNewHighscore();
     databasemanager.insertDeath();
-    nextMap = int(random(1, mapcount + 1));
-    updateMap("data/levels/level" + str(nextMap) + ".png", "data/levels/level" + str(nextMap) + "overlay.png") ;
+    newMap();
 
     timer.time = timer.maxTime;
     timer.lastTime = millis();
