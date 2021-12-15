@@ -60,7 +60,7 @@ class Coin {
    * Method to draw the coin
    */
   void draw() {
-    image(TimeCoin, x - (w / 2), y - (h / 2), w, h);
+    image(timeCoin, x - (w / 2), y - (h / 2), w, h);
   }
 
   /*
@@ -68,8 +68,6 @@ class Coin {
    * @return void
    */
   void pickUp() {
-    //updating the score
-    //p.score +=1;
     //adding the time
     timer.time += timer.extraTime;
 
@@ -78,8 +76,5 @@ class Coin {
 
     //disabling the coin so it wont be drawn anymore
     isEnabled = false;
-
-    //Time++ :
-    //
   }
 }

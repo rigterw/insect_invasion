@@ -11,9 +11,9 @@ class MovingEnemy extends MainEnemy {
    * @param Boolean isEnabled
    * @param Integer level
    */
-  MovingEnemy(int xspeed_, int yspeed_) {
-    this.enemyvx = xspeed_;
-    this.enemyvy = yspeed_;
+  MovingEnemy(int xSpeed_, int ySpeed_) {
+    this.enemyvx = xSpeed_;
+    this.enemyvy = ySpeed_;
   }
   
   void placeMovingEnemy(float xPos_, float yPos_){

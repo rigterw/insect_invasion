@@ -118,11 +118,11 @@ class CollisionManager {
   * Method to check the collision between player and enemy
    * @return void
    */
-  void CheckCollisionToEnemy(int enemy_id) {
+  void CheckCollisionToEnemy(int enemyId) {
 
-    if (allEnemys[enemy_id].isEnabled == true) {
+    if (allEnemys[enemyId].isEnabled == true) {
       //checking distance between player and enemy
-      if (dist(p.x, p.y, allEnemys[enemy_id].enemyX, allEnemys[enemy_id].enemyY) < p.w / 2 + allEnemys[enemy_id].enemyDiameter / 2) {
+      if (dist(p.x, p.y, allEnemys[enemyId].enemyX, allEnemys[enemyId].enemyY) < p.w / 2 + allEnemys[enemyId].enemyDiameter / 2) {
         //Setting the hit time so the cooldown gets started
         nowHit = millis();
         //checking if the hit is within the cooldown
@@ -136,10 +136,4 @@ class CollisionManager {
       }
     }
   }
-
-
-  /*
-   * Method to check the collision between player and finish
-   * @return void
-   */
 }

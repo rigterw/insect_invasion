@@ -23,12 +23,16 @@ boolean left, right, up, down, g, canWind, paused = false;
 Player p = new Player();
 
 
-
+//variables for the tilegrid
 int cols = 32;
 int rows = 18;
-
 int w = 40;
 int h = 40;
+
+color tileColor;
+String tileType;
+
+//variables for the objects
 int coinCounter = 0;
 int nCoins = 75;
 int mEnemys = 50; //Amount of moving enemys for in the array
@@ -37,7 +41,11 @@ int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
 
-int mapcount = 6;
+
+
+int mapCount = 6;
+int currentMap = 0;
+int nextMap;
 int windSpeed = 10;
 int screenSizeX = 1280;
 int screenSizeY = 720;
@@ -52,40 +60,34 @@ int stage; // integer to keep track of the game state
  * stage 7 = settings
  */
 
-int nextMap;
 
+
+//initialises varables for pictures
 PFont title;
 PImage  map, mapOverlay;
-PImage Player, enemy;
+PImage player, enemy, timeCoin;
 PImage walkTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
 
 
-PImage  TimeCoin;
-
-color tileColor;
-
-String tileType;
-
-int currentMap = 0;
 
 String deathCause;
 
 final int xPositionName = 400, yPosition = 100;
 final int xPositionScores = xPositionName + 200;
 
-Tile[][] tiles = new Tile[cols][rows];
+//initializes the managers and database
 SQLConnection connection;
 DatabaseManager databasemanager = new DatabaseManager();
 CollisionManager collisionmanager = new CollisionManager();
 
 
+
+
+
+
+//initializes the games objects
+Tile[][] tiles = new Tile[cols][rows];
 Coin[] coins = new Coin[nCoins];
-
-//arrays for all enemys
-
-
-
-
 MovingEnemy[] movingEnemys = new MovingEnemy[mEnemys];
 StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
@@ -97,6 +99,8 @@ SoundFile coinSound, buttonSound, finishSound, soundTrack,clickSound;
  * Method to execute code before the game starts
  */
 void setup() {
+  
+  //shows loading screen
   background(0);
   textAlign(CENTER);
   textSize(30);
@@ -115,10 +119,10 @@ void setup() {
   doorOpenTile = loadImage("data/tiles/DoorOpenTile.png");
   finishTile = loadImage("data/tiles/FinishTile.png");
   windTile = loadImage("data/tiles/WindTile.png");
-  Player = loadImage("data/Player/Player.png");
+  player = loadImage("data/Player/Player.png");
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
-  TimeCoin = loadImage("data/Player/TimeCoin.png");
+  timeCoin = loadImage("data/Player/TimeCoin.png");
 
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
@@ -193,6 +197,7 @@ void setup() {
 void draw() {
 
   if (stage == 1) {
+    //draws the start screen
     textAlign(CENTER);
     textSize(56);
     fill(#000000);
@@ -205,7 +210,7 @@ void draw() {
     text("WAT ZEIDEN WE NOU", screenSizeX / 2, screenSizeY / 2);
   } else if (stage == 3) {
     drawMap();
-  } else if (stage == 4) {
+  } else if (stage == 4) {//draws game over screen
     databasemanager.showDeaths();
     textAlign(CENTER);
     textSize(73);
@@ -214,15 +219,14 @@ void draw() {
     textSize(36);
     text("press X to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
     text("press A to restart", screenSizeX / 2, screenSizeY / 2 + 325);
-    //databasemanager.showDeaths();
-  } else if (stage == 5) {
+  } else if (stage == 5) {//draws highscores screen
     textAlign(RIGHT);
     text("press A to restart", screenSizeX - 25, screenSizeY - 25);
-  } else if (stage == 6) {
+  } else if (stage == 6) {//draws pause screen
     background(100, 200, 100);
     textAlign(CENTER);
     text("game paused", width/2, height/2);
-  } else if( stage == 7) {
+  } else if( stage == 7) {//draws settings screen
      background(100, 200, 100);
     textAlign(CENTER);
     text("settings", width/2, height/2);
@@ -270,8 +274,6 @@ void drawMap() {
   collisionmanager.CheckCollisionToWall();
 
   for (int i = 0; i < allEnemys.length; i++) {
-
-
     collisionmanager.CheckCollisionToEnemy(i);
   }
 }
@@ -397,10 +399,10 @@ void updateMap(String mapImage, String mapOverlayImage) {
       }
     }
   }
+  
   for (int x = 0; x < cols; x++) {
-
     for (int y = 0; y < rows; y++) {
-
+      
       //check if tile is walkable
       if (tiles[x][y].type == "walkable" || tiles[x][y].type == "enemywalkable") {
         switch(tiles[x][y].colour) {
@@ -451,7 +453,6 @@ void updateWind() {
       }
     }
   }  
-  println(tiles[23][8].hasWind);
 }
 
 
@@ -461,44 +462,39 @@ void updateWind() {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
-  if (stage == 0 && keyCode == 79) {
-    online = false;
-  }
-  if (stage == 4 && keyCode == 82) {
+  if (stage == 4 && keyCode == 82) {//restarts the game from game over screen
     stage = 3;
-    databasemanager.onlyInsertNewHighscore();
-    databasemanager.insertDeath();
-    nextMap = int(random(1, mapcount + 1));
+    databasemanager.insertValues();
+    nextMap = int(random(1, mapCount + 1));
     updateMap("data/levels/level" + str(nextMap) + ".png", "data/levels/level" + str(nextMap) + "overlay.png") ;
 
     timer.time = timer.maxTime;
     timer.lastTime = millis();
     p.score = 0;
-    println("test");
-  } else if (stage == 4 && keyCode == 72) {
-    databasemanager.drawGameOver();
+ 
+  } else if (stage == 4 && keyCode == 72) {//loads the highscore screen
+    databasemanager.drawHighScores();
     stage = 5;
     return;
   } else if ( stage == 4 && keyCode != 82 && keyCode != 72) {
     println("not 82 or 72");
     return;
   }
-  if (stage == 3 && keyCode == 70) {
+  if (stage == 3 && keyCode == 70) {//pauses the game
     paused = true;
     stage = 6;
   }
-  if (stage == 6 && keyCode == 71) {
+  if (stage == 6 && keyCode == 71) {//resumes the game
     timer.lastTime = millis();
     stage = 3;    
     paused = false;
   }
-  if (stage == 5 && keyCode == 82) {
+  if (stage == 5 && keyCode == 82) {//restarts the game from highscores
     updateMap("levels/level0.png", "levels/level0overlay.png");
     stage = 3;
     timer.time = timer.maxTime;
     timer.lastTime = millis();
     p.score = 0;
-    println("test");
   } else if (stage == 5 && keyCode != 82) {
     println("not 82");
     return;
@@ -521,7 +517,7 @@ void keyPressed() {
     }
   }
 
-  if (stage == 1) {
+  if (stage == 1) {//loads the first level from start screen
     stage = 3;
   }
 

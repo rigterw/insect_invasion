@@ -10,6 +10,7 @@ class Timer {
   int extraTime = 5000; //Amount of seconds added when grabbing a coin in MS
   float timerWidth;
 
+//draws the timer
   void drawTimer()
   {
     fill(0);

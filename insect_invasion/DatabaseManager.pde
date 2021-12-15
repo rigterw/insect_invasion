@@ -1,31 +1,33 @@
 class DatabaseManager {
   
-
-  void drawGameOver(){
-
+//shows the highscores
+  void drawHighScores(){
     background(52, 190, 130);
     textSize(32);
     fill(208, 98, 36); 
     insertDeath();
-    insertNewHighscore();
+    insertValues();
     showHighscores ();
   }
-
-  void onlyInsertNewHighscore() {
+  
+//adds data to the database
+  void insertValues() {
     insertDeath();
     insertNewHighscore();
   }
 
+//adds score to the highscore table
   void insertNewHighscore() {
     String name = "Insect";
     connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES('"+ name + "', '"+ p.score +"');");
   }
-
+  
+//adds the death position and cause to the deaths table
   void insertDeath() {
     println(p.x," ", p.y);
     connection.updateQuery("INSERT INTO Deaths (map, xPos, yPos, xTile, yTile, cause) VALUES('"+ currentMap +"', '"+ p.x +"', '"+p.y+"', '"+ p.playerTileX +"', '"+ p.playerTileY +"', '"+ deathCause +"');");
   }
-
+//shows the highscores on the highscores screen
   void showHighscores() {
     Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore ORDER BY highscore DESC");
     textAlign(LEFT);
@@ -41,7 +43,7 @@ class DatabaseManager {
   }
 
 
-
+//shows the deathpoints on the map
  void showDeaths() {
     Table deathLocation = connection.runQuery("SELECT xPos, yPos FROM Deaths WHERE map ="+ currentMap +" AND cause !='time';");
 
