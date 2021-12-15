@@ -486,6 +486,7 @@ void keyPressed() {
   if (stage == 4 && keyCode == 82) {//restarts the game from game over screen
     stage = 3;
     databasemanager.insertValues();
+    restart();
     
   } else if (stage == 4 && keyCode == 72) {//loads the highscore screen
 databasemanager.insertValues();
