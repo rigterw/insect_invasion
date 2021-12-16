@@ -10,7 +10,7 @@ class Timer {
   int extraTime = 5000; //Amount of seconds added when grabbing a coin in MS
   float timerWidth;
 
-//draws the timer
+  //draws the timer
   void drawTimer()
   {
     fill(0);
@@ -27,12 +27,12 @@ class Timer {
       time = maxTime; //Prevents the value of time exceeding the maximum
       timerWidth = timerMaxWidth; //Prevents the timer from being drawn wider than the maximum width
     }
-
-    rect(timeBarX, timeBarY, timerWidth, timerHeight); //Drawing the timer
     nowTime = millis(); //Decreasign the value of time
-
     time -= (nowTime - lastTime);
     lastTime = nowTime;
+
+    rect(timeBarX, timeBarY, timerWidth, timerHeight); //Drawing the timer
+
     if (time<0) {
       deathCause = "time";
       stage = 4;
