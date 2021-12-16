@@ -40,7 +40,7 @@ int sEnemys = 50; //Amount of static enemys for in the array
 int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
-
+int grassTileCount = 8;
 
 
 int mapCount = 6;
@@ -67,7 +67,11 @@ PFont title;
 PImage  map, mapOverlay;
 PImage player, enemy, timeCoin;
 PImage walkTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
+<<<<<<< HEAD
 PImage noConnection, aButton, bButton, xButton, yButton;
+=======
+PImage[] grassTiles = new PImage[grassTileCount];
+>>>>>>> d8feaca33f1b968f800f99287a617edd2b99a920
 
 
 String deathCause;
@@ -124,11 +128,21 @@ void setup() {
   startScreen = loadImage("data/images/startScreen.png");
   timeCoin = loadImage("data/Player/TimeCoin.png");
   
+<<<<<<< HEAD
   noConnection = loadImage("data/icons/noConnection.png");
 aButton = loadImage("data/icons/aButton.png");
 bButton = loadImage("data/icons/bButton.png");
 xButton = loadImage("data/icons/xButton.png");
 yButton = loadImage("data/icons/yButton.png");
+=======
+  for(int g = 0; g < grassTileCount; g++){
+  grassTiles[g] = loadImage("data/tiles/GrassTile.png");
+  }
+  grassTiles[5] = loadImage("data/tiles/GrassTile1.png");
+  grassTiles[6] = loadImage("data/tiles/GrassTile2.png");
+  grassTiles[7] = loadImage("data/tiles/GrassTile3.png");
+
+>>>>>>> d8feaca33f1b968f800f99287a617edd2b99a920
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
@@ -342,7 +356,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         break;
       case"FF228A15" :
         tileType = "grass";
-        tileImage = grassTile;
+        tileImage = grassTiles[int(random(0,grassTileCount))];
         canWind = false;
         break;
       case "FF0026FF" : 
