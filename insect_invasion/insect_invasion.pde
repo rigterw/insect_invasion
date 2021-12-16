@@ -67,11 +67,8 @@ PFont title;
 PImage  map, mapOverlay;
 PImage player, enemy, timeCoin;
 PImage walkTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
-<<<<<<< HEAD
 PImage noConnection, aButton, bButton, xButton, yButton;
-=======
 PImage[] grassTiles = new PImage[grassTileCount];
->>>>>>> d8feaca33f1b968f800f99287a617edd2b99a920
 
 
 String deathCause;
@@ -127,22 +124,19 @@ void setup() {
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
   timeCoin = loadImage("data/Player/TimeCoin.png");
-  
-<<<<<<< HEAD
+
+
   noConnection = loadImage("data/icons/noConnection.png");
-aButton = loadImage("data/icons/aButton.png");
-bButton = loadImage("data/icons/bButton.png");
-xButton = loadImage("data/icons/xButton.png");
-yButton = loadImage("data/icons/yButton.png");
-=======
-  for(int g = 0; g < grassTileCount; g++){
-  grassTiles[g] = loadImage("data/tiles/GrassTile.png");
+  aButton = loadImage("data/icons/aButton.png");
+  bButton = loadImage("data/icons/bButton.png");
+  xButton = loadImage("data/icons/xButton.png");
+  yButton = loadImage("data/icons/yButton.png");
+  for (int g = 0; g < grassTileCount; g++) {
+    grassTiles[g] = loadImage("data/tiles/GrassTile.png");
   }
   grassTiles[5] = loadImage("data/tiles/GrassTile1.png");
   grassTiles[6] = loadImage("data/tiles/GrassTile2.png");
   grassTiles[7] = loadImage("data/tiles/GrassTile3.png");
-
->>>>>>> d8feaca33f1b968f800f99287a617edd2b99a920
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
@@ -158,8 +152,9 @@ yButton = loadImage("data/icons/yButton.png");
 
   try {
     connection  = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
-  } catch(Exception exc){
-online = false;
+  } 
+  catch(Exception exc) {
+    online = false;
   }
 
   //looping thru all the coins
@@ -239,7 +234,7 @@ void draw() {
     text("press    to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
     image(xButton, screenSizeX/2-3*w-12, screenSizeY/2 + 223);
     text("press    to restart", screenSizeX / 2, screenSizeY / 2 + 325);
-    image(aButton, screenSizeX/2-w-6, screenSizeY/2 + 298);    
+    image(aButton, screenSizeX/2-w-6, screenSizeY/2 + 298);
   } else if (stage == 5) {//draws highscores screen
     textAlign(RIGHT);
     text("press    to restart", screenSizeX - 25, screenSizeY - 25);
@@ -356,7 +351,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         break;
       case"FF228A15" :
         tileType = "grass";
-        tileImage = grassTiles[int(random(0,grassTileCount))];
+        tileImage = grassTiles[int(random(0, grassTileCount))];
         canWind = false;
         break;
       case "FF0026FF" : 
