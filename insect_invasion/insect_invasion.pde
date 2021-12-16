@@ -67,7 +67,7 @@ PFont title;
 PImage  map, mapOverlay;
 PImage player, enemy, timeCoin;
 PImage walkTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
-
+PImage noConnection, aButton, bButton, xButton, yButton;
 
 
 String deathCause;
@@ -123,7 +123,12 @@ void setup() {
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
   timeCoin = loadImage("data/Player/TimeCoin.png");
-
+  
+  noConnection = loadImage("data/icons/noConnection.png");
+aButton = loadImage("data/icons/aButton.png");
+bButton = loadImage("data/icons/bButton.png");
+xButton = loadImage("data/icons/xButton.png");
+yButton = loadImage("data/icons/yButton.png");
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
@@ -137,11 +142,11 @@ void setup() {
   props.setProperty("password", "ytAT+sPYwZl7JH");
 
 
-  if (online) {
+  try {
     connection  = new MySQLConnection("jdbc:mysql://oege.ie.hva.nl/zberkeln1?serverTimezone=UTC", props);
+  } catch(Exception exc){
+online = false;
   }
-
-
 
   //looping thru all the coins
   for (int i = 0; i < nCoins; i++) {
@@ -217,11 +222,14 @@ void draw() {
     fill(#FFFFFF);
     text("GAME OVER", screenSizeX / 2, 100);
     textSize(36);
-    text("press X to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
-    text("press A to restart", screenSizeX / 2, screenSizeY / 2 + 325);
+    text("press    to view highscores", screenSizeX / 2, screenSizeY / 2 + 250);
+    image(xButton, screenSizeX/2-3*w-12, screenSizeY/2 + 223);
+    text("press    to restart", screenSizeX / 2, screenSizeY / 2 + 325);
+    image(aButton, screenSizeX/2-w-6, screenSizeY/2 + 298);    
   } else if (stage == 5) {//draws highscores screen
     textAlign(RIGHT);
-    text("press A to restart", screenSizeX - 25, screenSizeY - 25);
+    text("press    to restart", screenSizeX - 25, screenSizeY - 25);
+    image(aButton, screenSizeX - 202, screenSizeY - 51);
   } else if (stage == 6) {//draws pause screen
     background(100, 200, 100);
     textAlign(CENTER);
