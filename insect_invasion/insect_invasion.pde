@@ -40,7 +40,7 @@ int sEnemys = 50; //Amount of static enemys for in the array
 int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
-
+int grassTileCount = 8;
 
 
 int mapCount = 6;
@@ -67,7 +67,7 @@ PFont title;
 PImage  map, mapOverlay;
 PImage player, enemy, timeCoin;
 PImage walkTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
-
+PImage[] grassTiles = new PImage[grassTileCount];
 
 
 String deathCause;
@@ -123,6 +123,13 @@ void setup() {
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
   timeCoin = loadImage("data/Player/TimeCoin.png");
+  
+  for(int g = 0; g < grassTileCount; g++){
+  grassTiles[g] = loadImage("data/tiles/GrassTile.png");
+  }
+  grassTiles[5] = loadImage("data/tiles/GrassTile1.png");
+  grassTiles[6] = loadImage("data/tiles/GrassTile2.png");
+  grassTiles[7] = loadImage("data/tiles/GrassTile3.png");
 
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
@@ -334,7 +341,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         break;
       case"FF228A15" :
         tileType = "grass";
-        tileImage = grassTile;
+        tileImage = grassTiles[int(random(0,grassTileCount))];
         canWind = false;
         break;
       case "FF0026FF" : 
