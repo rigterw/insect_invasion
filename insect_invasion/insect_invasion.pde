@@ -66,12 +66,12 @@ int stage; // integer to keep track of the game state
 PFont title;
 PImage  map, mapOverlay;
 PImage player, enemy, timeCoin;
-PImage walkTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
-<<<<<<< HEAD
+PImage walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
+
 PImage noConnection, aButton, bButton, xButton, yButton;
-=======
+
 PImage[] grassTiles = new PImage[grassTileCount];
->>>>>>> d8feaca33f1b968f800f99287a617edd2b99a920
+
 
 
 String deathCause;
@@ -109,14 +109,12 @@ void setup() {
   textAlign(CENTER);
   textSize(30);
   text("loading...", width/2, height/2);
+ 
   //declaring all images and sounds
   wallTile = loadImage("data/tiles/WallTile.png");
   grassTile = loadImage("data/tiles/GrassTile.png");
   walkTile = loadImage("data/tiles/WalkTile.png"); 
-  oneWayNorth = loadImage("data/tiles/OneWayNorth.png");
-  oneWayEast = loadImage("data/tiles/OneWayEast.png");
-  oneWaySouth = loadImage("data/tiles/OneWaySouth.png");
-  oneWayWest = loadImage("data/tiles/OneWayWest.png");
+  oneWayTile = loadImage("data/tiles/OneWayNorth.png");
   doorTile = loadImage("data/tiles/DoorTile.png");
   buttonTile = loadImage("data/tiles/ButtonTile.png"); 
   buttonPressed = loadImage("data/tiles/ButtonPressed.png");
@@ -128,13 +126,13 @@ void setup() {
   startScreen = loadImage("data/images/startScreen.png");
   timeCoin = loadImage("data/Player/TimeCoin.png");
   
-<<<<<<< HEAD
+
   noConnection = loadImage("data/icons/noConnection.png");
 aButton = loadImage("data/icons/aButton.png");
 bButton = loadImage("data/icons/bButton.png");
 xButton = loadImage("data/icons/xButton.png");
 yButton = loadImage("data/icons/yButton.png");
-=======
+
   for(int g = 0; g < grassTileCount; g++){
   grassTiles[g] = loadImage("data/tiles/GrassTile.png");
   }
@@ -142,7 +140,7 @@ yButton = loadImage("data/icons/yButton.png");
   grassTiles[6] = loadImage("data/tiles/GrassTile2.png");
   grassTiles[7] = loadImage("data/tiles/GrassTile3.png");
 
->>>>>>> d8feaca33f1b968f800f99287a617edd2b99a920
+
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
@@ -391,7 +389,7 @@ void updateMap(String mapImage, String mapOverlayImage) {
         break;
       case "FF404040":
         tileType = "oneWay";
-        tileImage = oneWayNorth;
+        tileImage = oneWayTile;
         canWind = true;
         break;
       case "FF808080":

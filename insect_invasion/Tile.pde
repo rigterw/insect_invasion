@@ -147,22 +147,30 @@ class Tile
     }
     //for the oneWay tiles, it rotates the images to the right side.
     else if (type == "oneWay") {
+pushMatrix();
 
       switch(direction) {
 
       case "east": 
-        tile = oneWayEast;
+   translate(x+w,y);
+rotate(0.5*PI);
+
         break;        
-      case "south": 
-        tile = oneWaySouth;
+      case "south":
+         translate(x+w,y+h);
+   rotate(PI);
         break;        
       case "west": 
-        tile = oneWayWest;
+   translate(x,y+h);
+  rotate(1.5*PI);
+
         break;
       case "north":
-        tile = oneWayNorth;
+
       }
-      image(tile, x, y);
+             
+      image(tile, 0, 0);
+      popMatrix();
     } else {
       noTint();
       image(tile, x, y);
