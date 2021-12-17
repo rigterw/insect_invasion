@@ -15,13 +15,13 @@ class MovingEnemy extends MainEnemy {
     this.enemyvx = xSpeed_;
     this.enemyvy = ySpeed_;
   }
-  
-  void placeMovingEnemy(float xPos_, float yPos_){
+
+  void placeMovingEnemy(float xPos_, float yPos_) {
     enemyX = xPos_;
     enemyY = yPos_;
     isEnabled = true;
   }
-  
+
 
   /*
    * Method to draw the moving enemy
@@ -99,67 +99,75 @@ class MovingEnemy extends MainEnemy {
     }
     //checks if the enemy can continue walking forward
     if ((frontTile.type.equals("enemywalkable") || frontTile.type.equals("doorOpen") || frontTile.type.equals("button") || frontTile.type.equals("windStop") 
-    || frontTile.type.equals("enemyOneWay")||(frontTile.type.equals("oneWay")&&frontTile.direction.equals(direction))) == false) {
+      || frontTile.type.equals("enemyOneWay")||(frontTile.type.equals("oneWay")&&frontTile.direction.equals(direction))) == false) {
       enemyX = int(tileStanding.x + 0.5*tileStanding.w);
       enemyY = int(tileStanding.y + 0.5*tileStanding.w);
       //checks if the enemy can go right and if there is no open door on the left
       if ((((rightTile.type.equals("enemywalkable") || rightTile.type.equals("button")|| frontTile.type.equals("windStop") ||
-      (rightTile.type.equals("oneWay")&&((direction == "north" && rightTile.direction.equals("east"))||(direction == "east" && rightTile.direction.equals("south"))
-      ||(direction == "south" && rightTile.direction.equals("west"))||(direction == "west" && rightTile.direction.equals("north")))))
-      && !leftTile.type.equals("doorOpen")) || rightTile.type.equals("doorOpen"))) {
+        (rightTile.type.equals("oneWay")&&((direction == "north" && rightTile.direction.equals("east"))||(direction == "east" && rightTile.direction.equals("south"))
+        ||(direction == "south" && rightTile.direction.equals("west"))||(direction == "west" && rightTile.direction.equals("north")))))
+        && !leftTile.type.equals("doorOpen")) || rightTile.type.equals("doorOpen"))) {
 
         switch(direction) {
         case "north":
           enemyvx = speed;
           enemyvy = 0;
           direction = "east";
+          rotation = 0.5*PI;
           break;
 
         case "east":
           enemyvx = 0;
           enemyvy = speed;
           direction = "south";
+          rotation = PI;
           break;
 
         case "south":
           enemyvx = -speed;
           enemyvy = 0;
           direction = "west";
+          rotation = 1.5*PI;
           break;
 
         case "west":
           enemyvx = 0;
           enemyvy = -speed;
           direction = "north";
+          rotation = 0;
           break;
         }
       } else if (leftTile.type.equals("enemywalkable") || leftTile.type.equals("doorOpen")|| leftTile.type.equals("button")|| frontTile.type.equals("windStop") ||
-      (leftTile.type.equals("oneWay")&&((direction == "north" && leftTile.direction.equals("west"))||(direction == "east" && leftTile.direction.equals("north"))
-      ||(direction == "south" && leftTile.direction.equals("east"))||(direction == "west" && leftTile.direction.equals("south"))))) {
+        (leftTile.type.equals("oneWay")&&((direction == "north" && leftTile.direction.equals("west"))||(direction == "east" && leftTile.direction.equals("north"))
+        ||(direction == "south" && leftTile.direction.equals("east"))||(direction == "west" && leftTile.direction.equals("south"))))) {
         switch(direction) {
 
         case "south":
           enemyvx = speed;
           enemyvy = 0;
           direction = "east";
+          rotation = 0.5*PI;
           break;
 
         case "west":
           enemyvx = 0;
           enemyvy = speed;
           direction = "south";
+          rotation = PI;
           break;
 
         case "north":
           enemyvx = -speed;
           enemyvy = 0;
           direction = "west";
+          rotation = 1.5*PI;
           break;
 
         case "east":
           enemyvx = 0;
           enemyvy = -speed;
           direction = "north";
+                    rotation = 0;
           break;
         }
       } else { 
@@ -168,24 +176,28 @@ class MovingEnemy extends MainEnemy {
           enemyvx = 0;
           enemyvy = speed;
           direction = "south";
+          rotation = PI;
           break;
 
         case "east":
           enemyvx = -speed;
           enemyvy = 0;
           direction = "west";
+          rotation = 1.5*PI;
           break;
 
         case "south":
           enemyvx = 0;
           enemyvy = -speed;
           direction = "north";
+          rotation = 0;
           break;
 
         case "west":
           enemyvx = speed;
           enemyvy = 0;
           direction = "east";
+          rotation = 0.5*PI;
           break;
         }
       }

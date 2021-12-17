@@ -23,15 +23,19 @@ class StaticEnemy extends MainEnemy {
 
     if (TileEnemy(0, 1).type.equals("enemywalkable") || TileEnemy(0, 1).type.equals("door") || TileEnemy(0, 1).type.equals("doorOpen")) {
       direction = "south";
+      rotation = PI;
     }    
     if (TileEnemy(0, -1).type.equals("enemywalkable") || TileEnemy(0, -1).type.equals("door") || TileEnemy(0, -1).type.equals("doorOpen")) {
       direction = "north";
+      rotation = 0;
     }    
     if (TileEnemy(-1, 0).type.equals("enemywalkable") || TileEnemy(-1, 0).type.equals("door") || TileEnemy(-1, 0).type.equals("doorOpen")) {
       direction = "west";
+      rotation = 1.5*PI;
     }    
     if (TileEnemy(1, 0).type.equals("enemywalkable") || TileEnemy(1, 0).type.equals("door") || TileEnemy(1, 0).type.equals("doorOpen")) {
       direction = "east";
+      rotation = 0.5*PI;
     }
   }
 

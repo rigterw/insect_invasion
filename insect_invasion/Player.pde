@@ -6,6 +6,7 @@ class Player
   float distance; //Distance used for the collision between player and coin
   int playerTileX, playerTileY; //Tile the player is located on
   int score; // Score (picked up coins)
+  float rotation; //rotation of picture
 
   /*
    * No argument constructor for the Player class
@@ -32,42 +33,58 @@ class Player
   void update()
   {
     //checking if the player wants to move left
-    if (left == true)
+    if (left)
     {
       // speedY = 0;     // commented so lateral movement works
       //seting the speed
       speedX = -maxSpeed;
+      rotation = 1.5*PI;
     }
 
     //checking if the player wants to move right
-    if (right == true)
+    if (right)
     {
       // speedY = 0;     // commented so lateral movement works
       speedX = maxSpeed;
+      rotation = 0.5*PI;
     }
 
     //checking if the player wants to move right and left, or neither of those
-    if ((left == false && right == false) || (left == true && right == true))
+    if ((left == false && right == false) || (left && right))
     {
       speedX = 0;
     }
 
     //checking if the player wants to move up
-    if (up == true)
+    if (up)
     {
       // speedX = 0;       // commented so lateral movement works
       speedY = -maxSpeed;
+      rotation = 0;
+      if(right){
+     rotation = 0.25*PI;   
+        
+      }else if(left){
+        rotation = 1.75*PI;
+      }
     }
 
     //checking if the player wants to move down
-    if (down == true) 
+    if (down) 
     {
       // speedX = 0;       // commented so lateral movement works
       speedY = maxSpeed;
+      rotation = PI;
+            if(right){
+     rotation = 0.75*PI;   
+        
+      }else if(left){
+        rotation = 1.25*PI;
+      }
     }
 
     //checking if the player wants to move up and down, or neither of those
-    if ((up == false && down == false) || (up == true && down == true))
+    if ((up == false && down == false) || (up && down))
     {
       speedY = 0;
     }
@@ -93,8 +110,15 @@ class Player
 
     fill(100, 100, 220);
 
-    //displaying the player
-    image(player, x - (w / 2), y - (h / 2), w, h);
+ //   //displaying the player
+    pushMatrix();
+ imageMode(CENTER);
+    translate(x, y);
+    rotate(rotation);
+    image(player, 0, 0, w, h);
+ //   rotate(0);
+ imageMode(CORNER);
+    popMatrix();
   }
 
   /*

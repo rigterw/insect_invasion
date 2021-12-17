@@ -115,7 +115,7 @@ void setup() {
   textAlign(CENTER);
   textSize(30);
   text("loading...", width/2, height/2);
- 
+
   //declaring all images and sounds
   wallTile = loadImage("data/tiles/WallTile.png");
   grassTile = loadImage("data/tiles/GrassTile.png");
@@ -132,13 +132,13 @@ void setup() {
   startScreen = loadImage("data/images/startScreen.png");
   timeCoin = loadImage("data/Player/TimeCoin.png");
 
-  
+
 
   noConnection = loadImage("data/icons/noConnection.png");
-aButton = loadImage("data/icons/aButton.png");
-bButton = loadImage("data/icons/bButton.png");
-xButton = loadImage("data/icons/xButton.png");
-yButton = loadImage("data/icons/yButton.png");
+  aButton = loadImage("data/icons/aButton.png");
+  bButton = loadImage("data/icons/bButton.png");
+  xButton = loadImage("data/icons/xButton.png");
+  yButton = loadImage("data/icons/yButton.png");
 
 
 
@@ -151,7 +151,6 @@ yButton = loadImage("data/icons/yButton.png");
   yButton = loadImage("data/icons/yButton.png");
   for (int g = 0; g < grassTileCount; g++) {
     grassTiles[g] = loadImage("data/tiles/GrassTile.png");
-
   }
   grassTiles[5] = loadImage("data/tiles/GrassTile1.png");
   grassTiles[6] = loadImage("data/tiles/GrassTile2.png");
@@ -479,9 +478,11 @@ void updateMap(String mapImage, String mapOverlayImage) {
 void newMap() {
   timer.time = timer.maxTime;
   timer.lastTime = millis();
-  int nextMap = int(random(1, mapCount + 1));
-  while (nextMap == currentMap) {
-    nextMap = int(random(1, mapCount + 1));
+  if (currentMap != 0) {
+    int nextMap = int(random(1, mapCount + 1));
+    while (nextMap == currentMap) {
+      nextMap = int(random(1, mapCount + 1));
+    }
   }
   currentMap = nextMap;
 

@@ -1,4 +1,5 @@
 class MainEnemy {
+  float rotation;
   float enemyX; //Enemy x
   float enemyY; //Enemy Y
   int enemyvx; //Enemy x velocity
@@ -55,8 +56,12 @@ class MainEnemy {
    * @return void
    */
   void draw() {
-    //drawing the enemy
-    fill(255, 0, 0); //enemy
-    image(enemy, enemyX - (enemyDiameter / 2), enemyY - (enemyDiameter / 2), enemyDiameter, enemyDiameter);
+pushMatrix();
+imageMode(CENTER);
+translate(enemyX, enemyY);
+rotate(rotation);
+    image(enemy, 0 , 0, enemyDiameter, enemyDiameter);
+
+    popMatrix();
   }
 }
