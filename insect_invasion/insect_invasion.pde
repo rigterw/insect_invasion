@@ -66,18 +66,18 @@ int stage; // integer to keep track of the game state
 PFont title;
 PImage  map, mapOverlay;
 PImage player, enemy, timeCoin;
-<<<<<<< HEAD
+
+
+
+
+
+
+
+
 PImage walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
-
-PImage noConnection, aButton, bButton, xButton, yButton;
-
-PImage[] grassTiles = new PImage[grassTileCount];
-
-=======
-PImage walkTile, oneWayNorth, oneWayEast, oneWaySouth, oneWayWest, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
 PImage noConnection, aButton, bButton, xButton, yButton;
 PImage[] grassTiles = new PImage[grassTileCount];
->>>>>>> 245195b6d95d9e2fb495c52a6c335d4667bd96e7
+
 
 
 String deathCause;
@@ -131,7 +131,7 @@ void setup() {
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
   timeCoin = loadImage("data/Player/TimeCoin.png");
-<<<<<<< HEAD
+
   
 
   noConnection = loadImage("data/icons/noConnection.png");
@@ -140,9 +140,8 @@ bButton = loadImage("data/icons/bButton.png");
 xButton = loadImage("data/icons/xButton.png");
 yButton = loadImage("data/icons/yButton.png");
 
-  for(int g = 0; g < grassTileCount; g++){
-  grassTiles[g] = loadImage("data/tiles/GrassTile.png");
-=======
+
+
 
 
   noConnection = loadImage("data/icons/noConnection.png");
@@ -152,17 +151,12 @@ yButton = loadImage("data/icons/yButton.png");
   yButton = loadImage("data/icons/yButton.png");
   for (int g = 0; g < grassTileCount; g++) {
     grassTiles[g] = loadImage("data/tiles/GrassTile.png");
->>>>>>> 245195b6d95d9e2fb495c52a6c335d4667bd96e7
+
   }
   grassTiles[5] = loadImage("data/tiles/GrassTile1.png");
   grassTiles[6] = loadImage("data/tiles/GrassTile2.png");
   grassTiles[7] = loadImage("data/tiles/GrassTile3.png");
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 245195b6d95d9e2fb495c52a6c335d4667bd96e7
   coinSound = new SoundFile(this, "data/sounds/coin.wav");
   buttonSound = new SoundFile(this, "data/sounds/button.wav");
   finishSound = new SoundFile(this, "data/sounds/finish.wav");
