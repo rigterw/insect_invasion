@@ -96,16 +96,16 @@ class CollisionManager {
             switch (direction) {
 
             case "west" :
-              p.x = p.x - p.maxSpeed;
+              p.x = p.x -p.maxSpeed;
               break;
             case "east" :
-              p.x = p.x + p.maxSpeed;
+              p.x = p.x +p.maxSpeed;
               break;
             case "north":
-              p.y = p.y - p.maxSpeed;
+              p.y = p.y -p.maxSpeed;
               break;
             case "south":
-              p.y = p.y + p.maxSpeed;
+              p.y = p.y +p.maxSpeed;
               break;
             }
           }
