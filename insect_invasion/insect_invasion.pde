@@ -280,6 +280,11 @@ void draw() {
     textAlign(CENTER); 
     text("settings", width/2, height/2);
   }
+
+// timer for the dash
+  if (millis() - whenPressed >= 1000) {
+    p.maxSpeed = 2;
+  }
 }
 
 /*
@@ -493,19 +498,12 @@ void newMap() {
   int nextMap = int(random(1, mapCount + 1));
   while (nextMap == currentMap) {
     nextMap = int(random(1, mapCount + 1));
-
-    timer.time = timer.maxTime; 
-    timer.lastTime = millis(); 
-    if (currentMap != 0) {
-      while (nextMap == currentMap) {
-        nextMap = int(random(1, mapCount + 1));
   }
   println(currentMap);
-    currentMap = nextMap; 
+  currentMap = nextMap; 
 
-    //updating the map to the next level
-    updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
-  }
+  //updating the map to the next level
+  updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
 }
 
 void restart() {
@@ -613,15 +611,14 @@ void keyPressed() {
   else if (keyCode == 83)
   {
     down = true;
-  } else if (keyCode == 69) {
+  } 
+  //Dash button
+  else if (keyCode == 69) {
     if (whenPressed == 0) {
-      whenPressed = millis();
-
-      println("hi");
-      dash = true;
-    } else if (millis() - whenPressed <= 3000) {
-      p.maxSpeed = 10;
-      println("WEEEE!");
+      
+      whenPressed = millis();//saves the time when the button gets pressed
+      p.maxSpeed = 4; // gives the player extra movement speed
+      timer.time = timer.time + -timer.extraTime; //removes the time as the resource for the dash
     }
   }
 }
@@ -646,9 +643,8 @@ void keyReleased()
   } else if (keyCode == 83) // naar benden bewegen
   {
     down = false;
-  } else if (keyCode == 69) {
+  } else if (keyCode == 69) { // resets the movespeed after letting go of the dash key
     p.maxSpeed = 2;
     whenPressed = 0;
-    println("not WEEE");
   }
 }
