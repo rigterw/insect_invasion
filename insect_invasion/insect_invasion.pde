@@ -111,10 +111,10 @@ SoundFile coinSound, buttonSound, finishSound, soundTrack, clickSound;
  */
 void setup() {
   //setting up the custom font
-  font = createFont("data/font/Font.ttf" , 64);
+  font = createFont("data/font/Font.ttf", 64);
   textFont(font);
-  
-  
+
+
   //shows loading screen
   background(0);
   textAlign(CENTER);
@@ -488,22 +488,32 @@ void updateMap(String mapImage, String mapOverlayImage) {
 }
 
 void newMap() {
-  timer.time = timer.maxTime; 
-  timer.lastTime = millis(); 
+  timer.time = timer.maxTime;
+  timer.lastTime = millis();
   int nextMap = int(random(1, mapCount + 1));
   while (nextMap == currentMap) {
     nextMap = int(random(1, mapCount + 1));
+
+    timer.time = timer.maxTime; 
+    timer.lastTime = millis(); 
+    if (currentMap != 0) {
+      while (nextMap == currentMap) {
+        nextMap = int(random(1, mapCount + 1));
   }
   println(currentMap);
-  currentMap = nextMap; 
+    currentMap = nextMap; 
 
-  //updating the map to the next level
-  updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
+    //updating the map to the next level
+    updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
+  }
 }
 
 void restart() {
-  newMap(); 
-
+  if (currentMap == 0) {
+    updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
+  } else {
+    newMap();
+  }
   p.score = 0;
 }
 
