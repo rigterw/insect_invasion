@@ -31,13 +31,13 @@ class DatabaseManager {
   }
   //shows the highscores on the highscores screen
   void showHighscores() {
- 
+
     textAlign(LEFT);
     text("NAME", xPositionName, yPosition);
     text("HIGHSCORE", xPositionScores, yPosition);
     text("________________________", xPositionName, yPosition + 10);
     if (online) {
-         Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore ORDER BY highscore DESC");
+      Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore ORDER BY highscore DESC LIMIT 0, 10");
       for (int i = 0; i < highscores.getRowCount(); i++) {
         TableRow row = highscores.getRow(i);
         text(row.getString(0), xPositionName, yPosition + (i+1) * 50);

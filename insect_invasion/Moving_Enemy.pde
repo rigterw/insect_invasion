@@ -167,7 +167,7 @@ class MovingEnemy extends MainEnemy {
           enemyvx = 0;
           enemyvy = -speed;
           direction = "north";
-                    rotation = 0;
+          rotation = 0;
           break;
         }
       } else { 
