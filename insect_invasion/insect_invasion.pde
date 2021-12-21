@@ -82,6 +82,8 @@ PImage[] enemies = new PImage[enemyFrames];
 
 String deathCause;
 
+PFont font;
+
 final int xPositionName = 400, yPosition = 100;
 final int xPositionScores = xPositionName + 200;
 
@@ -104,7 +106,11 @@ SoundFile coinSound, buttonSound, finishSound, soundTrack, clickSound;
  * Method to execute code before the game starts
  */
 void setup() {
-
+  //setting up the custom font
+  font = createFont("data/font/Font.ttf" , 64);
+  textFont(font);
+  
+  
   //shows loading screen
   background(0);
   textAlign(CENTER);
@@ -140,16 +146,6 @@ void setup() {
   for (int e = 0; e < enemyFrames / 2; e++) {
     enemies[e]  = loadImage("data/enemy/EnemyWalk2.png");
   }
-
-  noConnection = loadImage("data/icons/noConnection.png"); 
-  aButton = loadImage("data/icons/aButton.png"); 
-  bButton = loadImage("data/icons/bButton.png"); 
-  xButton = loadImage("data/icons/xButton.png"); 
-  yButton = loadImage("data/icons/yButton.png"); 
-
-
-
-
 
   noConnection = loadImage("data/icons/noConnection.png"); 
   aButton = loadImage("data/icons/aButton.png"); 
