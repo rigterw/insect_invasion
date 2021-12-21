@@ -86,6 +86,8 @@ PImage[] enemies = new PImage[enemyFrames];
 
 String deathCause;
 
+PFont font;
+
 final int xPositionName = 400, yPosition = 100;
 final int xPositionScores = xPositionName + 200;
 
@@ -108,7 +110,11 @@ SoundFile coinSound, buttonSound, finishSound, soundTrack, clickSound;
  * Method to execute code before the game starts
  */
 void setup() {
-
+  //setting up the custom font
+  font = createFont("data/font/Font.ttf" , 64);
+  textFont(font);
+  
+  
   //shows loading screen
   background(0);
   textAlign(CENTER);
@@ -144,16 +150,6 @@ void setup() {
   for (int e = 0; e < enemyFrames / 2; e++) {
     enemies[e]  = loadImage("data/enemy/EnemyWalk2.png");
   }
-
-  noConnection = loadImage("data/icons/noConnection.png"); 
-  aButton = loadImage("data/icons/aButton.png"); 
-  bButton = loadImage("data/icons/bButton.png"); 
-  xButton = loadImage("data/icons/xButton.png"); 
-  yButton = loadImage("data/icons/yButton.png"); 
-
-
-
-
 
   noConnection = loadImage("data/icons/noConnection.png"); 
   aButton = loadImage("data/icons/aButton.png"); 
@@ -228,11 +224,11 @@ void setup() {
   soundTrack.loop(); 
 
   //adjusting the volume of the sounds
-  soundTrack.amp(0.1); 
-  buttonSound.amp(0.3); 
-  finishSound.amp(0.3); 
-  coinSound.amp(0.3); 
-  clickSound.amp(0.3); 
+  soundTrack.amp(0.0); 
+  buttonSound.amp(0.6); 
+  finishSound.amp(0.6); 
+  coinSound.amp(0.6); 
+  clickSound.amp(0.6); 
 
   //setting the screen for the main menu
   image(startScreen, 0, 0, screenSizeX, screenSizeY); 
@@ -265,14 +261,14 @@ void draw() {
     fill(#FFFFFF); 
     text("GAME OVER", screenSizeX / 2, 100); 
     textSize(36); 
-    text("press    to view highscores", screenSizeX / 2, screenSizeY / 2 + 250); 
-    image(xButton, screenSizeX/2-3*w-12, screenSizeY/2 + 223); 
-    text("press    to restart", screenSizeX / 2, screenSizeY / 2 + 325); 
+    text("press      to view highscores", screenSizeX / 2, screenSizeY / 2 + 250); 
+    image(xButton, screenSizeX/2-3*w + 37, screenSizeY/2 + 223); 
+    text("press      to restart", screenSizeX / 2, screenSizeY / 2 + 325); 
     image(aButton, screenSizeX/2-w-6, screenSizeY/2 + 298);
   } else if (stage == 5) {//draws highscores screen
     textAlign(RIGHT); 
-    text("press    to restart", screenSizeX - 25, screenSizeY - 25); 
-    image(aButton, screenSizeX - 202, screenSizeY - 51);
+    text("press     to restart", screenSizeX - 25, screenSizeY - 25); 
+    image(aButton, screenSizeX - 155, screenSizeY - 51);
   } else if (stage == 6) {//draws pause screen
     background(100, 200, 100); 
     textAlign(CENTER); 
