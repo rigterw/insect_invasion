@@ -478,11 +478,9 @@ void updateMap(String mapImage, String mapOverlayImage) {
 void newMap() {
   timer.time = timer.maxTime;
   timer.lastTime = millis();
-  if (currentMap != 0) {
-    int nextMap = int(random(1, mapCount + 1));
-    while (nextMap == currentMap) {
-      nextMap = int(random(1, mapCount + 1));
-    }
+  int nextMap = int(random(1, mapCount + 1));
+  while (nextMap == currentMap) {
+    nextMap = int(random(1, mapCount + 1));
   }
   currentMap = nextMap;
 
@@ -491,8 +489,11 @@ void newMap() {
 }
 
 void restart() {
-  newMap(); 
-
+  if (currentMap == 0) {
+    updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
+  } else {
+    newMap();
+  }
   p.score = 0;
 }
 
