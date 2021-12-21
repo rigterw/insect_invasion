@@ -218,7 +218,7 @@ void setup() {
   soundTrack.loop(); 
 
   //adjusting the volume of the sounds
-  soundTrack.amp(0.0); 
+  soundTrack.amp(0.2); 
   buttonSound.amp(0.6); 
   finishSound.amp(0.6); 
   coinSound.amp(0.6); 
