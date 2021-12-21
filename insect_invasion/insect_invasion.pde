@@ -16,6 +16,8 @@ void settings() {
 int testMap = 3;
 boolean online = true;
 
+boolean dash;
+
 //initializing all the variables
 Tile tile;
 
@@ -28,6 +30,8 @@ int cols = 32;
 int rows = 18;
 int w = 40;
 int h = 40;
+
+int whenPressed;
 
 color tileColor;
 String tileType;
@@ -166,6 +170,8 @@ void setup() {
   Properties props = new Properties();
   props.setProperty("user", "berkeln1");
   props.setProperty("password", "ytAT+sPYwZl7JH");
+
+  whenPressed = 0;
 
 
   try {
@@ -478,12 +484,11 @@ void updateMap(String mapImage, String mapOverlayImage) {
 void newMap() {
   timer.time = timer.maxTime;
   timer.lastTime = millis();
-  if (currentMap != 0) {
-    int nextMap = int(random(1, mapCount + 1));
-    while (nextMap == currentMap) {
-      nextMap = int(random(1, mapCount + 1));
-    }
+  int nextMap = int(random(1, mapCount + 1));
+  while (nextMap == currentMap) {
+    nextMap = int(random(1, mapCount + 1));
   }
+  println(currentMap);
   currentMap = nextMap;
 
   //updating the map to the next level
@@ -592,6 +597,16 @@ void keyPressed() {
   else if (keyCode == 83)
   {
     down = true;
+  } else if (keyCode == 69) {
+    if (whenPressed == 0) {
+      whenPressed = millis();
+
+      println("hi");
+      dash = true;
+    } else if (millis() - whenPressed <= 3000) {
+      p.maxSpeed = 10;
+      println("WEEEE!");
+    }
   }
 }
 
@@ -615,5 +630,9 @@ void keyReleased()
   } else if (keyCode == 83) // naar benden bewegen
   {
     down = false;
+  } else if (keyCode == 69) {
+    p.maxSpeed = 2;
+    whenPressed = 0;
+    println("not WEEE");
   }
 }
