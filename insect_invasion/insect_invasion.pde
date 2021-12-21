@@ -16,6 +16,8 @@ void settings() {
 int testMap = 2;
 boolean online = true;
 
+boolean dash;
+
 //initializing all the variables
 Tile tile;
 
@@ -28,6 +30,8 @@ int cols = 32;
 int rows = 18;
 int w = 40;
 int h = 40;
+
+int whenPressed;
 
 color tileColor;
 String tileType;
@@ -107,10 +111,10 @@ SoundFile coinSound, buttonSound, finishSound, soundTrack, clickSound;
  */
 void setup() {
   //setting up the custom font
-  font = createFont("data/font/Font.ttf" , 64);
+  font = createFont("data/font/Font.ttf", 64);
   textFont(font);
-  
-  
+
+
   //shows loading screen
   background(0);
   textAlign(CENTER);
@@ -172,6 +176,8 @@ void setup() {
   Properties props = new Properties(); 
   props.setProperty("user", "berkeln1"); 
   props.setProperty("password", "ytAT+sPYwZl7JH"); 
+
+  whenPressed = 0;
 
 
   try {
@@ -273,6 +279,11 @@ void draw() {
     background(100, 200, 100); 
     textAlign(CENTER); 
     text("settings", width/2, height/2);
+  }
+
+// timer for the dash
+  if (millis() - whenPressed >= 1000) {
+    p.maxSpeed = 2;
   }
 }
 
@@ -482,14 +493,13 @@ void updateMap(String mapImage, String mapOverlayImage) {
 }
 
 void newMap() {
-  timer.time = timer.maxTime; 
-  timer.lastTime = millis(); 
-  if (currentMap != 0) {
-    int nextMap = int(random(1, mapCount + 1)); 
-    while (nextMap == currentMap) {
-      nextMap = int(random(1, mapCount + 1));
-    }
+  timer.time = timer.maxTime;
+  timer.lastTime = millis();
+  int nextMap = int(random(1, mapCount + 1));
+  while (nextMap == currentMap) {
+    nextMap = int(random(1, mapCount + 1));
   }
+  println(currentMap);
   currentMap = nextMap; 
 
   //updating the map to the next level
@@ -497,8 +507,11 @@ void newMap() {
 }
 
 void restart() {
-  newMap(); 
-
+  if (currentMap == 0) {
+    updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
+  } else {
+    newMap();
+  }
   p.score = 0;
 }
 
@@ -598,6 +611,15 @@ void keyPressed() {
   else if (keyCode == 83)
   {
     down = true;
+  } 
+  //Dash button
+  else if (keyCode == 69) {
+    if (whenPressed == 0) {
+      
+      whenPressed = millis();//saves the time when the button gets pressed
+      p.maxSpeed = 4; // gives the player extra movement speed
+      timer.time = timer.time + -timer.extraTime; //removes the time as the resource for the dash
+    }
   }
 }
 
@@ -621,5 +643,8 @@ void keyReleased()
   } else if (keyCode == 83) // naar benden bewegen
   {
     down = false;
+  } else if (keyCode == 69) { // resets the movespeed after letting go of the dash key
+    p.maxSpeed = 2;
+    whenPressed = 0;
   }
 }
