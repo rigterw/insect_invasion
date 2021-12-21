@@ -1,6 +1,6 @@
 class StaticEnemy extends MainEnemy {
   String direction = null;
-  
+
   float originX, originY;
   /*
    * 2 argument constructor from the StaticEnemy class
@@ -51,14 +51,14 @@ class StaticEnemy extends MainEnemy {
     noStroke();
     rectMode(CENTER);
 
-//variables for the vision area of thestatic enemy
+    //variables for the vision area of thestatic enemy
     float visionW = 150;
     float visionH = 125;
     float visionX = 0;
     float visionY = 0;
     float visionRadius =  visionW/2;
 
-//switch for the vision area of the static enemy
+    //switch for the vision area of the static enemy
     switch (direction) {
 
     case "south":
@@ -117,25 +117,27 @@ class StaticEnemy extends MainEnemy {
       switch (direction) {
 
       case "south": 
-      if(enemyY > originY){
-        enemyY -= speed; }
+        if (enemyY > originY) {
+          enemyY -= speed;
+        }
         break;
 
       case "east":
-      if(enemyX>originX){
-        enemyX -= speed;}
+        if (enemyX>originX) {
+          enemyX -= speed;
+        }
         break;
 
       case "north":
-      if(enemyY<originY){
-        enemyY += speed;
-      }
+        if (enemyY<originY) {
+          enemyY += speed;
+        }
         break;
 
       case "west":
-      if(enemyX<originX){
-        enemyX += speed;
-      }
+        if (enemyX<originX) {
+          enemyX += speed;
+        }
         break;
       }
     }

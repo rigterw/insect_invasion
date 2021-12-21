@@ -48,7 +48,6 @@ class MainEnemy {
   }
 
   void update() {
-
   }
 
   /*
@@ -56,12 +55,12 @@ class MainEnemy {
    * @return void
    */
   void draw() {
-pushMatrix();
-imageMode(CENTER);
-translate(enemyX, enemyY);
-rotate(rotation);
-    image(enemy, 0 , 0, enemyDiameter, enemyDiameter);
-
+    pushMatrix();
+    imageMode(CENTER);
+    translate(enemyX, enemyY);
+    rotate(rotation);
+    enemyFrame = (enemyFrame+1) % enemyFrames;
+    image(enemies[(enemyFrame) % enemyFrames], 0, 0, enemyDiameter, enemyDiameter);
     popMatrix();
   }
 }

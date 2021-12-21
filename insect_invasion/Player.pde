@@ -61,10 +61,9 @@ class Player
       // speedX = 0;       // commented so lateral movement works
       speedY = -maxSpeed;
       rotation = 0;
-      if(right){
-     rotation = 0.25*PI;   
-        
-      }else if(left){
+      if (right) {
+        rotation = 0.25*PI;
+      } else if (left) {
         rotation = 1.75*PI;
       }
     }
@@ -75,10 +74,9 @@ class Player
       // speedX = 0;       // commented so lateral movement works
       speedY = maxSpeed;
       rotation = PI;
-            if(right){
-     rotation = 0.75*PI;   
-        
-      }else if(left){
+      if (right) {
+        rotation = 0.75*PI;
+      } else if (left) {
         rotation = 1.25*PI;
       }
     }
@@ -110,14 +108,19 @@ class Player
 
     fill(100, 100, 220);
 
- //   //displaying the player
+    //   //displaying the player
     pushMatrix();
- imageMode(CENTER);
+    imageMode(CENTER);
     translate(x, y);
     rotate(rotation);
-    image(player, 0, 0, w, h);
- //   rotate(0);
- imageMode(CORNER);
+    playerFrame = (playerFrame+1) % playerFrames;
+    if (keyPressed) {
+      image(players[(playerFrame) % playerFrames], 0, 0, w, h);
+    } else {
+      image(player, 0, 0, w, h);
+    }
+    //   rotate(0);
+    imageMode(CORNER);
     popMatrix();
   }
 

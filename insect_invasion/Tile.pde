@@ -87,9 +87,10 @@ class Tile
         }
         buttonStandingOn = true;
       } else if (type == "finish") {//code for finish + next level
+        p.score += int(timer.time / 1000);
         newMap();
         finishSound.play();
-        p.score += int(timer.time / 1000);
+
 
 
         buttonStandingOn = false;
