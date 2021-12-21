@@ -104,7 +104,7 @@ class Player
     fill(0);
     //displaying the score text
     textAlign(LEFT);
-    text("Score: " + score, 30, 680);
+    text("Score: " + score, 20, 700);
 
     fill(100, 100, 220);
 
