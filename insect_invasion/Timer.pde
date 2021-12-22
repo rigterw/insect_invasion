@@ -38,4 +38,10 @@ class Timer {
       stage = 4;
     }
   }
+    void resetTimer(){
+     time = maxTime;
+  lastTime = millis();   
+    
+    
+  }
 }
