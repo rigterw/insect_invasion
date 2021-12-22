@@ -44,6 +44,7 @@ int grassTileCount = 4;
 int walkTileCount = 4;
 
 
+
 int mapCount = 6;
 int currentMap = 0;
 int nextMap;
@@ -74,7 +75,7 @@ PImage[] walkTiles = new PImage[walkTileCount];
 int playerFrame = 0;
 int enemyFrame = 0;
 
-int playerFrames = 20;  // The number of frames in the player animation
+int playerFrames = 30;  // The number of frames in the player animation
 PImage[] players = new PImage[playerFrames];
 
 int enemyFrames = 40; // The number of frames in the enemy animation
