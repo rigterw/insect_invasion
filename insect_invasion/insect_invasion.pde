@@ -16,8 +16,6 @@ void settings() {
 int testMap = 2;
 boolean online = true;
 
-boolean dash;
-
 //initializing all the variables
 Tile tile;
 
@@ -617,7 +615,7 @@ void keyPressed() {
     if (whenPressed == 0) {
       
       whenPressed = millis();//saves the time when the button gets pressed
-      p.maxSpeed = 4; // gives the player extra movement speed
+      p.maxSpeed = dashSpeed; // gives the player extra movement speed
       timer.time = timer.time + -timer.extraTime; //removes the time as the resource for the dash
     }
   }

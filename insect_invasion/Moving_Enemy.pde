@@ -34,6 +34,8 @@ class MovingEnemy extends MainEnemy {
     //inherits everything inside the draw of all enemy classes
 
     super.draw();
+    image(enemies[(enemyFrame) % enemyFrames], 0, 0, enemyDiameter, enemyDiameter);
+    popMatrix();
   }
 
   /*

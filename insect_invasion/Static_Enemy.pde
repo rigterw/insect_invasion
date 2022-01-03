@@ -144,5 +144,14 @@ class StaticEnemy extends MainEnemy {
 
 
     super.draw();//inherits everything inside the draw of all enemy classes
+    for (int se = 0; se < staticEnemyCounter; se++) {
+      if (staticEnemys[se].enemyX == staticEnemys[se].originX && staticEnemys[se].enemyY == staticEnemys[se].originY) {
+        image(enemy, 0, 0, enemyDiameter, enemyDiameter);
+      } else {
+        image(enemies[(enemyFrame) % enemyFrames], 0, 0, enemyDiameter, enemyDiameter);
+        
+      }
+    }
+    popMatrix();
   }
 }
