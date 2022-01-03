@@ -26,10 +26,10 @@ Player p = new Player();
 
 
 //variables for the tilegrid
-int cols = 32;
-int rows = 18;
-int w = 40;
-int h = 40;
+final int cols = 32;
+final int rows = 18;
+final int w = 40;
+final int h = 40;
 
 int whenPressed;
 
@@ -38,22 +38,22 @@ String tileType;
 
 //variables for the objects
 int coinCounter = 0;
-int nCoins = 75;
-int mEnemys = 50; //Amount of moving enemys for in the array
-int sEnemys = 50; //Amount of static enemys for in the array
-int totalEnemys = mEnemys + sEnemys;
+final int nCoins = 75;
+final int mEnemys = 50; //Amount of moving enemys for in the array
+final int sEnemys = 50; //Amount of static enemys for in the array
+final int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
-int grassTileCount = 4;
-int walkTileCount = 4;
+final int grassTileCount = 4;
+final int walkTileCount = 4;
 
 
-int mapCount = 6;
+final int mapCount = 6;
 int currentMap = 0;
 int nextMap;
 int windSpeed = 10;
-int screenSizeX = 1280;
-int screenSizeY = 720;
+final int screenSizeX = 1280;
+final int screenSizeY = 720;
 int stage; // integer to keep track of the game state
 /*
  * stage 1 = main menu
@@ -78,10 +78,10 @@ PImage[] walkTiles = new PImage[walkTileCount];
 int playerFrame = 0;
 int enemyFrame = 0;
 
-int playerFrames = 20;  // The number of frames in the player animation
+final int playerFrames = 20;  // The number of frames in the player animation
 PImage[] players = new PImage[playerFrames];
 
-int enemyFrames = 40; // The number of frames in the enemy animation
+final int enemyFrames = 40; // The number of frames in the enemy animation
 PImage[] enemies = new PImage[enemyFrames];
 
 String deathCause;
