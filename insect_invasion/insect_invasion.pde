@@ -29,6 +29,8 @@ int rows = 18;
 int w = 40;
 int h = 40;
 
+NameInput nameinput = new NameInput();
+
 int whenPressed;
 
 color tileColor;
@@ -260,6 +262,8 @@ void draw() {
     fill(#FFFFFF); 
     text("GAME OVER", screenSizeX / 2, 100); 
     textSize(36); 
+    text("press      to insert name", screenSizeX / 2, screenSizeY / 2 + 175); 
+    image(bButton, screenSizeX/2-3*w + 50, screenSizeY/2 + 150); 
     text("press      to view highscores", screenSizeX / 2, screenSizeY / 2 + 250); 
     image(xButton, screenSizeX/2-3*w + 37, screenSizeY/2 + 223); 
     text("press      to restart", screenSizeX / 2, screenSizeY / 2 + 325); 
@@ -278,9 +282,11 @@ void draw() {
     background(100, 200, 100); 
     textAlign(CENTER); 
     text("settings", width/2, height/2);
+  } else if (stage == 8) {
+    nameinput.draw();
   }
 
-// timer for the dash
+  // timer for the dash
   if (millis() - whenPressed >= 1000) {
     p.maxSpeed = 2;
   }
@@ -489,8 +495,8 @@ void updateMap(String mapImage, String mapOverlayImage) {
     }
   }
   updateWind();
-  
-timer.resetTimer();
+
+  timer.resetTimer();
 }
 
 void newMap() {
@@ -538,6 +544,13 @@ void updateWind() {
  * method to check if a key is pressed on the keyboard
  */
 void keyPressed() {
+  if (stage == 8) {
+    nameinput.keyPressed();
+    if (keyCode == 72) {
+      databasemanager.drawHighScores(); 
+      stage = 5;
+    }
+  }
   if (stage == 4 && keyCode == 82) {//restarts the game from game over screen
     stage = 3; 
     databasemanager.insertValues(); 
@@ -547,8 +560,10 @@ void keyPressed() {
     databasemanager.drawHighScores(); 
     stage = 5; 
     return;
-  } else if ( stage == 4 && keyCode != 82 && keyCode != 72) {
-    println("not 82 or 72"); 
+  } else if (stage == 4 && keyCode == 69) {
+    stage = 8;
+  } else if ( stage == 4 && keyCode != 82 && keyCode != 72 && keyCode != 69) {
+    println("not 82 or 72 or 69"); 
     return;
   }
   if (stage == 3 && keyCode == 70) {//pauses the game
@@ -614,7 +629,7 @@ void keyPressed() {
   //Dash button
   else if (keyCode == 69) {
     if (whenPressed == 0) {
-      
+
       whenPressed = millis();//saves the time when the button gets pressed
       p.maxSpeed = dashSpeed; // gives the player extra movement speed
       timer.time = timer.time + -timer.extraTime; //removes the time as the resource for the dash
