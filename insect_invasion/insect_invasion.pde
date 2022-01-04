@@ -105,6 +105,9 @@ StaticEnemy[] staticEnemys = new StaticEnemy[sEnemys];
 MainEnemy[] allEnemys = new MainEnemy [mEnemys + sEnemys];
 Timer timer = new Timer();
 
+//Initializing the shop window
+ShopScreen shop = new ShopScreen();
+
 SoundFile coinSound, buttonSound, finishSound, soundTrack, clickSound;
 
 /*
