@@ -44,7 +44,7 @@ int sEnemys = 50; //Amount of static enemys for in the array
 int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
-int grassTileCount = 4;
+int grassTileCount = 14;
 int walkTileCount = 4;
 int dashSpeed = 4;
 
@@ -556,7 +556,6 @@ void keyPressed() {
     databasemanager.insertValues(); 
     restart();
   } else if (stage == 4 && keyCode == 72) {//loads the highscore screen
-    databasemanager.insertValues(); 
     databasemanager.drawHighScores(); 
     stage = 5; 
     return;
