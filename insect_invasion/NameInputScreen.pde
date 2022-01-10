@@ -51,7 +51,7 @@ class NameInput {
       if (!(counters[selected] <= 0)) {
         counters[selected]--;//lowers the number of the counter to change the letter
       } else if (counters[selected] == 0) {
-        counters[selected] = LETTERCOUNT; //once you reach 0 going to the last letter
+        counters[selected] = 26; //once you reach 0 going to the last letter
       }
     } else if (keyCode == 65) // the A key
     {
