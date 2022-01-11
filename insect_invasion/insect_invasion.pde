@@ -49,7 +49,9 @@ final int walkTileCount = 4;
 final int mapCount = 6;
 int currentMap = 0;
 int nextMap;
-int windSpeed = 10;
+final int windSpeed = 10;
+final int dashSpeed = 4;
+
 final int screenSizeX = 1280;
 final int screenSizeY = 720;
 int stage; // integer to keep track of the game state
@@ -76,7 +78,7 @@ PImage[] walkTiles = new PImage[walkTileCount];
 int playerFrame = 0;
 int enemyFrame = 0;
 
-final int playerFrames = 20;  // The number of frames in the player animation
+final int playerFrames = 30;  // The number of frames in the player animation
 PImage[] players = new PImage[playerFrames];
 
 final int enemyFrames = 40; // The number of frames in the enemy animation
