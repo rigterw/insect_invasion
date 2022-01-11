@@ -169,6 +169,7 @@ void setup() {
     walkTiles[w] = loadImage("data/tiles/WalkTile"+w+".png");
   }
 
+  shop.setupShop(width/4, height/8);
 
   coinSound = new SoundFile(this, "data/sounds/coin.wav"); 
   buttonSound = new SoundFile(this, "data/sounds/button.wav"); 
@@ -287,6 +288,8 @@ void draw() {
     text("settings", width/2, height/2);
   } else if (stage == 8) {
     nameinput.draw();
+  } else if (stage == 9) {
+    shop.drawEntireShop();
   }
 
   // timer for the dash
@@ -554,6 +557,20 @@ void keyPressed() {
       stage = 5;
     }
   }
+
+  // Load the shop when you press 'P' while in the main menu.
+  //If already in the shop, press 'P' to exit
+  if (stage == 1 && keyCode == 80) {
+    stage = 9;
+  } else if (stage == 9 && keyCode == 80) {
+    stage = 1;
+  }
+  //Uses the keyPressed function of the ShopScreen class while in the shop
+  if (stage == 9) {
+    shop.keyPressed();
+  }
+
+
   if (stage == 4 && keyCode == 82) {//restarts the game from game over screen
     stage = 3; 
     databasemanager.insertValues(); 
