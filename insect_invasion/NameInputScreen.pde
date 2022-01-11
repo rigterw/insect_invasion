@@ -1,83 +1,82 @@
 class NameInput {
 
-  final int LETTERCOUNT = 7;
+  final int LETTERCOUNT = 7; // int to determine the amount of letters you can input
 
-  int[] counters = new int[LETTERCOUNT];
+  int[] counters = new int[LETTERCOUNT];//the counters that determine the number for the letter/sign
 
-  String[] Letters = new String[LETTERCOUNT];
+  String[] Letters = new String[LETTERCOUNT];//saving the letters that are inputted
 
-  int textSize = 100;
-  int offset = 50;
+  int textSize = 100;//the size of the text in the input
+  int offset = 50;//the offset of line underneath the letters to align them
 
-  int selected = 0;
+  int selected = 0;// the selected letter
 
-  String name;
+  String name;//string to save the letters together
 
   void draw() {
-    background(100, 200, 100);
+    background(100, 200, 100);//standard green background
 
     for (int i= 0; i < LETTERCOUNT; i++) {
-      Letters[i] = Getletter(counters[i]);
+      Letters[i] = Getletter(counters[i]);//gets the letter based on the number inside the counter
     }
-    drawText();
+    drawText();//going to the text drawing function
 
-    name = join(Letters, "");
+    name = join(Letters, ""); //saves the letters together in one string
 
     rectMode(CORNER);
-    rect(selected*textSize-offset+width/4, height/2, textSize, 10);
+    rect(selected*textSize-offset+width/4, height/2, textSize, 10);//line underneath to show what letter you got selected
   }
-
-
-
-
-  void keyPressed() {
-    if (keyCode == 87)
-    {
-      if (!(selected >= LETTERCOUNT)) {
-        counters[selected]++;
-      }
-    } else if (keyCode == 83)
-    {
-      if (!(counters[selected] <= 0)) {
-        counters[selected]--;
-      } else if (counters[selected] == 0) {
-        counters[selected] = 26;
-      }
-    } else if (keyCode == 65)
-    {
-      if (!(selected < 0)) {
-        selected--;
-      }
-    }
-    //checking if the player wants to move to the right
-    else if (keyCode == 68)
-    {
-      selected++;
-    }
-
-
-    for (int i = 0; i < LETTERCOUNT; i++) {
-      if (counters[i] >= 27) {
-        counters[i] = 0;
-      }
-    }
-    if (selected >= 7 || selected < 0) {
-      selected = 0;
-    }
-  }
-
 
   void drawText() {
+    //setting the text up
     textSize(textSize);
     textAlign(CENTER);
 
     for (int i = 0; i < LETTERCOUNT; i++) {
       if (Letters[i] != null) {
-        text(Letters[i], width/4+textSize*i, height/2);
+        text(Letters[i], width/4+textSize*i, height/2);//places the letters next to eachother
       }
     }
   }
 
+
+  void keyPressed() {
+    if (keyCode == 87)//the W key
+    {
+      if (!(selected >= LETTERCOUNT)) {
+        counters[selected]++;//increases the number of the counter to change the letter
+      }
+    } else if (keyCode == 83)// the S key
+    {
+      if (!(counters[selected] <= 0)) {
+        counters[selected]--;//lowers the number of the counter to change the letter
+      } else if (counters[selected] == 0) {
+        counters[selected] = 26; //once you reach 0 going to the last letter
+      }
+    } else if (keyCode == 65) // the A key
+    {
+      if (!(selected < 0)) {
+        selected--;//moves the selected letter to the left
+      }
+    }
+    else if (keyCode == 68)// the D key
+    {
+      selected++;//moves the selected letter to the right
+    }
+
+
+    for (int i = 0; i < LETTERCOUNT; i++) {
+      if (counters[i] >= 27) {
+        counters[i] = 0;// brings you back to the first letter
+      }
+    }
+    if (selected >= 7 || selected < 0) {
+      selected = 0; // brings you back to the first selected letter
+    }
+  }
+
+
+//returning the letter as string back based on the number
   String Getletter(int number) {
 
     switch(number) {
