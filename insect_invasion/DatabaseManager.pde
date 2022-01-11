@@ -20,7 +20,7 @@ class DatabaseManager {
 
   //adds score to the highscore table
   void insertNewHighscore() {
-    String name = "insect";
+    String name = nameinput.name;
     connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES('"+ name + "', '"+ p.score +"');");
   }
 

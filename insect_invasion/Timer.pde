@@ -33,15 +33,13 @@ class Timer {
 
     rect(timeBarX, timeBarY, timerWidth, timerHeight); //Drawing the timer
 
-    if (time<0) {
+    if (time<0) { //If time goes below zero, its gameover and the cause of death gets set to time for the purpose of analytics.
       deathCause = "time";
       stage = 4;
     }
   }
-    void resetTimer(){
-     time = maxTime;
-  lastTime = millis();   
-    
-    
+  void resetTimer() {
+    time = maxTime;
+    lastTime = millis();
   }
 }
