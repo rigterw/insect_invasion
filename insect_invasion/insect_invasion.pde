@@ -18,7 +18,7 @@ boolean online = true;
 
 //initializing all the variables
 Tile tile;
-
+boolean tutorial = true;
 boolean left, right, up, down, g, canWind, paused = false;
 Player p = new Player();
 
@@ -44,7 +44,7 @@ final int sEnemys = 50; //Amount of static enemys for in the array
 final int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
-final int grassTileCount = 4;
+final int grassTileCount = 20;
 final int walkTileCount = 4;
 
 
@@ -507,19 +507,25 @@ void updateMap(String mapImage, String mapOverlayImage) {
 }
 
 void newMap() {
-  int nextMap = int(random(1, mapCount + 1));
-  while (nextMap == currentMap) {
-    nextMap = int(random(1, mapCount + 1));
+  if (tutorial) {
+    currentMap++;
+    if(currentMap >= mapCount){
+     tutorial = false; 
+    }
+  } else {
+    int nextMap = int(random(1, mapCount + 1));
+    while (nextMap == currentMap) {
+      nextMap = int(random(1, mapCount + 1));
+    }
+    println(currentMap);
+    currentMap = nextMap;
   }
-  println(currentMap);
-  currentMap = nextMap; 
-
   //updating the map to the next level
   updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
 }
 
 void restart() {
-  if (currentMap == 0) {
+  if (tutorial) {
     updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
   } else {
     newMap();
