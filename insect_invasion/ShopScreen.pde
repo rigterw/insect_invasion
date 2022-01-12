@@ -5,6 +5,19 @@ class ShopScreen {
   float shopW = 580; 
   float shopH = 600;
 
+  //Upper bar of the shop window
+  float upperShopBarX; 
+  float upperShopBarY;
+  float upperShopBarW = shopW;
+  float upperShopBarH = 60;
+
+  //Lower bar of the shop window
+  float lowerShopBarX;
+  float lowerShopBarY;
+  float lowerShopBarW = shopW;
+  float lowerShopBarH = 60;
+
+
   //Variables for the size of the skin tabs
   float skinTabW = 140;
   float skinTabH = 200;
@@ -19,12 +32,11 @@ class ShopScreen {
   //Multiple strings 
   float textSize = 30;
   String shopText = "Shop";
-  String collectedCurrency = "Inventory:   "; 
+  String playerInventory = "Inventory: " + p.score + "x"; 
+  String exitUItext = "Press      to exit";
+  String buyUItext = "Press      to purchase";
 
-  //Variable to declare the cost of the skins
-  float cost = int(random(1, 10));
-
-  //Integer to keep track of the selected tab.
+  //Integer to keep track of the selected tab.ppp
   int selectedTab;
 
   //Making an array of skinTabAmount of skin tabs
@@ -35,7 +47,7 @@ class ShopScreen {
   //The shop window and the skin tabs.
   void drawEntireShop() { 
     drawShop(width/4, height/8);
-    
+
     //Every skin tab operates the selectSkinTab function; so it can be selected
     //Every skin tab gets drawn on the screen
     for (int i = 0; i < skinTabAmount; i++) {
@@ -43,19 +55,19 @@ class ShopScreen {
       skinTabs[i].draw();
     }
   }
-  
+
   //Method to setup the shop, place all the shop tabs in an array at a certain position
   //Two arguments to place the tabs relative to the shopX and shopY.
   void setupShop(float shopX_, float shopY_) {
     shopX = shopX_;
     shopY = shopY_;
 
-    skinTabs[0] = new SkinTab(shopX + space, shopY + space);
-    skinTabs[1] = new SkinTab(shopX + space + skinTabW + space, shopY + space);
-    skinTabs[2] = new SkinTab(shopX + space + skinTabW + space + skinTabW + space, shopY + space);
-    skinTabs[3] = new SkinTab(shopX + space, shopY + space + skinTabH + space);
-    skinTabs[4] = new SkinTab(shopX + space + skinTabW + space, shopY + space + skinTabH + space);
-    skinTabs[5] = new SkinTab(shopX + space + skinTabW + space + skinTabW + space, shopY + space + skinTabH + space);
+    skinTabs[0] = new SkinTab(shopX + space, shopY + space, 1);
+    skinTabs[1] = new SkinTab(shopX + space + skinTabW + space, shopY + space, 2);
+    skinTabs[2] = new SkinTab(shopX + space + skinTabW + space + skinTabW + space, shopY + space, 3);
+    skinTabs[3] = new SkinTab(shopX + space, shopY + space + skinTabH + space, 4);
+    skinTabs[4] = new SkinTab(shopX + space + skinTabW + space, shopY + space + skinTabH + space, 5);
+    skinTabs[5] = new SkinTab(shopX + space + skinTabW + space + skinTabW + space, shopY + space + skinTabH + space, 6);
   }
   //Method where the shop gets drawn (not the skin tabs)
   //Two arguments to place the shop somewhere in the game screen. 
@@ -63,39 +75,86 @@ class ShopScreen {
     shopX = shopX_;
     shopY = shopY_;
 
+    upperShopBarX = shopX;
+    upperShopBarY = shopY - 50;
+    lowerShopBarX = shopX;
+    lowerShopBarY = shopY + 550;
+
+    textAlign(CENTER);
+
     //Upper bar of the shop, colored black.
     stroke(0);
     fill(0);
-    rect(shopX, shopY - 50, shopW, shopH - 540); 
+    rect(upperShopBarX, upperShopBarY, upperShopBarW, upperShopBarH); 
     textSize(textSize);
     fill(textColor);
-    text(shopText, shopX + shopW/2, shopY -10);
+    text(shopText, upperShopBarX + upperShopBarW/2, upperShopBarH + 20);
+
 
     //Middle portion of the shop
     fill(shopColor);
     rect(shopX, shopY, shopW, shopH);
 
     //Lower bar of the shop.
-    //Players can see their owned coins here
+    textAlign(CENTER);
     fill(0);
-    rect(shopX, shopY + 520, shopW, shopH - 520);
+    rect(lowerShopBarX, lowerShopBarY, lowerShopBarW, lowerShopBarH);
     fill(textColor);
     textSize(textSize);
-    text(collectedCurrency, shopX + shopW/2, shopY + 570 );
-  }
+    text(playerInventory, lowerShopBarX + lowerShopBarW/2, lowerShopBarY - 25);
+    image(timeCoin, lowerShopBarX + lowerShopBarW/2 + 57, lowerShopBarY - 52);
+    //User Interface text:
+    //B to Exit, A to Purchase
+    textAlign(CENTER, CENTER);
+    text(exitUItext, lowerShopBarX + lowerShopBarW /4, lowerShopBarY + lowerShopBarH /2);
+    image(bButton, lowerShopBarX + lowerShopBarW /4 - 22.5, lowerShopBarY + lowerShopBarH/3);
+    
+    text(buyUItext, lowerShopBarX + lowerShopBarW * 0.75, lowerShopBarY + lowerShopBarH/2);
+    image(aButton, lowerShopBarX + lowerShopBarW * 0.60 + 44, lowerShopBarY + lowerShopBarH/3);  
+}
 
   //Method to navigate within the shop window
   //Uses the variable selectedTab to assign a number to each shop tab.
   void keyPressed() {
-    //A || LEFT on the joypad
+    //A || LEFT on the controller
     if (keyCode == 65) {
       selectedTab--;
+      if (selectedTab == 0) {
+        selectedTab = 6;
+      }
     }
-    //D || RIGHT on the joypad
+    //D || RIGHT on the controller
     if (keyCode == 68) {
       selectedTab++;
+      if (selectedTab == 7) {
+        selectedTab = 1;
+      }
+    }
+    // S || DOWN on the controller
+    if (keyCode == 83 && selectedTab <= 3) {
+      selectedTab += 3;
+    }
+    //W ||UP  on the controller
+    if (keyCode == 87 && selectedTab >= 4) {
+      selectedTab -= 3;
+    }
+    //R || A on the controller
+    //Buys a skin
+    //For every tab; if pressed, sets isBuyable on false
+    if (keyCode == 82) {
+      for (int i = 0; i < skinTabAmount; i++) {
+        if (skinTabs[i].selected && skinTabs[i].isBuyable) {
+          skinTabs[i].isBuyable = false;
+        }
+      }
+    }
+    //E || B on the controller
+    //Exits the shop
+    if (keyCode == 69) {
+      stage = 3;
     }
   }
+
 
   //Nestled in class for the skin tabs.
   class SkinTab {
@@ -112,30 +171,41 @@ class ShopScreen {
     color circleStroke = color(0);
 
     //Variables to change the stroke and text color when a tab is selected.
-    color selectedColor = color(200,200,200);
+    color selectedColor = color(200, 200, 200);
     color buyColor = color(255);
+    color bought = color(255, 0, 0);
 
     //String to display the text on the tab
     String buyText = "Buy: ";
 
     //Variable to declare the cost of the skins
-    float skinCost = random(1, 10);
+    int skinCost; 
 
     //Boolean to determine if a skin tab is selected.
     boolean selected;
-
+    //Boolean to see if a skin is purchaseable
+    boolean isBuyable; 
 
     //Constructor for the skin tab
     //Two arguments to place the tabs somewhere.
-    SkinTab(float xPos_, float yPos_) {
+    SkinTab(float xPos_, float yPos_, int skinCost_) {
       x = xPos_;
       y = yPos_;
       selected = false;
+      isBuyable = true;
+      skinCost = skinCost_;
+      textAlign(CENTER,BOTTOM);
     }
 
     //Draw function for the tabs
     void draw() {
       //Making the skin tab. 
+
+      for (int i = 0; i <skinTabAmount; i++) {
+        if (skinTabs[i].isBuyable == false) {
+          skinTabs[i].buyColor = color(bought);
+        }
+      }
       stroke(tabStroke);
       fill(skinTabColor);
       rect(x, y, w, h);
@@ -149,15 +219,15 @@ class ShopScreen {
       circle(x + w /2, y + h /2 - 40, 100 );
 
       //Text in each tab
+      textAlign(CENTER,CENTER);
       fill(buyColor);
       textSize(25);
-      text(buyText, x + skinTabW/3, y + skinTabH - 14);
-      text(cost + "x", x + skinTabW/1.8, y + skinTabH - 12);
-      image(timeCoin, x + skinTabW/1.45, y + skinTabH - 36);
+      text(buyText, x + skinTabW/2 - 15, y + skinTabH - 20);
+      text(skinCost + "x", x + skinTabW/1.8, y + skinTabH - 20);
+      image(timeCoin, x + skinTabW/1.5, y + skinTabH - 36);
     }
 
-
-    //Method select different skin tabs
+    //Method to select different skin tabs
     void selectSkinTab() {
       selectedTab = constrain(selectedTab, 1, 6);
 
@@ -171,7 +241,7 @@ class ShopScreen {
         buyColor = color(255);
         circleStroke = color(0);
       }
-      
+
       //Connects a skin tab to a number of the 'selectedTab' variable
       //Sets the boolean 'selected' to true if they are selected, and false if they are not selected
       if (selectedTab == 1) {

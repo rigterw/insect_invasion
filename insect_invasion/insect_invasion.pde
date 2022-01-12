@@ -559,12 +559,14 @@ void keyPressed() {
     }
   }
 
-  // Load the shop when you press 'P' while in the main menu.
+  //Load the shop when you press 'P' while in the main menu.
   //If already in the shop, press 'P' to exit
-  if (stage == 1 && keyCode == 80) {
+
+
+
+  if (keyCode == 80) {
+    rectMode(CORNER);
     stage = 9;
-  } else if (stage == 9 && keyCode == 80) {
-    stage = 1;
   }
   //Uses the keyPressed function of the ShopScreen class while in the shop
   if (stage == 9) {
