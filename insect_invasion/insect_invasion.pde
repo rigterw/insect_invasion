@@ -44,7 +44,7 @@ final int sEnemys = 50; //Amount of static enemys for in the array
 final int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
-final int grassTileCount = 4;
+final int grassTileCount = 20;
 final int walkTileCount = 4;
 
 
