@@ -36,6 +36,12 @@ int whenPressed;
 color tileColor;
 String tileType;
 
+//variables for the achievements
+String lastAchievement;
+Boolean displayAchievement = false;
+int playerId;
+int achievementDisplayTime = 0;
+
 //variables for the objects
 int coinCounter = 0;
 final int nCoins = 75;
@@ -342,6 +348,10 @@ void drawMap() {
   for (int i = 0; i < allEnemys.length; i++) {
     collisionmanager.CheckCollisionToEnemy(i);
   }
+  
+  if(displayAchievement == true){
+    drawAchievement();
+  }
 }
 /*
  * Method to update the displayed map
@@ -522,6 +532,7 @@ void newMap() {
   }
   //updating the map to the next level
   updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
+    println(currentMap);
 }
 
 void restart() {
@@ -608,7 +619,6 @@ void keyPressed() {
     stage = 3; 
     restart();
   } else if (stage == 5 && keyCode != 82) {
-    println("not 82"); 
     return;
   }
 
@@ -689,4 +699,15 @@ void keyReleased()
     p.maxSpeed = 2;
     whenPressed = 0;
   }
+}
+
+void drawAchievement() {
+  fill(#f2f2f2);
+  rect(490, 600, 300, 100, 28);
+  fill(#000000);
+  textSize(30);
+  textAlign(CENTER);
+  text("Achievement acomplished", 640,640);
+  fill(#565D58);
+  text(lastAchievement, 640, 680);
 }
