@@ -29,6 +29,15 @@ class Timer {
     }
     nowTime = millis(); //Decreasign the value of time
     time -= (nowTime - lastTime);
+    if(achievementDisplayTime > 0) {
+    achievementDisplayTime -= (nowTime - lastTime);
+    println("display time: " + achievementDisplayTime);
+    }
+    
+    if(achievementDisplayTime <= 0) {
+      displayAchievement = false;
+    }
+    
     lastTime = nowTime;
 
     rect(timeBarX, timeBarY, timerWidth, timerHeight); //Drawing the timer

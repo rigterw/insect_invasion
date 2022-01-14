@@ -113,6 +113,7 @@ class CollisionManager {
       }
     }
   }
+  
 
   /*
   * Method to check the collision between player and enemy

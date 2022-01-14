@@ -18,7 +18,7 @@ boolean online = true;
 
 //initializing all the variables
 Tile tile;
-
+boolean tutorial = true;
 boolean left, right, up, down, g, canWind, paused = false;
 Player p = new Player();
 
@@ -35,6 +35,12 @@ int whenPressed;
 
 color tileColor;
 String tileType;
+
+//variables for the achievements
+String lastAchievement;
+Boolean displayAchievement = false;
+int playerId;
+int achievementDisplayTime = 0;
 
 //variables for the objects
 int coinCounter = 0;
@@ -342,6 +348,10 @@ void drawMap() {
   for (int i = 0; i < allEnemys.length; i++) {
     collisionmanager.CheckCollisionToEnemy(i);
   }
+  
+  if(displayAchievement == true){
+    drawAchievement();
+  }
 }
 /*
  * Method to update the displayed map
@@ -507,19 +517,26 @@ void updateMap(String mapImage, String mapOverlayImage) {
 }
 
 void newMap() {
-  int nextMap = int(random(1, mapCount + 1));
-  while (nextMap == currentMap) {
-    nextMap = int(random(1, mapCount + 1));
+  if (tutorial) {
+    currentMap++;
+    if(currentMap >= mapCount){
+     tutorial = false; 
+    }
+  } else {
+    int nextMap = int(random(1, mapCount + 1));
+    while (nextMap == currentMap) {
+      nextMap = int(random(1, mapCount + 1));
+    }
+    println(currentMap);
+    currentMap = nextMap;
   }
-  println(currentMap);
-  currentMap = nextMap; 
-
   //updating the map to the next level
   updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
+    println(currentMap);
 }
 
 void restart() {
-  if (currentMap == 0) {
+  if (tutorial) {
     updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
   } else {
     newMap();
@@ -559,12 +576,14 @@ void keyPressed() {
     }
   }
 
-  // Load the shop when you press 'P' while in the main menu.
+  //Load the shop when you press 'P' while in the main menu.
   //If already in the shop, press 'P' to exit
-  if (stage == 1 && keyCode == 80) {
+
+
+
+  if (keyCode == 80) {
+    rectMode(CORNER);
     stage = 9;
-  } else if (stage == 9 && keyCode == 80) {
-    stage = 1;
   }
   //Uses the keyPressed function of the ShopScreen class while in the shop
   if (stage == 9) {
@@ -600,7 +619,6 @@ void keyPressed() {
     stage = 3; 
     restart();
   } else if (stage == 5 && keyCode != 82) {
-    println("not 82"); 
     return;
   }
 
@@ -681,4 +699,15 @@ void keyReleased()
     p.maxSpeed = 2;
     whenPressed = 0;
   }
+}
+
+void drawAchievement() {
+  fill(#f2f2f2);
+  rect(490, 600, 300, 100, 28);
+  fill(#000000);
+  textSize(30);
+  textAlign(CENTER);
+  text("Achievement acomplished", 640,640);
+  fill(#565D58);
+  text(lastAchievement, 640, 680);
 }
