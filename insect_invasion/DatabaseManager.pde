@@ -29,6 +29,12 @@ class DatabaseManager {
 
     connection.updateQuery("INSERT INTO Deaths (map, xPos, yPos, xTile, yTile, cause) VALUES('"+ currentMap +"', '"+ p.x +"', '"+p.y+"', '"+ p.playerTileX +"', '"+ p.playerTileY +"', '"+ deathCause +"');");
   }
+  
+  //adds a new achievement to the player_has_achievement table
+  
+  void insertAchievement() {
+      connection.updateQuery("INSERT INTO Player_has_Achievement (playerId, achievementName, is_achieved) VALUES ('" + playerId + "', '" + lastAchievement + "' , '" + "true'" );
+  }
   //shows the highscores on the highscores screen
   void showHighscores() {
 

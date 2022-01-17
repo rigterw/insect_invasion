@@ -31,11 +31,6 @@ class Timer {
     time -= (nowTime - lastTime);
     if(achievementDisplayTime > 0) {
     achievementDisplayTime -= (nowTime - lastTime);
-    println("display time: " + achievementDisplayTime);
-    }
-    
-    if(achievementDisplayTime <= 0) {
-      displayAchievement = false;
     }
     
     lastTime = nowTime;

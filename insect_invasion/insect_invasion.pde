@@ -38,7 +38,7 @@ String tileType;
 
 //variables for the achievements
 String lastAchievement;
-Boolean displayAchievement = false;
+Boolean pushAchievement = false;
 int playerId;
 int achievementDisplayTime = 0;
 
@@ -349,8 +349,12 @@ void drawMap() {
     collisionmanager.CheckCollisionToEnemy(i);
   }
   
-  if(displayAchievement == true){
+  if(achievementDisplayTime > 0){
     drawAchievement();
+  }
+  
+  if(pushAchievement == true) {
+    databasemanager.insertAchievement();
   }
 }
 /*

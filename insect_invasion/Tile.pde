@@ -89,22 +89,21 @@ class Tile
       } else if (type == "finish") {//code for finish + next level
         switch(currentMap) {
         case 0 : 
-          lastAchievement = "Baby bug";
-          displayAchievement = true;
+          lastAchievement = "Baby bug";  
           achievementDisplayTime = 2500;
+          databasemanager.insertAchievement();
           break;
         case 2 : 
           lastAchievement = "The long way around";
-          displayAchievement = true;
           achievementDisplayTime = 2500;
+          databasemanager.insertAchievement();
           break;
           case 4 : 
           lastAchievement = "pixel perfect";
-          displayAchievement = true;
           achievementDisplayTime = 2500;
+          databasemanager.insertAchievement();
           break;
         default: 
-          println("default");
           break;
         }
         p.score += int(timer.time / 1000);
