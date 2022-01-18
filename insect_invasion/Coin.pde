@@ -75,6 +75,8 @@ class Coin {
     coinSound.play();
     
     p.score += 1;
+    
+    collectedCoins += 1;
 
     //disabling the coin so it wont be drawn anymore
     isEnabled = false;

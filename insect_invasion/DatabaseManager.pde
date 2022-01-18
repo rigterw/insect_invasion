@@ -37,7 +37,7 @@ class DatabaseManager {
     text("HIGHSCORE", xPositionScores, yPosition);
     text("________________________", xPositionName, yPosition + 10);
     if (online) {
-      Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore ORDER BY highscore DESC LIMIT 0, 10");
+      Table highscores = connection.runQuery("SELECT name, highscore FROM Highscore WHERE name != 'PENIS' AND name != 'null' ORDER BY highscore DESC LIMIT 10");
       for (int i = 0; i < highscores.getRowCount(); i++) {
         TableRow row = highscores.getRow(i);
         text(row.getString(0), xPositionName, yPosition + (i+1) * 50);
@@ -61,6 +61,22 @@ class DatabaseManager {
         fill(255, 0, 0);
         circle(Xpos, Ypos, 10);
       }
+    }
+  }
+  void retrieveSkinData() {
+    if (online) {
+      Table skinData = connection.runQuery("SELECT skinName, value FROM Skin ORDER BY value ASC");
+
+      for (int i=0; i<skinData.getRowCount(); i++) {
+        TableRow row = skinData.getRow(i);
+        int value = row.getInt(1);
+        String skinName = row.getString(0);
+      }
+    }
+  }
+  void buySkin() {
+    if (online) {
+      connection.updateQuery("INSERT INTO Player_has_Skins (Player_playerId, Skin_skinName) VALUES('"+ playerId +"', '"+ shop.selectedSkin + "');");
     }
   }
 }

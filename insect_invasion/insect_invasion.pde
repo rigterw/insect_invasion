@@ -60,6 +60,8 @@ int nextMap;
 final int windSpeed = 10;
 final int dashSpeed = 4;
 
+int collectedCoins = 0;
+
 final int screenSizeX = 1280;
 final int screenSizeY = 720;
 int stage; // integer to keep track of the game state
@@ -542,6 +544,7 @@ void restart() {
     newMap();
   }
   p.score = 0;
+  collectedCoins = 0;
 }
 
 //this function updates all the wind
