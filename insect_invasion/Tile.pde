@@ -90,18 +90,15 @@ class Tile
         switch(currentMap) {
         case 0 : 
           lastAchievement = "Baby bug";  
-          achievementDisplayTime = 2500;
-          databasemanager.insertAchievement();
+          insertPlayerHasAchievement();
           break;
         case 2 : 
-          lastAchievement = "The long way around";
-          achievementDisplayTime = 2500;
-          databasemanager.insertAchievement();
+          lastAchievement = "The Long Way Around";
+          insertPlayerHasAchievement();
           break;
           case 4 : 
-          lastAchievement = "pixel perfect";
-          achievementDisplayTime = 2500;
-          databasemanager.insertAchievement();
+          lastAchievement = "Pixel Perfect";
+          insertPlayerHasAchievement();
           break;
         default: 
           break;

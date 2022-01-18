@@ -16,6 +16,7 @@ void settings() {
 int testMap = 2;
 boolean online = true;
 
+
 //initializing all the variables
 Tile tile;
 boolean tutorial = true;
@@ -31,6 +32,8 @@ final int h = 40;
 
 NameInput nameinput = new NameInput();
 
+public int playerId;
+
 int whenPressed;
 
 color tileColor;
@@ -39,7 +42,6 @@ String tileType;
 //variables for the achievements
 String lastAchievement;
 Boolean pushAchievement = false;
-int playerId;
 int achievementDisplayTime = 0;
 
 //variables for the objects
@@ -245,6 +247,12 @@ void setup() {
   //setting the screen for the main menu
   image(startScreen, 0, 0, screenSizeX, screenSizeY); 
   stage = 1;
+
+  //creating the player in the database
+  databasemanager.createNewPlayer();
+
+  //getting the id of the latest player created in the database(current player)
+  databasemanager.getLatestPlayer();
 }
 
 /*
@@ -348,12 +356,12 @@ void drawMap() {
   for (int i = 0; i < allEnemys.length; i++) {
     collisionmanager.CheckCollisionToEnemy(i);
   }
-  
-  if(achievementDisplayTime > 0){
+
+  if (achievementDisplayTime > 0) {
     drawAchievement();
   }
-  
-  if(pushAchievement == true) {
+
+  if (pushAchievement == true) {
     databasemanager.insertAchievement();
   }
 }
@@ -523,8 +531,8 @@ void updateMap(String mapImage, String mapOverlayImage) {
 void newMap() {
   if (tutorial) {
     currentMap++;
-    if(currentMap >= mapCount){
-     tutorial = false; 
+    if (currentMap >= mapCount) {
+      tutorial = false;
     }
   } else {
     int nextMap = int(random(1, mapCount + 1));
@@ -536,7 +544,7 @@ void newMap() {
   }
   //updating the map to the next level
   updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
-    println(currentMap);
+  println(currentMap);
 }
 
 void restart() {
@@ -711,7 +719,16 @@ void drawAchievement() {
   fill(#000000);
   textSize(30);
   textAlign(CENTER);
-  text("Achievement acomplished", 640,640);
+  text("Achievement acomplished", 640, 640);
   fill(#565D58);
   text(lastAchievement, 640, 680);
+  textSize(24);
+}
+
+void insertPlayerHasAchievement() {
+  if(!databasemanager.isAchievementAchieved(lastAchievement)) {
+  achievementDisplayTime = 2500;
+  databasemanager.insertAchievement();
+  }
+  
 }
