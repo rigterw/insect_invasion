@@ -92,12 +92,12 @@ class Tile
           lastAchievement = "Baby bug";  
           insertPlayerHasAchievement();
           break;
-        case 2 : 
-          lastAchievement = "The Long Way Around";
+        case 5 : 
+          lastAchievement = "Pixel Perfect";
           insertPlayerHasAchievement();
           break;
-          case 4 : 
-          lastAchievement = "Pixel Perfect";
+          case 6 : 
+          lastAchievement = "The Long Way Around";
           insertPlayerHasAchievement();
           break;
         default: 
