@@ -720,15 +720,15 @@ void keyReleased()
 void drawAchievement() {
   //changing the colour for the background rectangle
   fill(#f2f2f2);
-  rect(490, 600, 300, 100, 28);
+  rect((width / 2) - 150, 600, 300, 100, 28);
   //changing the colour for the head text
   fill(#000000);
   textSize(30);
   textAlign(CENTER);
-  text("Achievement Acomplished", 640, 640);
+  text("Achievement Acomplished", (width / 2), 640);
   //changing the colour for the sub text
   fill(#565D58);
-  text(lastAchievement, 640, 680);
+  text(lastAchievement, (width / 2), 680);
   textSize(24);
 }
 
