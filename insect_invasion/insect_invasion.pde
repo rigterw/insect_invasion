@@ -645,9 +645,6 @@ void keyPressed() {
     if (stage == 1) {
       stage = 2; 
       return;
-    } else if (stage == 3) {
-      updateMap("levels/level"+testMap+".png", "levels/level"+testMap+"overlay.png"); 
-      currentMap = testMap;
     }
   }
 
