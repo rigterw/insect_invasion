@@ -14,7 +14,7 @@ void settings() {
 
 //developer settings
 int testMap = 2;
-boolean online = true;
+boolean online = true; // boolean to 
 
 
 //initializing all the variables
@@ -259,6 +259,7 @@ void setup() {
 
 /*
  * Method where processing actually draws to the screen
+ * @return void
  */
 void draw() {
 
@@ -317,6 +318,7 @@ void draw() {
 
 /*
  * Method to draw the map
+ * @return void
  */
 void drawMap() {
   //drawing all the tiles
@@ -541,12 +543,10 @@ void newMap() {
     while (nextMap == currentMap) {
       nextMap = int(random(1, mapCount + 1));
     }
-    println(currentMap);
     currentMap = nextMap;
   }
   //updating the map to the next level
   updateMap("data/levels/level" + str(currentMap) + ".png", "data/levels/level" + str(currentMap) + "overlay.png");
-  println(currentMap);
 }
 
 void restart() {
@@ -648,9 +648,6 @@ void keyPressed() {
     if (stage == 1) {
       stage = 2; 
       return;
-    } else if (stage == 3) {
-      updateMap("levels/level"+testMap+".png", "levels/level"+testMap+"overlay.png"); 
-      currentMap = testMap;
     }
   }
 
@@ -716,22 +713,32 @@ void keyReleased()
   }
 }
 
+/*
+ * Method to draw the achievement
+ * @return void
+ */
 void drawAchievement() {
+  //changing the colour for the background rectangle
   fill(#f2f2f2);
-  rect(490, 600, 300, 100, 28);
+  rect((width / 2) - 150, 600, 300, 100, 28);
+  //changing the colour for the head text
   fill(#000000);
   textSize(30);
   textAlign(CENTER);
-  text("Achievement acomplished", 640, 640);
+  text("Achievement Acomplished", (width / 2), 640);
+  //changing the colour for the sub text
   fill(#565D58);
-  text(lastAchievement, 640, 680);
+  text(lastAchievement, (width / 2), 680);
   textSize(24);
 }
 
+/*
+ * Method to insert a new record for an achievement.
+ * @return void
+ */
 void insertPlayerHasAchievement() {
-  if(!databasemanager.isAchievementAchieved(lastAchievement)) {
-  achievementDisplayTime = 2500;
-  databasemanager.insertAchievement();
+  if (!databasemanager.isAchievementAchieved(lastAchievement)) {
+    achievementDisplayTime = 2500;
+    databasemanager.insertAchievement();
   }
-  
 }
