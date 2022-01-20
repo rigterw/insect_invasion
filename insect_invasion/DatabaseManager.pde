@@ -22,7 +22,7 @@ class DatabaseManager {
 
   //adds score to the highscore table
   void insertNewHighscore() {
-    connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES('"+ playerId + "', '"+ p.score +"');");
+    connection.updateQuery("INSERT INTO Highscore (Player_playerId, highscore) VALUES('"+ playerId + "', '"+ p.score +"');");
   }
 
   //adds the death position and cause to the deaths table
@@ -79,7 +79,7 @@ class DatabaseManager {
     text("HIGHSCORE", xPositionScores, yPosition);
     text("________________________", xPositionName, yPosition + 10);
     if (online) {
-      Table highscores = connection.runQuery("SELECT Player.name, Highscore.highscore FROM Player INNER JOIN Highscore ON Player.playerId = Highscore.playerId ORDER BY highscore DESC LIMIT 0, 10");
+      Table highscores = connection.runQuery("SELECT Player.name, Highscore.highscore FROM Player INNER JOIN Highscore ON Player.playerId = Highscore.Player_playerId ORDER BY highscore DESC LIMIT 0, 10;");
       for (int i = 0; i < highscores.getRowCount(); i++) {
         TableRow row = highscores.getRow(i);
         text(row.getString(0), xPositionName, yPosition + (i+1) * 50);
