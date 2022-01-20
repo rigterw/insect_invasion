@@ -1,5 +1,7 @@
 class DatabaseManager {
 
+  String name = nameinput.name;
+
   //shows the highscores
   void drawHighScores() {
     background(52, 190, 130);
@@ -20,7 +22,6 @@ class DatabaseManager {
 
   //adds score to the highscore table
   void insertNewHighscore() {
-    String name = nameinput.name;
     connection.updateQuery("INSERT INTO Highscore (name, highscore) VALUES('"+ name + "', '"+ p.score +"');");
   }
 
@@ -29,26 +30,26 @@ class DatabaseManager {
     connection.updateQuery("INSERT INTO Deaths (map, xPos, yPos, xTile, yTile, cause) VALUES('"+ currentMap +"', '"+ p.x +"', '"+p.y+"', '"+ p.playerTileX +"', '"+ p.playerTileY +"', '"+ deathCause +"');");
   }
 
- /*
+  /*
   * Method to insert a new Achievement
-  * @return void
-  */
+   * @return void
+   */
   void insertAchievement() {
     connection.updateQuery("INSERT INTO Player_has_Achievements (Player_playerId, Achievements_achievementName, is_achieved) VALUES (" + playerId + ", '" + lastAchievement + "' , '" + "true');" );
   }
 
   /*
   * Method to insert a new Player
-  * @return void
-  */
+   * @return void
+   */
   void createNewPlayer() {
-    connection.updateQuery("INSERT INTO Player (name) VALUES ('name');");
+    connection.updateQuery("INSERT INTO Player (name) VALUES ('"+name+"');");
   }
 
   /*
   * Method to get the latest player
-  * @return void
-  */
+   * @return void
+   */
   void getLatestPlayer() {
     Table player = connection.runQuery("SELECT playerId FROM Player ORDER BY playerId  DESC LIMIT 1");
     TableRow row = player.getRow(0);
