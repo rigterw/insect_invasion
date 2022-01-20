@@ -248,8 +248,7 @@ void setup() {
   image(startScreen, 0, 0, screenSizeX, screenSizeY); 
   stage = 1;
 
-  //getting the id of the latest player created in the database(current player)
-  databasemanager.getLatestPlayer();
+
 }
 
 /*
@@ -582,7 +581,8 @@ void keyPressed() {
     if (keyCode == 82) {
       //creating the player in the database
       databasemanager.createNewPlayer();
-      
+     //getting the id of the latest player created in the database(current player)
+  databasemanager.getLatestPlayer();   
       timer.lastTime = millis();
       stage = 3;
     }

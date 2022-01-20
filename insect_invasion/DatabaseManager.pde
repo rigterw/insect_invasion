@@ -1,6 +1,5 @@
 class DatabaseManager {
 
-  String name = nameinput.name;
 
   //shows the highscores
   void drawHighScores() {
@@ -43,7 +42,7 @@ class DatabaseManager {
    * @return void
    */
   void createNewPlayer() {
-    connection.updateQuery("INSERT INTO Player (name) VALUES ('"+name+"');");
+    connection.updateQuery("INSERT INTO Player (name) VALUES ('"+nameinput.name+"');");
   }
 
   /*
