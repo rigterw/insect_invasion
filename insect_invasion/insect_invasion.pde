@@ -80,7 +80,7 @@ PFont title;
 PImage  map, mapOverlay;
 PImage player, enemy, timeCoin;
 
-PImage walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
+PImage walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen, upArrow, downArrow;
 PImage noConnection, aButton, bButton, xButton, yButton;
 PImage[] grassTiles = new PImage[grassTileCount];
 PImage[] walkTiles = new PImage[walkTileCount];
@@ -169,6 +169,8 @@ void setup() {
   bButton = loadImage("data/icons/bButton.png"); 
   xButton = loadImage("data/icons/xButton.png"); 
   yButton = loadImage("data/icons/yButton.png"); 
+  upArrow = loadImage("data/icons/UpArrow.png");
+  downArrow = loadImage("data/icons/DownArrow.png");
 
   for (int g = 0; g < grassTileCount; g++) {
     grassTiles[g] = loadImage("data/tiles/GrassTile"+g+".png");
@@ -247,8 +249,6 @@ void setup() {
   //setting the screen for the main menu
   image(startScreen, 0, 0, screenSizeX, screenSizeY); 
   stage = 1;
-
-
 }
 
 /*
@@ -278,8 +278,6 @@ void draw() {
     fill(#FFFFFF); 
     text("GAME OVER", screenSizeX / 2, 100); 
     textSize(36); 
-    text("press      to insert name", screenSizeX / 2, screenSizeY / 2 + 175); 
-    image(bButton, screenSizeX/2-3*w + 50, screenSizeY/2 + 150); 
     text("press      to view highscores", screenSizeX / 2, screenSizeY / 2 + 250); 
     image(xButton, screenSizeX/2-3*w + 37, screenSizeY/2 + 223); 
     text("press      to restart", screenSizeX / 2, screenSizeY / 2 + 325); 
@@ -581,8 +579,8 @@ void keyPressed() {
     if (keyCode == 82) {
       //creating the player in the database
       databasemanager.createNewPlayer();
-     //getting the id of the latest player created in the database(current player)
-  databasemanager.getLatestPlayer();   
+      //getting the id of the latest player created in the database(current player)
+      databasemanager.getLatestPlayer();   
       timer.lastTime = millis();
       stage = 3;
     }

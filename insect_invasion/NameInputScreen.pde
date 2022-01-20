@@ -27,7 +27,7 @@ class NameInput {
     rect(selected*textSize-offset+width/4, height/2, textSize, 10);//line underneath to show what letter you got selected
 
     textAlign(CENTER); 
-    textSize(73); 
+    textSize(36); 
     fill(#FFFFFF); 
     text("press      to view highscores", screenSizeX / 2, screenSizeY / 2 + 250); 
     image(xButton, screenSizeX/2-3*w + 37, screenSizeY/2 + 223); 
@@ -42,7 +42,9 @@ class NameInput {
 
     for (int i = 0; i < LETTERCOUNT; i++) {
       if (Letters[i] != null) {
+        image(upArrow, width/4+textSize*i-offset, height/4, 80, 80);
         text(Letters[i], width/4+textSize*i, height/2);//places the letters next to eachother
+        image(downArrow, width/4+textSize*i-offset, height/4*2.2, 80, 80);
       }
     }
   }
