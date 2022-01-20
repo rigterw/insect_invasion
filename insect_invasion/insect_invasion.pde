@@ -582,9 +582,9 @@ void updateWind() {
 void keyPressed() {
   if (stage == 8) {
     nameinput.keyPressed();
-    if (keyCode == 72) {
-      databasemanager.drawHighScores(); 
-      stage = 5;
+    if (keyCode == 82) {
+      timer.lastTime = millis();
+      stage = 3;
     }
   }
 
@@ -649,7 +649,7 @@ void keyPressed() {
   }
 
   if (stage == 1) {//loads the first level from start screen
-    stage = 3;
+    stage = 8;
   }
 
 
@@ -690,7 +690,7 @@ void keyPressed() {
 void keyReleased()
 {
   if (keyCode == 32) {
-    stage = 3;
+    stage = 8;
   }
   if (keyCode == 65)        // naar links bewegen
   {
