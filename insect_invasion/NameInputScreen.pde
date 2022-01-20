@@ -25,6 +25,14 @@ class NameInput {
 
     rectMode(CORNER);
     rect(selected*textSize-offset+width/4, height/2, textSize, 10);//line underneath to show what letter you got selected
+
+    textAlign(CENTER); 
+    textSize(73); 
+    fill(#FFFFFF); 
+    text("press      to view highscores", screenSizeX / 2, screenSizeY / 2 + 250); 
+    image(xButton, screenSizeX/2-3*w + 37, screenSizeY/2 + 223); 
+    text("press      to continue", screenSizeX / 2, screenSizeY / 2 + 325); 
+    image(aButton, screenSizeX/2-w-6, screenSizeY/2 + 298);
   }
 
   void drawText() {
@@ -58,8 +66,7 @@ class NameInput {
       if (!(selected < 0)) {
         selected--;//moves the selected letter to the left
       }
-    }
-    else if (keyCode == 68)// the D key
+    } else if (keyCode == 68)// the D key
     {
       selected++;//moves the selected letter to the right
     }
@@ -76,7 +83,7 @@ class NameInput {
   }
 
 
-//returning the letter as string back based on the number
+  //returning the letter as string back based on the number
   String Getletter(int number) {
 
     switch(number) {
