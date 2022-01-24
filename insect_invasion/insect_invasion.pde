@@ -583,6 +583,10 @@ void keyPressed() {
       databasemanager.getLatestPlayer();   
       timer.lastTime = millis();
       stage = 3;
+    } else if (stage == 8 && keyCode == 72) {//loads the highscore screen
+      databasemanager.drawHighScores(); 
+      stage = 5; 
+      return;
     }
   }
 
@@ -609,10 +613,9 @@ void keyPressed() {
     databasemanager.drawHighScores(); 
     stage = 5; 
     return;
-  } else if (stage == 4 && keyCode == 69) {
-    stage = 8;
-  } else if ( stage == 4 && keyCode != 82 && keyCode != 72 && keyCode != 69) {
-    println("not 82 or 72 or 69"); 
+  }
+  } else if ( stage == 4 && keyCode != 82 && keyCode != 72) {
+    println("not 82 or 72"); 
     return;
   }
   if (stage == 3 && keyCode == 70) {//pauses the game
@@ -638,7 +641,6 @@ void keyPressed() {
     timer.lastTime = millis();
   }
   //changing the stage to launch game from main menu
-  //dev code to load in a new map
   if (keyCode == 32) {
     if (stage == 1) {
       stage = 2; 
