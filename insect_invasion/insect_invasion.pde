@@ -613,7 +613,7 @@ void keyPressed() {
     databasemanager.drawHighScores(); 
     stage = 5; 
     return;
-  }
+  
   } else if ( stage == 4 && keyCode != 82 && keyCode != 72) {
     println("not 82 or 72"); 
     return;
