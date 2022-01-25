@@ -14,7 +14,6 @@ class Timer {
   void drawTimer()
   {
     fill(0);
-    rectMode(CORNER);
     rect(timeBarX, timeBarY, width, timerHeight);
     float greenColor = time / maxTime *255 *2; //The timer transitions from green to red as time decreases
     float redColor = 255 *2 - time / maxTime * 255 *2;
@@ -29,15 +28,10 @@ class Timer {
     }
     nowTime = millis(); //Decreasign the value of time
     time -= (nowTime - lastTime);
-    if(achievementDisplayTime > 0) {
-    achievementDisplayTime -= (nowTime - lastTime);
-    println("display time: " + achievementDisplayTime);
+    if (achievementDisplayTime > 0) {
+      achievementDisplayTime -= (nowTime - lastTime);
     }
-    
-    if(achievementDisplayTime <= 0) {
-      displayAchievement = false;
-    }
-    
+
     lastTime = nowTime;
 
     rect(timeBarX, timeBarY, timerWidth, timerHeight); //Drawing the timer

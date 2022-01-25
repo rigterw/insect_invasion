@@ -47,9 +47,8 @@ class StaticEnemy extends MainEnemy {
 
   void draw() {
     //Draws a vision area of the static enemy
-    noFill();
-    noStroke();
-    rectMode(CENTER);
+    //noFill();
+    //noStroke();
 
     //variables for the vision area of thestatic enemy
     float visionW = 150;
@@ -87,7 +86,6 @@ class StaticEnemy extends MainEnemy {
     }
 
     float PlayerToEnemy = dist(enemyX + visionX, enemyY + visionY, p.x, p.y);
-    rect(enemyX + visionX, enemyY + visionY, visionW, visionH);
 
     //checks if the player is in range of static enemy vision area
     //switch makes enemy move towards player direction
@@ -149,7 +147,6 @@ class StaticEnemy extends MainEnemy {
         image(enemy, 0, 0, enemyDiameter, enemyDiameter);
       } else {
         image(enemies[(enemyFrame) % enemyFrames], 0, 0, enemyDiameter, enemyDiameter);
-        
       }
     }
     popMatrix();

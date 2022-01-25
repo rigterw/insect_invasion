@@ -23,7 +23,6 @@ class NameInput {
 
     name = join(Letters, ""); //saves the letters together in one string
 
-    rectMode(CORNER);
     rect(selected*textSize-offset+width/4, height/2, textSize, 10);//line underneath to show what letter you got selected
 
     textAlign(CENTER); 

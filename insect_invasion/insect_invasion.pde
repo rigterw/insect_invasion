@@ -663,7 +663,6 @@ void keyPressed() {
 
 
   if (keyCode == 80) {
-    rectMode(CORNER);
     stage = 9;
   }
   //Uses the keyPressed function of the ShopScreen class while in the shop
