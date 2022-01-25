@@ -89,7 +89,7 @@ PImage map, mapOverlay;
 PImage player, greenPlayer, yellowPlayer, purplePlayer, lightBluePlayer, grayPlayer, diamondPlayer;
 PImage enemy, timeCoin;
 
-PImage walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
+PImage walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen, upArrow, downArrow;
 PImage noConnection, aButton, bButton, xButton, yButton;
 PImage[] grassTiles = new PImage[grassTileCount];
 PImage[] walkTiles = new PImage[walkTileCount];
@@ -233,6 +233,8 @@ void setup() {
   bButton = loadImage("data/icons/bButton.png"); 
   xButton = loadImage("data/icons/xButton.png"); 
   yButton = loadImage("data/icons/yButton.png"); 
+  upArrow = loadImage("data/icons/UpArrow.png");
+  downArrow = loadImage("data/icons/DownArrow.png");
 
   for (int g = 0; g < grassTileCount; g++) {
     grassTiles[g] = loadImage("data/tiles/GrassTile"+g+".png");
@@ -313,12 +315,6 @@ void setup() {
   image(startScreen, 0, 0, screenSizeX, screenSizeY); 
   stage = 1;
 
-  //creating the player in the database
-  databasemanager.createNewPlayer();
-
-  //getting the id of the latest player created in the database(current player)
-  databasemanager.getLatestPlayer();
-
   SkinTab[] skinTabs = new SkinTab[skinTabCount];
 }
 
@@ -349,8 +345,6 @@ void draw() {
     fill(#FFFFFF); 
     text("GAME OVER", screenSizeX / 2, 100); 
     textSize(36); 
-    text("press      to insert name", screenSizeX / 2, screenSizeY / 2 + 175); 
-    image(bButton, screenSizeX/2-3*w + 50, screenSizeY/2 + 150); 
     text("press      to view highscores", screenSizeX / 2, screenSizeY / 2 + 250); 
     image(xButton, screenSizeX/2-3*w + 37, screenSizeY/2 + 223); 
     text("press      to restart", screenSizeX / 2, screenSizeY / 2 + 325); 
@@ -649,9 +643,17 @@ void updateWind() {
 void keyPressed() {
   if (stage == 8) {
     nameinput.keyPressed();
-    if (keyCode == 72) {
+    if (keyCode == 82) {
+      //creating the player in the database
+      databasemanager.createNewPlayer();
+      //getting the id of the latest player created in the database(current player)
+      databasemanager.getLatestPlayer();   
+      timer.lastTime = millis();
+      stage = 3;
+    } else if (stage == 8 && keyCode == 72) {//loads the highscore screen
       databasemanager.drawHighScores(); 
-      stage = 5;
+      stage = 5; 
+      return;
     }
   }
 
@@ -678,10 +680,9 @@ void keyPressed() {
     databasemanager.drawHighScores(); 
     stage = 5; 
     return;
-  } else if (stage == 4 && keyCode == 69) {
-    stage = 8;
-  } else if ( stage == 4 && keyCode != 82 && keyCode != 72 && keyCode != 69) {
-    println("not 82 or 72 or 69"); 
+  
+  } else if ( stage == 4 && keyCode != 82 && keyCode != 72) {
+    println("not 82 or 72"); 
     return;
   }
   if (stage == 3 && keyCode == 70) {//pauses the game
@@ -707,7 +708,6 @@ void keyPressed() {
     timer.lastTime = millis();
   }
   //changing the stage to launch game from main menu
-  //dev code to load in a new map
   if (keyCode == 32) {
     if (stage == 1) {
       stage = 2; 
@@ -716,7 +716,7 @@ void keyPressed() {
   }
 
   if (stage == 1) {//loads the first level from start screen
-    stage = 3;
+    stage = 8;
   }
 
 
@@ -757,7 +757,7 @@ void keyPressed() {
 void keyReleased()
 {
   if (keyCode == 32) {
-    stage = 3;
+    stage = 8;
   }
   if (keyCode == 65)        // naar links bewegen
   {
