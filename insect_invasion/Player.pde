@@ -109,19 +109,105 @@ class Player
     fill(100, 100, 220);
 
     //   //displaying the player
-    pushMatrix();
-    imageMode(CENTER);
-    translate(x, y);
-    rotate(rotation);
-    playerFrame = (playerFrame+1) % playerFrames;
-    if (keyPressed) {
-      image(players[(playerFrame) % playerFrames], 0, 0, w, h);
-    } else {
-      image(player, 0, 0, w, h);
+    if (selectedPlayer == "player") {
+      pushMatrix();
+      imageMode(CENTER);
+      translate(x, y);
+      rotate(rotation);
+      playerFrame = (playerFrame+1) % playerFrames;
+      if (keyPressed && selectedPlayer == "player") {
+        image(players[(playerFrame) % playerFrames], 0, 0, w, h);
+      } else {
+        image(player, 0, 0, w, h);
+      }
+      //   rotate(0);
+      imageMode(CORNER);
+      popMatrix();
+    } else if (selectedPlayer == "playerGreen") {
+      pushMatrix();
+      imageMode(CENTER);
+      translate(x, y);
+      rotate(rotation);
+      playerFrame = (playerFrame+1) % playerFrames;
+      if (keyPressed) {
+        image(greenPlayers[(playerFrame) % playerFrames], 0, 0, w, h);
+      } else {
+        image(greenPlayer, 0, 0, w, h);
+      }
+      //   rotate(0);
+      imageMode(CORNER);
+      popMatrix();
+    } else if (selectedPlayer == "playerYellow") {
+      pushMatrix();
+      imageMode(CENTER);
+      translate(x, y);
+      rotate(rotation);
+      playerFrame = (playerFrame+1) % playerFrames;
+      if (keyPressed) {
+        image(yellowPlayers[(playerFrame) % playerFrames], 0, 0, w, h);
+      } else {
+        image(yellowPlayer, 0, 0, w, h);
+      }
+      //   rotate(0);
+      imageMode(CORNER);
+      popMatrix();
+    } else if (selectedPlayer == "playerPurple") {
+      pushMatrix();
+      imageMode(CENTER);
+      translate(x, y);
+      rotate(rotation);
+      playerFrame = (playerFrame+1) % playerFrames;
+      if (keyPressed) {
+        image(purplePlayers[(playerFrame) % playerFrames], 0, 0, w, h);
+      } else {
+        image(purplePlayer, 0, 0, w, h);
+      }
+      //   rotate(0);
+      imageMode(CORNER);
+      popMatrix();
+    } else if (selectedPlayer == "playerLightBlue") {
+      pushMatrix();
+      imageMode(CENTER);
+      translate(x, y);
+      rotate(rotation);
+      playerFrame = (playerFrame+1) % playerFrames;
+      if (keyPressed) {
+        image(lightBluePlayers[(playerFrame) % playerFrames], 0, 0, w, h);
+      } else {
+        image(lightBluePlayer, 0, 0, w, h);
+      }
+      //   rotate(0);
+      imageMode(CORNER);
+      popMatrix();
+    } else if (selectedPlayer == "playerGray") {
+      pushMatrix();
+      imageMode(CENTER);
+      translate(x, y);
+      rotate(rotation);
+      playerFrame = (playerFrame+1) % playerFrames;
+      if (keyPressed) {
+        image(grayPlayers[(playerFrame) % playerFrames], 0, 0, w, h);
+      } else {
+        image(grayPlayer, 0, 0, w, h);
+      }
+      //   rotate(0);
+      imageMode(CORNER);
+      popMatrix();
+    } else if (selectedPlayer == "playerDiamond") {
+      pushMatrix();
+      imageMode(CENTER);
+      translate(x, y);
+      rotate(rotation);
+      playerFrame = (playerFrame+1) % playerFrames;
+      if (keyPressed) {
+        image(diamondPlayers[(playerFrame) % playerFrames], 0, 0, w, h);
+      } else {
+        image(diamondPlayer, 0, 0, w, h);
+      }
+      //   rotate(0);
+      imageMode(CORNER);
+      popMatrix();
     }
-    //   rotate(0);
-    imageMode(CORNER);
-    popMatrix();
   }
 
   /*

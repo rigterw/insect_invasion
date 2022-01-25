@@ -29,26 +29,26 @@ class DatabaseManager {
     connection.updateQuery("INSERT INTO Deaths (map, xPos, yPos, xTile, yTile, cause) VALUES('"+ currentMap +"', '"+ p.x +"', '"+p.y+"', '"+ p.playerTileX +"', '"+ p.playerTileY +"', '"+ deathCause +"');");
   }
 
- /*
+  /*
   * Method to insert a new Achievement
-  * @return void
-  */
+   * @return void
+   */
   void insertAchievement() {
     connection.updateQuery("INSERT INTO Player_has_Achievements (Player_playerId, Achievements_achievementName, is_achieved) VALUES (" + playerId + ", '" + lastAchievement + "' , '" + "true');" );
   }
 
   /*
   * Method to insert a new Player
-  * @return void
-  */
+   * @return void
+   */
   void createNewPlayer() {
     connection.updateQuery("INSERT INTO Player (name) VALUES ('name');");
   }
 
   /*
   * Method to get the latest player
-  * @return void
-  */
+   * @return void
+   */
   void getLatestPlayer() {
     Table player = connection.runQuery("SELECT playerId FROM Player ORDER BY playerId  DESC LIMIT 1");
     TableRow row = player.getRow(0);
@@ -110,14 +110,17 @@ class DatabaseManager {
 
       for (int i=0; i<skinData.getRowCount(); i++) {
         TableRow row = skinData.getRow(i);
-        int value = row.getInt(1);
-        String skinName = row.getString(0);
       }
     }
   }
   void buySkin() {
     if (online) {
       connection.updateQuery("INSERT INTO Player_has_Skins (Player_playerId, Skin_skinName) VALUES('"+ playerId +"', '"+ shop.selectedSkin + "');");
+    }
+  }
+  void seePlayerSkins() {
+    if (online) {
+      connection.updateQuery("SELECT Player.name, Skin.skinName FROM Player INNER JOIN Player_has_Skins ON Player_has_Skins.Player_playerId = Player.playerId INNER JOIN Skin ON Skin.skinName = Player_has_Skins.Skin_skinName ORDER BY Player.name ASC;");
     }
   }
 }

@@ -34,6 +34,8 @@ NameInput nameinput = new NameInput();
 
 public int playerId;
 
+String selectedPlayer = "player";
+
 int whenPressed;
 
 color tileColor;
@@ -52,6 +54,7 @@ final int sEnemys = 50; //Amount of static enemys for in the array
 final int totalEnemys = mEnemys + sEnemys;
 int movingEnemyCounter;
 int staticEnemyCounter;
+final int skinTabCount = 6;
 final int grassTileCount = 20;
 final int walkTileCount = 4;
 
@@ -61,6 +64,9 @@ int currentMap = 0;
 int nextMap;
 final int windSpeed = 10;
 final int dashSpeed = 4;
+
+int skinTabAmount = 6; 
+SkinTab[] skinTabs = new SkinTab[skinTabAmount];
 
 int collectedCoins = 0;
 
@@ -79,8 +85,9 @@ int stage; // integer to keep track of the game state
 
 //initialises varables for pictures
 PFont title;
-PImage  map, mapOverlay;
-PImage player, enemy, timeCoin;
+PImage map, mapOverlay;
+PImage player, greenPlayer, yellowPlayer, purplePlayer, lightBluePlayer, grayPlayer, diamondPlayer;
+PImage enemy, timeCoin;
 
 PImage walkTile, oneWayTile, grassTile, wallTile, tileImage, doorTile, buttonTile, buttonPressed, doorOpenTile, finishTile, windTile, startScreen;
 PImage noConnection, aButton, bButton, xButton, yButton;
@@ -92,6 +99,12 @@ int enemyFrame = 0;
 
 final int playerFrames = 30;  // The number of frames in the player animation
 PImage[] players = new PImage[playerFrames];
+PImage[] greenPlayers = new PImage[playerFrames];
+PImage[] yellowPlayers = new PImage[playerFrames];
+PImage[] purplePlayers = new PImage[playerFrames];
+PImage[] lightBluePlayers = new PImage[playerFrames];
+PImage[] grayPlayers = new PImage[playerFrames];
+PImage[] diamondPlayers = new PImage[playerFrames];
 
 final int enemyFrames = 40; // The number of frames in the enemy animation
 PImage[] enemies = new PImage[enemyFrames];
@@ -129,7 +142,6 @@ void setup() {
   font = createFont("data/font/Font.ttf", 64);
   textFont(font);
 
-
   //shows loading screen
   background(0);
   textAlign(CENTER);
@@ -148,6 +160,12 @@ void setup() {
   finishTile = loadImage("data/tiles/FinishTile.png");
   windTile = loadImage("data/tiles/WindTile.png");
   player = loadImage("data/Player/Player.png");
+  greenPlayer = loadImage("data/Player/GreenPlayer.png");
+  yellowPlayer = loadImage("data/Player/YellowPlayer.png");
+  purplePlayer = loadImage("data/Player/PurplePlayer.png");
+  lightBluePlayer = loadImage("data/Player/LightBluePlayer.png");
+  grayPlayer = loadImage("data/Player/GrayPlayer.png");
+  diamondPlayer = loadImage("data/Player/DiamondPlayer.png");
   enemy = loadImage("data/enemy/ant.png");
   startScreen = loadImage("data/images/startScreen.png");
   timeCoin = loadImage("data/Player/TimeCoin.png");
@@ -158,6 +176,50 @@ void setup() {
   for (int p = 0; p < playerFrames / 2; p++) {
     players[p]  = loadImage("data/Player/playerWalk2.png");
   }
+
+  for (int p = 0; p < playerFrames; p++) {
+    greenPlayers[p]  = loadImage("data/Player/GreenPlayerWalk1.png");
+  }
+  for (int p = 0; p < playerFrames / 2; p++) {
+    greenPlayers[p]  = loadImage("data/Player/GreenPlayerWalk2.png");
+  }
+
+  for (int p = 0; p < playerFrames; p++) {
+    yellowPlayers[p]  = loadImage("data/Player/YellowPlayerWalk1.png");
+  }
+  for (int p = 0; p < playerFrames / 2; p++) {
+    yellowPlayers[p]  = loadImage("data/Player/YellowlayerWalk2.png");
+  }
+
+  for (int p = 0; p < playerFrames; p++) {
+    purplePlayers[p]  = loadImage("data/Player/PurplePlayerWalk1.png");
+  }
+  for (int p = 0; p < playerFrames / 2; p++) {
+    purplePlayers[p]  = loadImage("data/Player/PurplePlayerWalk2.png");
+  }
+
+  for (int p = 0; p < playerFrames; p++) {
+    lightBluePlayers[p]  = loadImage("data/Player/LightBluePlayerWalk1.png");
+  }
+  for (int p = 0; p < playerFrames / 2; p++) {
+    lightBluePlayers[p]  = loadImage("data/Player/LightBluePlayerWalk2.png");
+  }
+
+  for (int p = 0; p < playerFrames; p++) {
+    grayPlayers[p]  = loadImage("data/Player/GrayPlayerWalk1.png");
+  }
+  for (int p = 0; p < playerFrames / 2; p++) {
+    grayPlayers[p]  = loadImage("data/Player/GrayPlayerWalk2.png");
+  }
+
+  for (int p = 0; p < playerFrames; p++) {
+    diamondPlayers[p]  = loadImage("data/Player/DiamondPlayerWalk1.png");
+  }
+  for (int p = 0; p < playerFrames / 2; p++) {
+    diamondPlayers[p]  = loadImage("data/Player/DiamondPlayerWalk2.png");
+  }
+
+
 
   for (int e = 0; e < enemyFrames; e++) {
     enemies[e]  = loadImage("data/enemy/EnemyWalk1.png");
@@ -202,6 +264,7 @@ void setup() {
   catch(Exception exc) {
     online = false;
   }
+  databasemanager.retrieveSkinData();
 
   //looping thru all the coins
   for (int i = 0; i < nCoins; i++) {
@@ -255,6 +318,8 @@ void setup() {
 
   //getting the id of the latest player created in the database(current player)
   databasemanager.getLatestPlayer();
+
+  SkinTab[] skinTabs = new SkinTab[skinTabCount];
 }
 
 /*
@@ -556,7 +621,6 @@ void restart() {
     newMap();
   }
   p.score = 0;
-  collectedCoins = 0;
 }
 
 //this function updates all the wind
