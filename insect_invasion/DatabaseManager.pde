@@ -34,6 +34,7 @@ class DatabaseManager {
    * @return void
    */
   void insertAchievement() {
+    if(online)
     connection.updateQuery("INSERT INTO Player_has_Achievements (Player_playerId, Achievements_achievementName, is_achieved) VALUES (" + playerId + ", '" + lastAchievement + "' , '" + "true');" );
   }
 
@@ -42,6 +43,7 @@ class DatabaseManager {
    * @return void
    */
   void createNewPlayer() {
+    if(online)
     connection.updateQuery("INSERT INTO Player (name) VALUES ('"+nameinput.name+"');");
   }
 
@@ -50,14 +52,18 @@ class DatabaseManager {
    * @return void
    */
   void getLatestPlayer() {
+    if(online){
     Table player = connection.runQuery("SELECT playerId FROM Player ORDER BY playerId  DESC LIMIT 1");
     TableRow row = player.getRow(0);
     playerId = int(row.getString(0));
+    }
   }
 
   boolean isAchievementAchieved(String achievementName) {
+    if(online){
     Table player_has_achievement = connection.runQuery("SELECT is_achieved FROM Player_has_Achievements WHERE Player_playerId = " + playerId + " AND Achievements_achievementName = '" + achievementName + "';");
     TableRow row = player_has_achievement.getRow(0);
+    
 
     //array exception 
     try {
@@ -67,6 +73,8 @@ class DatabaseManager {
     catch (Exception E) {
       return false;
     }
+    }
+    return false;
   }
 
 
