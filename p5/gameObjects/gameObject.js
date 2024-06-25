@@ -1,4 +1,4 @@
-class gameObject {
+class GameObject {
 
     draw() {
         console.error("Draw has been called for non-drawable object");

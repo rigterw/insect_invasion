@@ -1,4 +1,4 @@
-class gameState {
+class GameState {
     visibleObjects = [];
     clickableObjects = [];
     rClickableObjects = [];

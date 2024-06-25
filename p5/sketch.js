@@ -1,18 +1,37 @@
 let gameStateManager;
 
+let nLevels = 7;
+
 const img = new Object();
 const font = new Object();
 function setup() {
     ellipseMode(CENTER);
     textAlign(CENTER);
-    createCanvas(1000, 750, document.getElementById("game"));
+    createCanvas(1280, 720, document.getElementById("game"));
     //game settings
     load();
 }
 
+function preload() {
+    loadTxtFont("text", "Font.ttf");
+
+    for (let i = 0; i < nLevels; i++){
+        loadImg(`level${i}`, `levels/level${i}.png`);
+        loadImg(`level${i}O`, `levels/level${i}overlay.png`);
+    }
+
+    for (let i = 0; i < 20; i++){
+        loadImg(`grassTile${i}`, `tiles/GrassTile${i}.png`);
+    }
+
+    for (let i = 0; i < 4; i++){
+        loadImg(`walkTile${i}`, `tiles/WalkTile${i}.png`);
+    }
+}
+
 //creates all the objects after the settings are initialized
 function load() {
-    loadTxtFont("text", "Font.ttf");
+    
     
     gameStateManager = new GameStateManager();
 }
@@ -26,7 +45,7 @@ function loadTxtFont(fontName, fileName) {
     font[fontName] = loadFont("./font/" + fileName);
 }
 function draw() {
-    background("#8CC43C");
+    // background("#8CC43C");
     gameStateManager.draw();
 }
 

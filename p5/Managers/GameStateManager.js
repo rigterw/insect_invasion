@@ -1,7 +1,11 @@
 
 class GameStateManager {
     constructor() {
-        this.gameStates = {};
+        this.gameStates = {
+            "PlayState": new PlayState()
+        };
+
+        this.switchState("PlayState");
     }
     switchState(stateName) {
         if (!(stateName in this.gameStates)) {
