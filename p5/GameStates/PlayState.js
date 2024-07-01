@@ -3,9 +3,23 @@ class PlayState extends GameState {
     nLevels = 6;
 
     player = new Player();
+
     constructor() {
         super();
         this.LoadLevel(0);
+    }
+
+    update() {
+        super.update();
+
+        let px = Math.floor(this.player.x / Tile.size);
+        let py = Math.floor(this.player.y / Tile.size);
+
+        
+        if (px < 0 || px > this.tiles.length || py < 0 || py > this.tiles[px].length)
+            return;
+        const neighbours = this.tiles[px][py].getNeighbours(this.tiles);
+        this.player.handleTileColission(neighbours);
     }
 
     LoadLevel(id) {

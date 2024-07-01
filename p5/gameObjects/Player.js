@@ -54,4 +54,40 @@ class Player extends GameObject {
         this.x += this.vX;
         this.y += this.vY;
     }
+
+    handleTileColission(tiles) {
+
+        if (tiles["R"] != undefined && !tiles["R"].passable) {
+            let overflow = this.x + 0.5 * this.size - tiles["R"].x * Tile.size;
+            
+            if (overflow > 0) {
+                this.x -= overflow;
+            }
+        }
+
+        if (tiles["B"] != undefined && !tiles["B"].passable) {
+            let overflow = this.y + 0.5 * this.size - tiles["B"].y * Tile.size;
+            
+            if (overflow > 0) {
+                this.y -= overflow;
+            }
+        }
+        rect(tiles["L"].x * Tile.size + Tile.size, 0, -10, 3000);
+        if (tiles["L"] != undefined && !tiles["L"].passable) {
+            let overflow = (tiles["L"].x +1) * Tile.size - (this.x - 0.5 * this.size);
+
+            
+            if (overflow > 0) {
+                this.x += overflow;
+            }
+        }
+
+        if (tiles["T"] != undefined && !tiles["T"].passable) {
+            let overflow =(1+tiles["T"].y) * Tile.size - this.y + 0.5 * this.size;
+            
+            if (overflow > 0) {
+                this.y += overflow;
+            }
+        }
+    }
 }
