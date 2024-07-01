@@ -1,6 +1,8 @@
 class PlayState extends GameState {
 
     nLevels = 6;
+    tutorial = true;
+    currentLvl = 0;
 
     player = new Player();
 
@@ -8,7 +10,7 @@ class PlayState extends GameState {
 
     constructor() {
         super();
-        this.LoadLevel(0);
+        this.loadLevel(this.currentLvl);
     }
 
     update() {
@@ -40,8 +42,9 @@ class PlayState extends GameState {
         this.player.handleTileColission(neighbours);
     }
 
-    LoadLevel(id) {
+    loadLevel(id) {
         this.clear();
+        this.currentLvl = id;
 
         const levelImg = IMG[`level${id}`];
         const levelOverlay = IMG[`level${id}O`];
@@ -57,9 +60,12 @@ class PlayState extends GameState {
                 let colorHex = color[0].slice(-2) + color[1].slice(-2) + color[2].slice(-2);
                 let overlayColorHex = overlayColor[0].slice(-2) + overlayColor[1].slice(-2) + overlayColor[2].slice(-2);
                 switch (colorHex) {
-                    case "CE7C38":
                     case "7F3300":
-                        tile = new WalkTile(x, y, overlayColorHex, colorHex == "7F3300");
+                    case "FF3819":
+                        tile = new EnemyWalkTile(x, y, overlayColorHex, colorHex == "FF3819");
+                        break;
+                    case "CE7C38":
+                        tile = new WalkTile(x, y, overlayColorHex);
                         break;
                     case "00FFFF":
                         tile = new ButtonTile(x, y, overlayColorHex, this);
@@ -69,6 +75,10 @@ class PlayState extends GameState {
                     case "0026FF":
                         const isOpen = colorHex == "4C64FF";
                         tile = new DoorTile(x, y, overlayColorHex, isOpen);
+                        break;
+                    
+                    case "F2FF02":
+                        tile = new FinishTile(x, y, overlayColorHex,this);
                         break;
                     default:
                         tile = new GrassTile(x, y, overlayColorHex);

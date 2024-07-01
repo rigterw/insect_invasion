@@ -36,6 +36,7 @@ function preload() {
     loadImg("buttonPressedTile", `tiles/ButtonPressed`);
     loadImg("doorTile", `tiles/DoorTile`);
     loadImg("doorOpenTile", `tiles/DoorOpenTile`);
+    loadImg("finishTile", `tiles/finishTile`);
 
     loadImg("player", "player/player");
 
