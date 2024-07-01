@@ -20,4 +20,8 @@ class GameObject {
     rclickedOn() {
         console.error("rclickedOn has been called for non-rightclickable object");
     }
+
+    handleInput() {
+        console.error("handleInput has been called for non-input object");
+    }
 }

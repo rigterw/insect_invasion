@@ -3,6 +3,7 @@ class GameState {
     clickableObjects = [];
     rClickableObjects = [];
     logicObjects = [];
+    inputObjects = [];
 
 
     //iterates all the objects that needs to be updated each frame
@@ -18,6 +19,12 @@ class GameState {
         });
     }
 
+    clear() {
+        this.visibleObjects = [];
+        this.clickableObjects = [];
+        this.rClickableObjects = [];
+        this.logicObjects = [];
+    }
 
     //iterates all the objects that can be clicked to find where the player clicked
     click(mousePos) {
@@ -36,5 +43,11 @@ class GameState {
                 return;
             }
         });
+    }
+
+    handleInput() {
+        this.inputObjects.forEach(element => {
+            element.handleInput();
+        })
     }
 }

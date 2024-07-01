@@ -1,6 +1,6 @@
 class Tile extends GameObject {
 
-    size = 40;
+    static size = 40;
 
     constructor(posX, posY, color, textureName, canWind) {
         super();
@@ -12,6 +12,8 @@ class Tile extends GameObject {
     }
 
     draw() {
-        image(img[this.textureName], this.x * this.size, this.y * this.size, this.size, this.size);
+        image(IMG[this.textureName], this.x * Tile.size, this.y * Tile.size, Tile.size, Tile.size);
+        fill(`#${this.color}`);
+        rect(this.x * Tile.size, this.y * Tile.size, Tile.size / 2, Tile.size / 2);
     }
 }

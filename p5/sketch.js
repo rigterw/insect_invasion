@@ -1,9 +1,12 @@
 let gameStateManager;
 
 let nLevels = 7;
+let frameCounter = 0;
 
-const img = new Object();
+const IMG = new Object();
 const font = new Object();
+const ANIM = new Object();
+
 function setup() {
     ellipseMode(CENTER);
     textAlign(CENTER);
@@ -16,37 +19,59 @@ function preload() {
     loadTxtFont("text", "Font.ttf");
 
     for (let i = 0; i < nLevels; i++){
-        loadImg(`level${i}`, `levels/level${i}.png`);
-        loadImg(`level${i}O`, `levels/level${i}overlay.png`);
+        loadImg(`level${i}`, `levels/level${i}`);
+        loadImg(`level${i}O`, `levels/level${i}overlay`);
     }
 
     for (let i = 0; i < 20; i++){
-        loadImg(`grassTile${i}`, `tiles/GrassTile${i}.png`);
+        loadImg(`grassTile${i}`, `tiles/GrassTile${i}`);
     }
 
     for (let i = 0; i < 4; i++){
-        loadImg(`walkTile${i}`, `tiles/WalkTile${i}.png`);
+        loadImg(`walkTile${i}`, `tiles/WalkTile${i}`);
     }
+
+    loadImg("buttonTile", `tiles/ButtonTile`);
+    loadImg("buttonPressedTile", `tiles/ButtonPressed`);
+
+    loadImg("player", "player/player");
+
+    loadAnim("playerWalk", 'player/playerWalk', 2);
 }
 
 //creates all the objects after the settings are initialized
 function load() {
-    
-    
     gameStateManager = new GameStateManager();
 }
 
 
 function loadImg(imgName, fileName) {
-    img[imgName] = loadImage("./img/" + fileName);
+    IMG[imgName] = loadImage("./img/" + fileName + ".png");
 }
 
 function loadTxtFont(fontName, fileName) {
     font[fontName] = loadFont("./font/" + fileName);
 }
+
+function loadAnim(animName, fileName, nFrames) {
+    frames = [];
+    for (let i = 0; i < nFrames; i++){
+        frames.push(loadImage(`./img/${fileName}${i}.png`));
+    }
+
+    ANIM[animName] = frames;
+}
+
+function getAnim(animName, speed = 1) {
+    let animFrame = Math.floor(frameCounter / speed);
+    let animation = ANIM[animName];
+    return animation[animFrame % animation.length];
+}
+
 function draw() {
-    // background("#8CC43C");
+    background("#8CC43C");
     gameStateManager.draw();
+    frameCounter++;
 }
 
 function mousePressed() {
