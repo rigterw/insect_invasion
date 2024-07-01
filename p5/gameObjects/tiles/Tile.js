@@ -1,7 +1,7 @@
 class Tile extends GameObject {
 
     static size = 40;
-    active = false;
+    standingOn = false;
 
     constructor(posX, posY, color, textureName, passable) {
         super();
@@ -13,15 +13,12 @@ class Tile extends GameObject {
     }
 
     draw() {
-        if (this.active) {
-            
-            tint('red');
-        }
         image(IMG[this.textureName], this.x * Tile.size, this.y * Tile.size, Tile.size, Tile.size);
-        noTint();
         fill(`#${this.color}`);
-        rect(this.x * Tile.size, this.y * Tile.size, Tile.size / 2, Tile.size / 2);
+        rect(this.x * Tile.size, this.y * Tile.size, Tile.size / 3, Tile.size / 3);
     }
+
+
 
     getNeighbours(tiles) {
         const x = this.x;

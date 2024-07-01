@@ -21,6 +21,7 @@ class Player extends GameObject {
         if (this.vX != 0 || this.vY != 0) {
             playerImg = getAnim(`${this.imgName}Walk`, 30);
         }
+        
         image(playerImg, 0, 0, this.size, this.size);
         pop();
     }

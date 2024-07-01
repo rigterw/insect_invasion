@@ -2,6 +2,7 @@ let gameStateManager;
 
 let nLevels = 7;
 let frameCounter = 0;
+let coins = 0;
 
 const IMG = new Object();
 const font = new Object();
@@ -33,6 +34,8 @@ function preload() {
 
     loadImg("buttonTile", `tiles/ButtonTile`);
     loadImg("buttonPressedTile", `tiles/ButtonPressed`);
+    loadImg("doorTile", `tiles/DoorTile`);
+    loadImg("doorOpenTile", `tiles/DoorOpenTile`);
 
     loadImg("player", "player/player");
 
