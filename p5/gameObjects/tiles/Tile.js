@@ -1,7 +1,6 @@
 class Tile extends GameObject {
 
     static size = 40;
-    standingOn = false;
 
     constructor(posX, posY, color, textureName, passable) {
         super();
@@ -20,9 +19,10 @@ class Tile extends GameObject {
 
 
 
-    getNeighbours(tiles) {
+    getNeighbours() {
         const x = this.x;
         const y = this.y;
+        const tiles = PlayState.instance.tiles;
         const neighbours = {}
 
         if (x > 0) {

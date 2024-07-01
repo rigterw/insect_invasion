@@ -1,8 +1,8 @@
 class PlayState extends GameState {
-
+    static instance;
     nLevels = 6;
     tutorial = true;
-    currentLvl = 0;
+    currentLvl = 1;
 
     player = new Player();
 
@@ -10,6 +10,7 @@ class PlayState extends GameState {
 
     constructor() {
         super();
+        PlayState.instance = this;
         this.loadLevel(this.currentLvl);
     }
 
@@ -89,7 +90,6 @@ class PlayState extends GameState {
                 }
             }
         }
-
         this.LoadObjects();
     }
             
@@ -100,11 +100,15 @@ class PlayState extends GameState {
         for (let x = 0; x < this.tiles.length; x++) {
             for (let y = 0; y < this.tiles[x].length; y++) {
                 switch (this.tiles[x][y].color) {
-                    case ("00FF21"):
+                    case "00FF21":
                         this.player.x = (x + 0.5) * Tile.size;
                         this.player.y = (y + 0.5) * Tile.size;
-                        console.log("player");
                         break;
+                    
+                    case "FF0000":
+                        const enemy = new WalkingEnemy((x+0.5) * Tile.size, (y+0.5) * Tile.size, this.tiles[x][y]);
+                        this.logicObjects.push(enemy);
+                        this.visibleObjects.push(enemy);
                 }
             }
         }

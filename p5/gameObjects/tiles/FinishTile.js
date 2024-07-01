@@ -1,6 +1,6 @@
 class FinishTile extends WalkTile {
     constructor(posX, posY, color,playState) {
-        super(posX, posY, color, false, true);
+        super(posX, posY, color);
 
         this.playState = playState;
     }

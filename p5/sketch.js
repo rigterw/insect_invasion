@@ -39,8 +39,10 @@ function preload() {
     loadImg("finishTile", `tiles/finishTile`);
 
     loadImg("player", "player/player");
+    loadImg("enemy", "enemy/ant");
 
     loadAnim("playerWalk", 'player/playerWalk', 2);
+    loadAnim("enemyWalk", 'enemy/EnemyWalk', 2);
 }
 
 //creates all the objects after the settings are initialized
