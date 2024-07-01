@@ -45,9 +45,11 @@ class GameState {
         });
     }
 
-    handleInput() {
+    handleInput(pressed) {
         this.inputObjects.forEach(element => {
             element.handleInput();
         })
     }
+
+    
 }

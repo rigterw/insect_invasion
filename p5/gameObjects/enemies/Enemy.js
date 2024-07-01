@@ -4,7 +4,7 @@ class Enemy extends GameObject {
     rotation = 0;
     vX = 0;
     vY = 0;
-    maxV = 3;
+    maxV = 6;
     constructor(posX, posY) {
         super();
         this.x = posX;
@@ -19,6 +19,10 @@ class Enemy extends GameObject {
         const img = this.getImage();
         image(img, 0, 0, this.size, this.size);
         pop();
+    }
+
+    killedPlayer(player) {
+        return dist(player.x, player.y, this.x, this.y) < (player.size + this.size) / 2;
     }
 
     getImage() {

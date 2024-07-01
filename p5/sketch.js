@@ -10,7 +10,7 @@ const ANIM = new Object();
 
 function setup() {
     ellipseMode(CENTER);
-    textAlign(CENTER);
+    textAlign(CENTER, CENTER);
     createCanvas(1280, 720, document.getElementById("game"));
     //game settings
     load();
@@ -102,4 +102,12 @@ function createArray(xSize,ySize) {
     }
 
     return array;
+}
+
+function keyPressed() {
+    gameStateManager.handleInput(true);
+}
+
+function keyReleased() {
+    gameStateManager.handleInput(false);
 }

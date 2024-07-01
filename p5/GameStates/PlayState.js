@@ -2,9 +2,11 @@ class PlayState extends GameState {
     static instance;
     nLevels = 6;
     tutorial = true;
-    currentLvl = 1;
+    currentLvl = 3;
+    alive = true;
 
     player = new Player();
+    enemies = [];
 
     currentTile;
 
@@ -15,13 +17,20 @@ class PlayState extends GameState {
     }
 
     update() {
+        if (!this.alive)
+            return;
         super.update();
+
+        for (let i = 0; i < this.enemies.length; i++){
+            if (this.enemies[i].killedPlayer(this.player)) {
+                this.showGameOver();
+                return;
+            }
+        }
 
         let px = Math.floor(this.player.x / Tile.size);
         let py = Math.floor(this.player.y / Tile.size);
 
-        
-        
         if (px < 0 || px > this.tiles.length || py < 0 || py > this.tiles[px].length)
             return;
 
@@ -106,11 +115,38 @@ class PlayState extends GameState {
                         break;
                     
                     case "FF0000":
-                        const enemy = new WalkingEnemy((x+0.5) * Tile.size, (y+0.5) * Tile.size, this.tiles[x][y]);
+                        const enemy = new WalkingEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size, this.tiles[x][y]);
                         this.logicObjects.push(enemy);
                         this.visibleObjects.push(enemy);
+                        this.enemies.push(enemy);
                 }
             }
         }
+    }
+
+    handleInput(pressed) {
+        if (!pressed)
+            return;
+
+        switch (keyCode) {
+            case (82):
+                if (!this.alive) {
+                    this.clear();
+                    console.log("clear");
+                    this.alive = true;
+                    this.loadLevel(this.currentLvl);
+                }
+                break;
+        }
+    }
+
+    showGameOver() {
+        this.alive = false;
+        this.visibleObjects.push(new txtObject("GAME OVER", width/3, height/3, 200, 'text', 255))
+    }
+
+    clear() {
+        super.clear();
+        this.enemies = [];
     }
 }

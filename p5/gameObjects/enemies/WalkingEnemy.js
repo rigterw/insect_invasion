@@ -84,7 +84,7 @@ class WalkingEnemy extends Enemy {
                 distance = this.y - (this.currentTile.y + 0.5) * Tile.size;
                 break;
         }
-        if (distance < 0) {
+        if (distance <= 0) {
             this.setGoal(this.currentTile);
         }
     }

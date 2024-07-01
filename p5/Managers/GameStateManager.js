@@ -31,5 +31,9 @@ class GameStateManager {
 
     restart() {
     }
+
+    handleInput(pressed) {
+        this.currentState.handleInput(pressed);
+    }
 }
 
