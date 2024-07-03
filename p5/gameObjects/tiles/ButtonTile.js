@@ -1,9 +1,8 @@
 class ButtonTile extends WalkTile {
 
 
-    constructor(x, y, color, playState) {
+    constructor(x, y, color) {
         super(x, y, color, true);
-        this.playState = playState;
     }
 
     draw() {
@@ -17,9 +16,9 @@ class ButtonTile extends WalkTile {
     onPlayerEnter() {
         super.onPlayerEnter();
 
-        for (let x = 0; x < this.playState.tiles.length; x++){
-            for (let y = 0; y < this.playState.tiles[x].length; y++){
-                const currentTile = this.playState.tiles[x][y];
+        for (let x = 0; x < PlayState.instance.tiles.length; x++){
+            for (let y = 0; y < PlayState.instance.tiles[x].length; y++){
+                const currentTile = PlayState.instance.tiles[x][y];
 
                 if (currentTile instanceof DoorTile && currentTile.color == this.color ) {
                     currentTile.passable = !currentTile.passable;

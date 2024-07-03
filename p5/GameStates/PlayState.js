@@ -75,10 +75,11 @@ class PlayState extends GameState {
                         tile = new EnemyWalkTile(x, y, overlayColorHex, colorHex == "FF3819");
                         break;
                     case "CE7C38":
+                    case "CECECE":
                         tile = new WalkTile(x, y, overlayColorHex);
                         break;
                     case "00FFFF":
-                        tile = new ButtonTile(x, y, overlayColorHex, this);
+                        tile = new ButtonTile(x, y, overlayColorHex);
                         break;
                     
                     case "4C64FF":
@@ -88,7 +89,12 @@ class PlayState extends GameState {
                         break;
                     
                     case "F2FF02":
-                        tile = new FinishTile(x, y, overlayColorHex,this);
+                        tile = new FinishTile(x, y, overlayColorHex);
+                        break;
+                    
+                    case "404040":
+                        tile = new OneWayTile(x, y, overlayColorHex);
+                        this.logicObjects.push(tile);
                         break;
                     default:
                         tile = new GrassTile(x, y, overlayColorHex);
