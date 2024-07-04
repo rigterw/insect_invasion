@@ -52,6 +52,46 @@ class PlayState extends GameState {
         this.player.handleTileColission(neighbours);
     }
 
+    draw() {
+        super.draw();
+        this.drawWind();
+    }
+
+    drawWind() {
+        for (let x = 0; x < this.tiles.length; x++) {
+            for (let y = 0; y < this.tiles[x].length; y++) {
+
+                const tile = this.tiles[x][y];
+                if (!(tile instanceof WalkableTile) || tile.windDir == "" || tile.windDir == undefined) {
+                    continue;
+                }
+                push();
+                translate((tile.x + 0.5) * Tile.size, (tile.y + 0.5 ) * Tile.size);
+                
+                imageMode(CENTER);
+                let rotation;
+
+                switch (tile.windDir) {
+                    case "R":
+                        rotation = -0.5 * PI;
+                        break;
+                    case "B":
+                        rotation = 0;
+                        break;
+                    case "L":
+                        rotation = 0.5 * PI;
+                        break;
+                    case "T":
+                        rotation = PI;
+                        break;
+                    }
+                rotate(rotation);
+                image(getAnim("wind", 5), 0, 0, Tile.size, Tile.size);
+                pop();
+            }
+        }
+    }
+
     loadLevel(id) {
         this.clear();
         this.currentLvl = id;
@@ -76,7 +116,7 @@ class PlayState extends GameState {
                         break;
                     case "CE7C38":
                     case "CECECE":
-                        tile = new WalkTile(x, y, overlayColorHex);
+                        tile = new WalkTile(x, y, overlayColorHex, true, colorHex == "CE7C38");
                         break;
                     case "00FFFF":
                         tile = new ButtonTile(x, y, overlayColorHex);
@@ -94,13 +134,17 @@ class PlayState extends GameState {
                     
                     case "404040":
                         tile = new OneWayTile(x, y, overlayColorHex);
-                        this.logicObjects.push(tile);
+                        
                         break;
-                    default:
-                        tile = new GrassTile(x, y, overlayColorHex);
-                }
+                    case "808080":
+                        tile = new WindTile(x, y, overlayColorHex);
+                        break;
+                        default:
+                            tile = new GrassTile(x, y, overlayColorHex);
+                    }
                 if (tile != null) {
                     this.tiles[x][y] = tile;
+                    this.logicObjects.push(tile);
                     this.visibleObjects.push(tile);
                 }
             }

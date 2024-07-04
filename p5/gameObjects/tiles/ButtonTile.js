@@ -24,6 +24,16 @@ class ButtonTile extends WalkTile {
                     currentTile.passable = !currentTile.passable;
                 }
 
+                
+            }
+        }
+        
+        for (let x = 0; x < PlayState.instance.tiles.length; x++) {
+            for (let y = 0; y < PlayState.instance.tiles[x].length; y++) {
+                const currentTile = PlayState.instance.tiles[x][y];
+                if (currentTile instanceof WindTile) {
+                    currentTile.updateWind();
+                }
             }
         }
     }

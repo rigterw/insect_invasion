@@ -11,6 +11,8 @@ class Tile extends GameObject {
         this.passable = passable;
     }
 
+    update(){}
+
     draw() {
         image(IMG[this.textureName], this.x * Tile.size, this.y * Tile.size, Tile.size, Tile.size);
         fill(`#${this.color}`);
@@ -27,12 +29,12 @@ class Tile extends GameObject {
 
         if (x > 0) {
             neighbours["L"] = tiles[x - 1][y];
-            if (y > 0) {
-                neighbours["TL"] = tiles[x - 1][y - 1];
-            }
-            if (y < tiles[x-1].length - 1) {
-                neighbours["BL"] = tiles[x-1][y + 1];
-            }
+            // if (y > 0) {
+            //     neighbours["TL"] = tiles[x - 1][y - 1];
+            // }
+            // if (y < tiles[x-1].length - 1) {
+            //     neighbours["BL"] = tiles[x-1][y + 1];
+            // }
         }
 
         if (y > 0) {
@@ -45,12 +47,12 @@ class Tile extends GameObject {
 
         if (x < tiles.length - 1) {
             neighbours["R"] = tiles[x + 1][y];
-            if (y > 0) {
-                neighbours["TR"] = tiles[x + 1][y - 1];
-            }
-            if (y < tiles[x+1].length - 1) {
-                neighbours["BR"] = tiles[x + 1][y + 1];
-            }
+            // if (y > 0) {
+            //     neighbours["TR"] = tiles[x + 1][y - 1];
+            // }
+            // if (y < tiles[x+1].length - 1) {
+            //     neighbours["BR"] = tiles[x + 1][y + 1];
+            // }
         }
 
         return neighbours;

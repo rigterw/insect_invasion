@@ -38,6 +38,9 @@ function preload() {
     loadImg("doorOpenTile", `tiles/DoorOpenTile`);
     loadImg("finishTile", `tiles/finishTile`);
     loadImg("oneWayTile", `tiles/oneWayTile`);
+    loadImg("wallTile", "tiles/wallTile");
+    loadAnim("wind", "tiles/wind/wind", 9);
+    loadAnim("windTile", "tiles/windTile/fan", 2);
 
     loadImg("player", "player/player");
     loadImg("enemy", "enemy/ant");
