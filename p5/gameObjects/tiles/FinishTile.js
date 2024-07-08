@@ -9,8 +9,8 @@ class FinishTile extends WalkTile {
     }
 
     onPlayerEnter() {
-
-        //TODO: save score
+        score += PlayState.instance.timer.time;
+        SOUND["finish"].play();
         if (PlayState.instance.tutorial) {
             if (PlayState.instance.currentLvl >= PlayState.instance.nLevels) {
                 PlayState.instance.tutorial = false;

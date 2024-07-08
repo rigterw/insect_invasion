@@ -13,6 +13,7 @@ class Coin extends GameObject {
         PlayState.instance.timer.time += Timer.timeValue;
         coins++;
         this.active = false;
+        SOUND["coin"].play();
     }
 
     update() {

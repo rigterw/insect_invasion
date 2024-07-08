@@ -1,7 +1,7 @@
 class TxtObject extends GameObject{
 
 
-    constructor(text, x, y,  fontSize,fontType = "text", color = 0) {
+    constructor(text, x, y,  fontSize, fontType = "text", color = 0) {
         super();
         this.x = x;
         this.y = y;

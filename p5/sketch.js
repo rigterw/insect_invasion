@@ -3,10 +3,12 @@ let gameStateManager;
 let nLevels = 7;
 let frameCounter = 0;
 let coins = 0;
+let score = 0;
 
 const IMG = new Object();
 const font = new Object();
 const ANIM = new Object();
+const SOUND = new Object();
 
 function setup() {
     ellipseMode(CENTER);
@@ -14,6 +16,8 @@ function setup() {
     createCanvas(1280, 720, document.getElementById("game"));
     //game settings
     load();
+
+    SOUND["music"].loop();
 }
 
 function preload() {
@@ -49,6 +53,12 @@ function preload() {
 
     loadAnim("playerWalk", 'player/playerWalk', 2);
     loadAnim("enemyWalk", 'enemy/EnemyWalk', 2);
+
+    loadAudio("coin", "coin");
+    loadAudio("finish", "finish");
+    loadAudio("button", "button");
+    loadAudio("click", "click");
+    loadAudio("music", "soundtrack");
 }
 
 //creates all the objects after the settings are initialized
@@ -59,6 +69,10 @@ function load() {
 
 function loadImg(imgName, fileName) {
     IMG[imgName] = loadImage("./img/" + fileName + ".png");
+}
+
+function loadAudio(soundName, fileName) {
+    SOUND[soundName] = loadSound(`./sounds/${fileName}.wav`);
 }
 
 function loadTxtFont(fontName, fileName) {

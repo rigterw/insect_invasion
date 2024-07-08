@@ -15,6 +15,7 @@ class PlayState extends GameState {
         super();
         PlayState.instance = this;
         this.loadLevel(this.currentLvl);
+        this.showGameOver();
     }
 
     update() {
@@ -207,6 +208,7 @@ class PlayState extends GameState {
         this.timer = new Timer();
         this.logicObjects.push(this.timer);
         this.visibleObjects.push(this.timer);
+        this.visibleObjects.push(new PlayStateUI());
     }
 
     handleInput(pressed) {
@@ -229,7 +231,10 @@ class PlayState extends GameState {
 
     showGameOver() {
         this.playing = false;
-        this.visibleObjects.push(new TxtObject("GAME OVER", width/3, height/3, 200, 'text', 255))
+
+        const gameOver = new GameOverScreen();
+        this.visibleObjects.push(gameOver);
+        this.inputObjects.push(gameOver);
     }
 
     clear() {

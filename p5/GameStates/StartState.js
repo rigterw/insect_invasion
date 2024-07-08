@@ -14,6 +14,7 @@ class StartState extends GameState {
             return;
 
         if (keyCode == 32) {
+            SOUND["click"].play();
             gameStateManager.switchState("PlayState");
         }
     }
