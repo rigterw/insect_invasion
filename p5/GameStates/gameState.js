@@ -1,7 +1,5 @@
 class GameState {
     visibleObjects = [];
-    clickableObjects = [];
-    rClickableObjects = [];
     logicObjects = [];
     inputObjects = [];
 
@@ -26,28 +24,9 @@ class GameState {
         this.logicObjects = [];
     }
 
-    //iterates all the objects that can be clicked to find where the player clicked
-    click(mousePos) {
-        this.clickableObjects.forEach(element => {
-            if (element.hit(mousePos)) {
-                element.clickedOn();
-                return;
-            }
-        });
-    }
-
-    rclick(mousePos) {
-        this.clickableObjects.forEach(element => {
-            if (element.hit(mousePos)) {
-                element.rclickedOn();
-                return;
-            }
-        });
-    }
-
     handleInput(pressed) {
         this.inputObjects.forEach(element => {
-            element.handleInput();
+            element.handleInput(pressed);
         })
     }
 

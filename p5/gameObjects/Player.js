@@ -6,8 +6,11 @@ class Player extends GameObject {
     x = 0; y = 0;
     rotation = 0;
     imgName = "player"
-    constructor() {
+    dashing = false;
+    constructor(posX, posY) {
         super();
+        this.x = posX;
+        this.y = posY;
     }
 
     draw() {
@@ -51,6 +54,11 @@ class Player extends GameObject {
 
         if (this.vX != 0 || this.vY != 0) {
             this.rotation = atan2(this.vY, this.vX) + Math.PI * 0.5;
+        }
+
+        if (this.dashing) {
+            this.vX *= 2;
+            this.vY *= 2;
         }
         this.x += this.vX;
         this.y += this.vY;

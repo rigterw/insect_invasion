@@ -17,6 +17,7 @@ function setup() {
 }
 
 function preload() {
+    loadImg("startScreen", "startScreen");
     loadTxtFont("text", "Font.ttf");
 
     for (let i = 0; i < nLevels; i++){
@@ -44,6 +45,7 @@ function preload() {
 
     loadImg("player", "player/player");
     loadImg("enemy", "enemy/ant");
+    loadImg("coin", "coin");
 
     loadAnim("playerWalk", 'player/playerWalk', 2);
     loadAnim("enemyWalk", 'enemy/EnemyWalk', 2);
@@ -82,21 +84,6 @@ function draw() {
     background("#8CC43C");
     gameStateManager.draw();
     frameCounter++;
-}
-
-function mousePressed() {
-    if (mouseButton === LEFT) {
-        gameStateManager.click(createVector(mouseX, mouseY));
-    } else if (mouseButton === RIGHT) {
-        gameStateManager.rclick(createVector(mouseX, mouseY));
-    }
-}
-
-
-function delay(milliseconds){
-    return new Promise(resolve => {
-        setTimeout(resolve, milliseconds);
-    });
 }
 
 function createArray(xSize,ySize) {

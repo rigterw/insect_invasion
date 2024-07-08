@@ -1,4 +1,4 @@
-class txtObject extends GameObject{
+class TxtObject extends GameObject{
 
 
     constructor(text, x, y,  fontSize,fontType = "text", color = 0) {

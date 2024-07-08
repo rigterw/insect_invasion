@@ -33,7 +33,6 @@ class WindTile extends Tile {
             if (tile.passable && isActive) {
                 tile.windDir = windDir;
             } else {
-                console.log(tile.y);
                 tile.windDir = "";
             }
             this.setWind(tile.getNeighbours()[windDir], windDir, tile.windDir != "");

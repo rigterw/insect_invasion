@@ -2,8 +2,8 @@ class PlayState extends GameState {
     static instance;
     nLevels = 6;
     tutorial = true;
-    currentLvl = 3;
-    alive = true;
+    currentLvl = 0;
+    playing = true;
 
     player = new Player();
     enemies = [];
@@ -17,7 +17,7 @@ class PlayState extends GameState {
     }
 
     update() {
-        if (!this.alive)
+        if (!this.playing)
             return;
         super.update();
 
@@ -45,6 +45,9 @@ class PlayState extends GameState {
             }
             if (this.currentTile instanceof WalkableTile) {
                 this.currentTile.onPlayerEnter();
+                if (this.currentTile instanceof FinishTile) {
+                    return;
+                }
             }
         }
 
@@ -112,11 +115,11 @@ class PlayState extends GameState {
                 switch (colorHex) {
                     case "7F3300":
                     case "FF3819":
-                        tile = new EnemyWalkTile(x, y, overlayColorHex, colorHex == "FF3819");
+                    case "CECECE":
+                        tile = new EnemyWalkTile(x, y, overlayColorHex, colorHex == "FF3819", colorHex != "CECECE");
                         break;
                     case "CE7C38":
-                    case "CECECE":
-                        tile = new WalkTile(x, y, overlayColorHex, true, colorHex == "CE7C38");
+                        tile = new WalkTile(x, y, overlayColorHex, true);
                         break;
                     case "00FFFF":
                         tile = new ButtonTile(x, y, overlayColorHex);
@@ -153,25 +156,55 @@ class PlayState extends GameState {
     }
             
     LoadObjects() {
-        this.logicObjects.push(this.player);
-        this.visibleObjects.push(this.player);
-
+        const timer = new Timer();
+        
         for (let x = 0; x < this.tiles.length; x++) {
             for (let y = 0; y < this.tiles[x].length; y++) {
+
+                if (!(this.tiles[x][y] instanceof WalkableTile)) {
+                    continue;
+                }
+                let obj;
+
                 switch (this.tiles[x][y].color) {
                     case "00FF21":
-                        this.player.x = (x + 0.5) * Tile.size;
-                        this.player.y = (y + 0.5) * Tile.size;
+                        obj = new Player((x + 0.5) * Tile.size, (y + 0.5) * Tile.size);
+                        this.player = obj;
                         break;
                     
                     case "FF0000":
-                        const enemy = new WalkingEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size, this.tiles[x][y]);
-                        this.logicObjects.push(enemy);
-                        this.visibleObjects.push(enemy);
-                        this.enemies.push(enemy);
+                        if (this.tiles[x][y] instanceof EnemyWalkTile) {
+                            
+                            obj = new WalkingEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size, this.tiles[x][y]);
+                            this.enemies.push(obj);
+                        }
+                            break;
+                    
+                    case "FF6A00":
+                        if (this.tiles[x][y] instanceof EnemyWalkTile) {
+
+                            obj = new StaticEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size);
+                           
+                            this.enemies.push(obj);
+                        }
+                        break;
+                    
+                    case "FFD800":
+                        if (!(this.tiles[x][y] instanceof FinishTile)) {
+                            obj = new Coin(x, y, timer);
+                        }
+                }
+                if (obj != undefined && obj != null) {
+                    
+                    this.logicObjects.push(obj);
+                    this.visibleObjects.push(obj);
                 }
             }
         }
+
+
+        this.logicObjects.push(timer);
+        this.visibleObjects.push(timer);
     }
 
     handleInput(pressed) {
@@ -180,10 +213,10 @@ class PlayState extends GameState {
 
         switch (keyCode) {
             case (82):
-                if (!this.alive) {
+                if (!this.playing) {
                     this.clear();
                     console.log("clear");
-                    this.alive = true;
+                    this.playing = true;
                     this.loadLevel(this.currentLvl);
                 }
                 break;
@@ -191,8 +224,8 @@ class PlayState extends GameState {
     }
 
     showGameOver() {
-        this.alive = false;
-        this.visibleObjects.push(new txtObject("GAME OVER", width/3, height/3, 200, 'text', 255))
+        this.playing = false;
+        this.visibleObjects.push(new TxtObject("GAME OVER", width/3, height/3, 200, 'text', 255))
     }
 
     clear() {

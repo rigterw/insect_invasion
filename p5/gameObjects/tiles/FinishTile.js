@@ -11,12 +11,12 @@ class FinishTile extends WalkTile {
     onPlayerEnter() {
 
         //TODO: save score
-        if (Playstate.instance.tutorial) {
-            if (Playstate.instance.currentLvl >= Playstate.instance.nLevels) {
-                Playstate.instance.tutorial = false;
+        if (PlayState.instance.tutorial) {
+            if (PlayState.instance.currentLvl >= PlayState.instance.nLevels) {
+                PlayState.instance.tutorial = false;
             }
             else {
-                Playstate.instance.loadLevel(Playstate.instance.currentLvl + 1);
+                PlayState.instance.loadLevel(PlayState.instance.currentLvl + 1);
                 return;
             }
         }
@@ -24,9 +24,9 @@ class FinishTile extends WalkTile {
         let nextMap;
 
         do {
-            nextMap = Math.floor(random(Playstate.instance.nLevels));
-        } while (nextMap == Playstate.instance.currentLvl);
+            nextMap = Math.floor(random(PlayState.instance.nLevels));
+        } while (nextMap == PlayState.instance.currentLvl);
 
-        Playstate.instance.loadLevel(nextMap);
+        PlayState.instance.loadLevel(nextMap);
     }
 }

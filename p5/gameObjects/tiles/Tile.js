@@ -15,8 +15,8 @@ class Tile extends GameObject {
 
     draw() {
         image(IMG[this.textureName], this.x * Tile.size, this.y * Tile.size, Tile.size, Tile.size);
-        fill(`#${this.color}`);
-        rect(this.x * Tile.size, this.y * Tile.size, Tile.size / 3, Tile.size / 3);
+        // fill(`#${this.color}`);
+        // rect(this.x * Tile.size, this.y * Tile.size, Tile.size / 3, Tile.size / 3);
     }
 
 

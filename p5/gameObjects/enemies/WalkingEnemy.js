@@ -54,16 +54,9 @@ class WalkingEnemy extends Enemy {
         }
         this.currentTile = nb[dirs[dir]];
     }
-    getImage() {
-        return getAnim("enemyWalk", 30);
-    }
 
     update() {
-        this.x += this.vX * this.maxV;
-        this.y += this.vY * this.maxV;
-        if (this.id == 0) {
-            this.x -= this.vX * this.maxV;
-        }
+        super.update();
         this.checkUpdate();
     }
 

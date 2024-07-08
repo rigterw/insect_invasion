@@ -15,10 +15,20 @@ class Enemy extends GameObject {
         push();
         imageMode(CENTER);
         translate(this.x, this.y);
+        let img = IMG["enemy"];
+        
+        if (this.vX != 0 || this.vY != 0) {
+            this.rotation = atan2(this.vY, this.vX) + Math.PI * 0.5;
+            img = getAnim("enemyWalk", 30);
+        }
         rotate(this.rotation);
-        const img = this.getImage();
         image(img, 0, 0, this.size, this.size);
         pop();
+    }
+
+    update() {
+        this.x += this.vX * this.maxV;
+        this.y += this.vY * this.maxV;
     }
 
     killedPlayer(player) {

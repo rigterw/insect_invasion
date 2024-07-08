@@ -2,7 +2,8 @@
 class GameStateManager {
     constructor() {
         this.gameStates = {
-            "PlayState": new PlayState()
+            "PlayState": new PlayState(),
+            "StartState": new StartState()
         };
 
         this.switchState("PlayState");
@@ -19,14 +20,6 @@ class GameStateManager {
             return;
         this.currentState.update();
         this.currentState.draw();
-    }
-
-    click(mousePos) {
-        this.currentState.click(mousePos);
-    }
-
-    rclick(mousePos) {
-        this.currentState.rclick(mousePos);
     }
 
     restart() {
