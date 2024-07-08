@@ -9,7 +9,7 @@ class FinishTile extends WalkTile {
     }
 
     onPlayerEnter() {
-        score += PlayState.instance.timer.time;
+        score += Math.floor(PlayState.instance.timer.time);
         SOUND["finish"].play();
         if (PlayState.instance.tutorial) {
             if (PlayState.instance.currentLvl >= PlayState.instance.nLevels) {

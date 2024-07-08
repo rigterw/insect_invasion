@@ -15,7 +15,6 @@ class PlayState extends GameState {
         super();
         PlayState.instance = this;
         this.loadLevel(this.currentLvl);
-        this.showGameOver();
     }
 
     update() {
@@ -100,6 +99,7 @@ class PlayState extends GameState {
     loadLevel(id) {
         this.clear();
         this.currentLvl = id;
+        this.playing = true;
 
         const levelImg = IMG[`level${id}`];
         const levelOverlay = IMG[`level${id}O`];
@@ -209,24 +209,6 @@ class PlayState extends GameState {
         this.logicObjects.push(this.timer);
         this.visibleObjects.push(this.timer);
         this.visibleObjects.push(new PlayStateUI());
-    }
-
-    handleInput(pressed) {
-        super.handleInput(pressed);
-        if (!pressed)
-            return;
-
-        switch (keyCode) {
-            case (82):
-                if (!this.playing) {
-                    this.clear();
-                    console.log("clear");
-                    this.playing = true;
-                    this.loadLevel(this.currentLvl);
-                }
-                break;
-        }
-
     }
 
     showGameOver() {

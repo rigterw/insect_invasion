@@ -19,8 +19,7 @@ class GameState {
 
     clear() {
         this.visibleObjects = [];
-        this.clickableObjects = [];
-        this.rClickableObjects = [];
+        this.inputObjects = [];
         this.logicObjects = [];
     }
 

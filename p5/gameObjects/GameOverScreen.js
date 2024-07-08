@@ -22,7 +22,11 @@ class GameOverScreen extends GameObject {
             return;
 
         switch (keyCode) {
-            
+            case (82):
+                const playState = PlayState.instance;
+                const nextLvl = playState.tutorial ? playState.currentLvl : Math.floor(random(PlayState.instance.nLevels));
+                playState.loadLevel(nextLvl);
+                break;
         }
     }
 }
