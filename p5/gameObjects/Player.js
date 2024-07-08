@@ -6,6 +6,7 @@ class Player extends GameObject {
     x = 0; y = 0;
     rotation = 0;
     imgName = "player"
+    dashing = 0;
     dashing = false;
     constructor(posX, posY) {
         super();
@@ -35,33 +36,56 @@ class Player extends GameObject {
         const down = keyIsDown(83) || keyIsDown(DOWN_ARROW);
         const up = keyIsDown(87) || keyIsDown(UP_ARROW);
 
-
-        if (left && !right) {
-            this.vX = -this.maxV;
-        } else if (!left && right) {
-            this.vX = this.maxV;
-        } else if (!left && !right) {
-            this.vX = 0;
-        }
-
-        if (up && !down) {
-            this.vY = -this.maxV;
-        } else if (!up && down) {
-            this.vY = this.maxV;
-        } else if (!up && !down) {
-            this.vY = 0;
-        }
-
-        if (this.vX != 0 || this.vY != 0) {
-            this.rotation = atan2(this.vY, this.vX) + Math.PI * 0.5;
+        if (!this.dashing) {
+            
+            if (left && !right) {
+                this.vX = -this.maxV;
+            } else if (!left && right) {
+                this.vX = this.maxV;
+            } else if (!left && !right) {
+                this.vX = 0;
+            }
+            
+            if (up && !down) {
+                this.vY = -this.maxV;
+            } else if (!up && down) {
+                this.vY = this.maxV;
+            } else if (!up && !down) {
+                this.vY = 0;
+            }
+            
+            if (this.vX != 0 || this.vY != 0) {
+                this.rotation = atan2(this.vY, this.vX) + Math.PI * 0.5;
+            }
         }
 
         if (this.dashing) {
-            this.vX *= 2;
-            this.vY *= 2;
+            this.dashing = !(millis() - this.dashStart > 200);
         }
+
+
         this.x += this.vX;
         this.y += this.vY;
+    }
+
+    handleInput(pressed) {
+
+        if (!pressed) {
+            return;
+        }
+        switch (keyCode) {
+            case 32:
+                if (this.dashing) {
+                    return;
+                }
+                this.dashStart = millis();
+                this.dashing = true;
+                this.vX *= 4;
+                this.vY *= 4;
+
+                PlayState.instance.timer.time -= Timer.timeValue;
+                break;
+        }
     }
 
     handleTileColission(tiles) {

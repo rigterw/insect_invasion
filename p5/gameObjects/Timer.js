@@ -6,6 +6,8 @@ class Timer extends GameObject{
     nowTime; //Time passed since starting the game
     lastTime; //Last time the amount of time decreased
     timerWidth;
+    static timeValue = 5000;
+
 
     constructor() {
         super();

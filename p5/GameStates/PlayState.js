@@ -6,6 +6,7 @@ class PlayState extends GameState {
     playing = true;
 
     player = new Player();
+    timer;
     enemies = [];
 
     currentTile;
@@ -156,58 +157,60 @@ class PlayState extends GameState {
     }
             
     LoadObjects() {
-        const timer = new Timer();
         
         for (let x = 0; x < this.tiles.length; x++) {
             for (let y = 0; y < this.tiles[x].length; y++) {
-
+                
                 if (!(this.tiles[x][y] instanceof WalkableTile)) {
                     continue;
                 }
                 let obj;
-
+                
                 switch (this.tiles[x][y].color) {
                     case "00FF21":
                         obj = new Player((x + 0.5) * Tile.size, (y + 0.5) * Tile.size);
                         this.player = obj;
+                        this.inputObjects.push(this.player);
                         break;
-                    
-                    case "FF0000":
-                        if (this.tiles[x][y] instanceof EnemyWalkTile) {
-                            
-                            obj = new WalkingEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size, this.tiles[x][y]);
-                            this.enemies.push(obj);
-                        }
+                        
+                        case "FF0000":
+                            if (this.tiles[x][y] instanceof EnemyWalkTile) {
+                                
+                                obj = new WalkingEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size, this.tiles[x][y]);
+                                this.enemies.push(obj);
+                            }
                             break;
+                            
+                            case "FF6A00":
+                                if (this.tiles[x][y] instanceof EnemyWalkTile) {
+                                    
+                                    obj = new StaticEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size);
+                                    
+                                    this.enemies.push(obj);
+                                }
+                                break;
                     
-                    case "FF6A00":
-                        if (this.tiles[x][y] instanceof EnemyWalkTile) {
-
-                            obj = new StaticEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size);
-                           
-                            this.enemies.push(obj);
+                                case "FFD800":
+                                    if (!(this.tiles[x][y] instanceof FinishTile)) {
+                                        obj = new Coin(x, y);
+                                    }
+                                }
+                                if (obj != undefined && obj != null) {
+                                    
+                                    this.logicObjects.push(obj);
+                                    this.visibleObjects.push(obj);
+                                }
+                            }
                         }
-                        break;
-                    
-                    case "FFD800":
-                        if (!(this.tiles[x][y] instanceof FinishTile)) {
-                            obj = new Coin(x, y, timer);
-                        }
-                }
-                if (obj != undefined && obj != null) {
-                    
-                    this.logicObjects.push(obj);
-                    this.visibleObjects.push(obj);
-                }
-            }
-        }
-
-
-        this.logicObjects.push(timer);
-        this.visibleObjects.push(timer);
+                        
+                        
+        this.timer = new Timer();
+        this.logicObjects.push(this.timer);
+        this.visibleObjects.push(this.timer);
     }
 
     handleInput(pressed) {
+        super.handleInput(pressed);
         if (!pressed)
             return;
 
@@ -221,6 +224,7 @@ class PlayState extends GameState {
                 }
                 break;
         }
+
     }
 
     showGameOver() {

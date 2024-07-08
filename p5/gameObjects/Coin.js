@@ -1,18 +1,16 @@
 class Coin extends GameObject {
 
     active = true;
-    static timeValue = 5000;
     static width = 26;
     static height = 32;
-    constructor(posX, posY, timer) {
+    constructor(posX, posY) {
         super();
         this.x = (posX + 0.5) * Tile.size;
         this.y = (posY + 0.5) * Tile.size;
-        this.timer = timer;
     }
 
     pickup() {
-        this.timer.time += Coin.timeValue;
+        PlayState.instance.timer.time += Timer.timeValue;
         coins++;
         this.active = false;
     }
