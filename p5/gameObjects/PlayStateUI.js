@@ -13,7 +13,7 @@ class PlayStateUI extends GameObject {
         } else {
             textAlign(CENTER, TOP);
             textSize(60)
-            fill(125);
+            fill(0);
             text(`SCORE: ${score}`, width /2.2, height /2.2);
         }
     }

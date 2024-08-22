@@ -2,7 +2,7 @@ class StartState extends GameState {
 
     constructor() {
         super();
-        this.visibleObjects.push(new TxtObject('Press SPACE to start', width / 10 * 6, height / 8 * 7, 90));
+        this.visibleObjects.push(new TxtObject('Press SPACE to start', width / 10 * 5, height / 8 * 7, 90));
     }
     draw() {
         image(IMG["startScreen"], 0, 0);

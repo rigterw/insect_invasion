@@ -28,6 +28,4 @@ class GameState {
             element.handleInput(pressed);
         })
     }
-
-    
 }

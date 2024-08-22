@@ -2,7 +2,7 @@ class PlayState extends GameState {
     static instance;
     nLevels = 6;
     tutorial = true;
-    currentLvl = 0;
+    currentLvl = 6;
     playing = true;
 
     player = new Player();

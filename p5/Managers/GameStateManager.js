@@ -3,10 +3,11 @@ class GameStateManager {
     constructor() {
         this.gameStates = {
             "PlayState": new PlayState(),
-            "StartState": new StartState()
+            "StartState": new StartState(),
+            "ShopState": new ShopState()
         };
 
-        this.switchState("PlayState");
+        this.switchState("StartState");
     }
     switchState(stateName) {
         if (!(stateName in this.gameStates)) {

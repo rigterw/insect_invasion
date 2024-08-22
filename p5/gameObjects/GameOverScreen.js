@@ -27,6 +27,9 @@ class GameOverScreen extends GameObject {
                 const nextLvl = playState.tutorial ? playState.currentLvl : Math.floor(random(PlayState.instance.nLevels));
                 playState.loadLevel(nextLvl);
                 break;
+            
+            case (69):
+                gameStateManager.switchState("ShopState");
         }
     }
 }

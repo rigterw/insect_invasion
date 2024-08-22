@@ -48,6 +48,10 @@ function preload() {
     loadAnim("windTile", "tiles/windTile/fan", 2);
 
     loadImg("player", "player/player");
+    for (let i = 1; i <= 6; i++){
+        loadImg(`player${i}`, `player/Player${i}`);
+        loadAnim(`player${i}Walk`, `player/Player${i}Walk`, 2);
+    }
     loadImg("enemy", "enemy/ant");
     loadImg("coin", "coin");
 

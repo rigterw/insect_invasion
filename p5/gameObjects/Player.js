@@ -5,7 +5,7 @@ class Player extends GameObject {
     vX = 0; vY = 0;
     x = 0; y = 0;
     rotation = 0;
-    imgName = "player"
+    static imgName = "player"
     dashing = 0;
     dashing = false;
     constructor(posX, posY) {
@@ -20,10 +20,10 @@ class Player extends GameObject {
         translate(this.x, this.y);
         rotate(this.rotation);
 
-        let playerImg = IMG[this.imgName];
+        let playerImg = IMG[Player.imgName];
 
         if (this.vX != 0 || this.vY != 0) {
-            playerImg = getAnim(`${this.imgName}Walk`, 30);
+            playerImg = getAnim(`${Player.imgName}Walk`, 30);
         }
         
         image(playerImg, 0, 0, this.size, this.size);

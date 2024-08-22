@@ -90,7 +90,7 @@ class WalkingEnemy extends Enemy {
             return 3;
         }
         if (tile instanceof ButtonTile) {
-            return 2;
+            return 1;
         }
 
         return 0;
