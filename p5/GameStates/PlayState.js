@@ -2,7 +2,7 @@ class PlayState extends GameState {
     static instance;
     nLevels = 6;
     tutorial = true;
-    currentLvl = 6;
+    currentLvl = 0;
     playing = true;
 
     player = new Player();
@@ -22,7 +22,7 @@ class PlayState extends GameState {
             return;
         super.update();
 
-        for (let i = 0; i < this.enemies.length; i++){
+        for (let i = 0; i < this.enemies.length; i++) {
             if (this.enemies[i].killedPlayer(this.player)) {
                 this.showGameOver();
                 return;
@@ -39,7 +39,7 @@ class PlayState extends GameState {
 
         this.currentTile = this.tiles[px][py];
 
-        if (lastTile != this.currentTile){
+        if (lastTile != this.currentTile) {
 
             if (lastTile instanceof WalkableTile) {
                 lastTile.onPlayerExit();
@@ -70,8 +70,8 @@ class PlayState extends GameState {
                     continue;
                 }
                 push();
-                translate((tile.x + 0.5) * Tile.size, (tile.y + 0.5 ) * Tile.size);
-                
+                translate((tile.x + 0.5) * Tile.size, (tile.y + 0.5) * Tile.size);
+
                 imageMode(CENTER);
                 let rotation;
 
@@ -88,7 +88,7 @@ class PlayState extends GameState {
                     case "T":
                         rotation = PI;
                         break;
-                    }
+                }
                 rotate(rotation);
                 image(getAnim("wind", 5), 0, 0, Tile.size, Tile.size);
                 pop();
@@ -103,13 +103,13 @@ class PlayState extends GameState {
 
         const levelImg = IMG[`level${id}`];
         const levelOverlay = IMG[`level${id}O`];
-        
+
         this.tiles = createArray(levelImg.width, levelImg.height);
-        
+
         for (let x = 0; x < levelImg.width; x++) {
             for (let y = 0; y < levelImg.height; y++) {
                 let tile = null;
-                
+
                 const color = hex(levelImg.get(x, y));
                 const overlayColor = hex(levelOverlay.get(x, y));
                 let colorHex = color[0].slice(-2) + color[1].slice(-2) + color[2].slice(-2);
@@ -126,27 +126,27 @@ class PlayState extends GameState {
                     case "00FFFF":
                         tile = new ButtonTile(x, y, overlayColorHex);
                         break;
-                    
+
                     case "4C64FF":
                     case "0026FF":
                         const isOpen = colorHex == "4C64FF";
                         tile = new DoorTile(x, y, overlayColorHex, isOpen);
                         break;
-                    
+
                     case "F2FF02":
                         tile = new FinishTile(x, y, overlayColorHex);
                         break;
-                    
+
                     case "404040":
                         tile = new OneWayTile(x, y, overlayColorHex);
-                        
+
                         break;
                     case "808080":
                         tile = new WindTile(x, y, overlayColorHex);
                         break;
-                        default:
-                            tile = new GrassTile(x, y, overlayColorHex);
-                    }
+                    default:
+                        tile = new GrassTile(x, y, overlayColorHex);
+                }
                 if (tile != null) {
                     this.tiles[x][y] = tile;
                     this.logicObjects.push(tile);
@@ -156,55 +156,55 @@ class PlayState extends GameState {
         }
         this.LoadObjects();
     }
-            
+
     LoadObjects() {
-        
+
         for (let x = 0; x < this.tiles.length; x++) {
             for (let y = 0; y < this.tiles[x].length; y++) {
-                
+
                 if (!(this.tiles[x][y] instanceof WalkableTile)) {
                     continue;
                 }
                 let obj;
-                
+
                 switch (this.tiles[x][y].color) {
                     case "00FF21":
                         obj = new Player((x + 0.5) * Tile.size, (y + 0.5) * Tile.size);
                         this.player = obj;
                         this.inputObjects.push(this.player);
                         break;
-                        
-                        case "FF0000":
-                            if (this.tiles[x][y] instanceof EnemyWalkTile) {
-                                
-                                obj = new WalkingEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size, this.tiles[x][y]);
-                                this.enemies.push(obj);
-                            }
-                            break;
-                            
-                            case "FF6A00":
-                                if (this.tiles[x][y] instanceof EnemyWalkTile) {
-                                    
-                                    obj = new StaticEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size);
-                                    
-                                    this.enemies.push(obj);
-                                }
-                                break;
-                    
-                                case "FFD800":
-                                    if (!(this.tiles[x][y] instanceof FinishTile)) {
-                                        obj = new Coin(x, y);
-                                    }
-                                }
-                                if (obj != undefined && obj != null) {
-                                    
-                                    this.logicObjects.push(obj);
-                                    this.visibleObjects.push(obj);
-                                }
-                            }
+
+                    case "FF0000":
+                        if (this.tiles[x][y] instanceof EnemyWalkTile) {
+
+                            obj = new WalkingEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size, this.tiles[x][y]);
+                            this.enemies.push(obj);
                         }
-                        
-                        
+                        break;
+
+                    case "FF6A00":
+                        if (this.tiles[x][y] instanceof EnemyWalkTile) {
+
+                            obj = new StaticEnemy((x + 0.5) * Tile.size, (y + 0.5) * Tile.size);
+
+                            this.enemies.push(obj);
+                        }
+                        break;
+
+                    case "FFD800":
+                        if (!(this.tiles[x][y] instanceof FinishTile)) {
+                            obj = new Coin(x, y);
+                        }
+                }
+                if (obj != undefined && obj != null) {
+
+                    this.logicObjects.push(obj);
+                    this.visibleObjects.push(obj);
+                }
+            }
+        }
+
+
         this.timer = new Timer();
         this.logicObjects.push(this.timer);
         this.visibleObjects.push(this.timer);

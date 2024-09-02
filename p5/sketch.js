@@ -1,9 +1,11 @@
 let gameStateManager;
+let cookieManager;
 
 let nLevels = 7;
 let frameCounter = 0;
 let coins = 0;
 let score = 0;
+let highScore = 0;
 
 const IMG = new Object();
 const font = new Object();
@@ -16,7 +18,6 @@ function setup() {
     createCanvas(1280, 720, document.getElementById("game"));
     //game settings
     load();
-
     SOUND["music"].loop();
 }
 
@@ -24,16 +25,16 @@ function preload() {
     loadImg("startScreen", "startScreen");
     loadTxtFont("text", "Font.ttf");
 
-    for (let i = 0; i < nLevels; i++){
+    for (let i = 0; i < nLevels; i++) {
         loadImg(`level${i}`, `levels/level${i}`);
         loadImg(`level${i}O`, `levels/level${i}overlay`);
     }
 
-    for (let i = 0; i < 20; i++){
+    for (let i = 0; i < 20; i++) {
         loadImg(`grassTile${i}`, `tiles/GrassTile${i}`);
     }
 
-    for (let i = 0; i < 4; i++){
+    for (let i = 0; i < 4; i++) {
         loadImg(`walkTile${i}`, `tiles/WalkTile${i}`);
     }
 
@@ -48,7 +49,7 @@ function preload() {
     loadAnim("windTile", "tiles/windTile/fan", 2);
 
     loadImg("player", "player/player");
-    for (let i = 1; i <= 6; i++){
+    for (let i = 1; i <= 6; i++) {
         loadImg(`player${i}`, `player/Player${i}`);
         loadAnim(`player${i}Walk`, `player/Player${i}Walk`, 2);
     }
@@ -67,7 +68,12 @@ function preload() {
 
 //creates all the objects after the settings are initialized
 function load() {
+    cookieManager = new CookieManager();
     gameStateManager = new GameStateManager();
+    console.log(cookieManager.cookies);
+    coins = cookieManager.getCookie("coins");
+    highScore = cookieManager.getCookie("highScore");
+    console.log(highScore);
 }
 
 
@@ -85,7 +91,7 @@ function loadTxtFont(fontName, fileName) {
 
 function loadAnim(animName, fileName, nFrames) {
     frames = [];
-    for (let i = 0; i < nFrames; i++){
+    for (let i = 0; i < nFrames; i++) {
         frames.push(loadImage(`./img/${fileName}${i}.png`));
     }
 
@@ -104,9 +110,9 @@ function draw() {
     frameCounter++;
 }
 
-function createArray(xSize,ySize) {
+function createArray(xSize, ySize) {
     const array = new Array(xSize);
-    for (let x = 0; x < xSize; x++){
+    for (let x = 0; x < xSize; x++) {
         array[x] = new Array(ySize);
     }
 

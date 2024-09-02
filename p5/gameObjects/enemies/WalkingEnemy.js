@@ -21,7 +21,7 @@ class WalkingEnemy extends Enemy {
         let dir = 0;
 
         if (score < 3) {
-            for (let i = 1; i < 3; i++){//this doesn't check if it should turn around
+            for (let i = 1; i < 3; i++) {//this doesn't check if it should turn around
                 let newScore = this.getPassLikeness(nb[dirs[i]]);
                 if (score < newScore) {
                     dir = i;
@@ -40,16 +40,16 @@ class WalkingEnemy extends Enemy {
 
                 break;
             case "L":
-                    this.vX = -1;
-                    this.vY = 0;
+                this.vX = -1;
+                this.vY = 0;
                 break;
             case "R":
-                    this.vX = 1;
-                    this.vY = 0;
+                this.vX = 1;
+                this.vY = 0;
                 break;
             case "B":
-                    this.vX = 0;
-                    this.vY = 1;
+                this.vX = 0;
+                this.vY = 1;
                 break;
         }
         this.currentTile = nb[dirs[dir]];
@@ -69,8 +69,8 @@ class WalkingEnemy extends Enemy {
             case "-1,0":
                 distance = this.x - (this.currentTile.x + 0.5) * Tile.size;
                 break;
-            
-                case "0,1":
+
+            case "0,1":
                 distance = (this.currentTile.y + 0.5) * Tile.size - this.y;
                 break;
             case "0,-1":
@@ -84,10 +84,10 @@ class WalkingEnemy extends Enemy {
 
     getPassLikeness(tile) {
         if (tile instanceof EnemyWalkTile) {
-            return tile.unWanted ? 1 : 2;
+            return tile.unWanted ? 1 : 3;
         }
         if (tile instanceof DoorTile && tile.passable) {
-            return 3;
+            return 2;
         }
         if (tile instanceof ButtonTile) {
             return 1;
