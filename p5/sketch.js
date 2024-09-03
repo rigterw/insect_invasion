@@ -70,10 +70,8 @@ function preload() {
 function load() {
     cookieManager = new CookieManager();
     gameStateManager = new GameStateManager();
-    console.log(cookieManager.cookies);
     coins = cookieManager.getCookie("coins");
     highScore = cookieManager.getCookie("highScore");
-    console.log(highScore);
 }
 
 

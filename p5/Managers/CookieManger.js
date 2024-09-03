@@ -3,7 +3,6 @@ class CookieManager {
     constructor() {
         this.setDate();
         this.loadCookies();
-        console.log(this.cookies);
     }
 
     setDate() {

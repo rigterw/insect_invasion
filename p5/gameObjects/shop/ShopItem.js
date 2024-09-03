@@ -4,7 +4,7 @@ class ShopItem extends GameObject {
     static height = 200;
     selected = false;
     bought = false;
-        
+
     constructor(x, y, img, price) {
         super();
         this.x = x;
@@ -22,7 +22,7 @@ class ShopItem extends GameObject {
         if (this.img == Player.imgName) {
             fill(255, 200, 0);
         }
-        else if(!this.bought && this.price > coins) {
+        else if (!this.bought && this.price > coins) {
             fill(100);
         } else if (!this.bought) {
             fill(100, 50, 250);
@@ -54,7 +54,6 @@ class ShopItem extends GameObject {
     }
 
     select() {
-        console.log("dd");
         if (!this.bought) {
             if (coins < this.price) {
                 return;
