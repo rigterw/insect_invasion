@@ -32,6 +32,11 @@ class GameOverScreen extends GameObject {
             case (82):
                 const playState = PlayState.instance;
                 const nextLvl = playState.tutorial ? playState.currentLvl : Math.floor(random(PlayState.instance.nLevels));
+
+                if (!playState.tutorial) {
+                    score = 0;
+                }
+
                 playState.loadLevel(nextLvl);
                 break;
 

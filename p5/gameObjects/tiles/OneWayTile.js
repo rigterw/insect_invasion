@@ -1,4 +1,4 @@
-class OneWayTile extends WalkTile {
+class OneWayTile extends EnemyWalkTile {
     constructor(posX, posY, color) {
         super(posX, posY, color);
     }
@@ -6,8 +6,8 @@ class OneWayTile extends WalkTile {
     draw() {
         super.draw();
         push();
-        translate((this.x + 0.5) * Tile.size, (this.y + 0.5 ) * Tile.size);
-        
+        translate((this.x + 0.5) * Tile.size, (this.y + 0.5) * Tile.size);
+
         imageMode(CENTER);
         let rotation;
 
@@ -32,21 +32,19 @@ class OneWayTile extends WalkTile {
 
     update() {
         let p = PlayState.instance.player;
+        this.passable = this.canPass(p.x, p.y);
+    }
+
+    canPass(x, y) {
         switch (this.color) {
             case "FF0000":
-                this.passable = p.y > this.y * Tile.size;
-
-                break;
+                return y > this.y * Tile.size;
             case "00FF21":
-                this.passable = p.x < (1 + this.x) * Tile.size;
-                break;
+                return x < (1 + this.x) * Tile.size;
             case "0026FF":
-                this.passable = p.y < (1 + this.y) * Tile.size;
-
-                break;
+                return y < (1 + this.y) * Tile.size;
             case "FFFFFF":
-                this.passable = p.x > this.x * Tile.size;
-                break;
+                return x > this.x * Tile.size;
         }
     }
 }

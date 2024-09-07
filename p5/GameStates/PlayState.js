@@ -169,6 +169,10 @@ class PlayState extends GameState {
 
                 switch (this.tiles[x][y].color) {
                     case "00FF21":
+
+                        if (this.tiles[x][y] instanceof OneWayTile)
+                            continue;
+
                         obj = new Player((x + 0.5) * Tile.size, (y + 0.5) * Tile.size);
                         this.player = obj;
                         this.inputObjects.push(this.player);

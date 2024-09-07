@@ -83,6 +83,9 @@ class WalkingEnemy extends Enemy {
     }
 
     getPassLikeness(tile) {
+        if (tile instanceof OneWayTile) {
+            return tile.canPass(this.x, this.y) ? 1 : 0;
+        }
         if (tile instanceof EnemyWalkTile) {
             return tile.unWanted ? 1 : 3;
         }

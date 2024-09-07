@@ -42,13 +42,13 @@ function preload() {
     loadImg("buttonPressedTile", `tiles/ButtonPressed`);
     loadImg("doorTile", `tiles/DoorTile`);
     loadImg("doorOpenTile", `tiles/DoorOpenTile`);
-    loadImg("finishTile", `tiles/finishTile`);
-    loadImg("oneWayTile", `tiles/oneWayTile`);
-    loadImg("wallTile", "tiles/wallTile");
+    loadImg("finishTile", `tiles/FinishTile`);
+    loadImg("oneWayTile", `tiles/OneWayTile`);
+    loadImg("wallTile", "tiles/WallTile");
     loadAnim("wind", "tiles/wind/wind", 9);
     loadAnim("windTile", "tiles/windTile/fan", 2);
 
-    loadImg("player", "player/player");
+    loadImg("player", "player/Player");
     for (let i = 1; i <= 6; i++) {
         loadImg(`player${i}`, `player/Player${i}`);
         loadAnim(`player${i}Walk`, `player/Player${i}Walk`, 2);
